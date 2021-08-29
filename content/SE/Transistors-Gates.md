@@ -54,7 +54,7 @@ Because of this, different types of technology (TTL, NMOS, CMOS) favor specific 
 {{< figure "Different Gates" "/images/SE1-gates.png" right 40 >}}
 
 &osol;  
-Gates form the unit of design for digital electronics (although larger modules and modularization techniques exist). For example, visit [https://hackaday.io/project/9795-nedonand-homebrew-computer](https://hackaday.io/project/9795-nedonand-homebrew-computer) for a project in which an 8-bit processor is created out of 74F00-chips, each containing two NAND-gates.
+Gates form the unit of design for digital electronics (although larger modules and modularization techniques exist).  For example, visit [https://hackaday.io/project/9795-nedonand-homebrew-computer](https://hackaday.io/project/9795-nedonand-homebrew-computer) for a project in which an 8-bit processor is created out of 74F00-chips, each containing two NAND-gates.
 
 {{% exercise %}}
 ![Gates](/images/SE1.usingNAND.png#fr4)
