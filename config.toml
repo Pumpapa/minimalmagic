@@ -32,6 +32,9 @@ googleAnalytics = "" # Enable Google Analytics by entering your tracking id
   customCSS = ["css/custom.css"] # Include custom CSS files
   customJS = ["js/custom.js"] # Include custom JS files
 
+[markup.goldmark.renderer]
+  unsafe= true
+
 [Params.style.vars]
   highlightColor = "#e22d30" # Override highlight color
 
@@ -50,7 +53,7 @@ googleAnalytics = "" # Enable Google Analytics by entering your tracking id
   list = "right"  # Configure layout for list pages
   single = "right" # Configure layout for single pages
   # Enable widgets in given order
-  widgets = ["search", "categories", "taglist", "recent", "social", "languages"]
+  widgets = ["search", "categories", "content", "taglist", "recent", "social", "languages"]
   # alternatively "ddg-search" can be used, to search via DuckDuckGo
   # widgets = ["ddg-search", "recent", "categories", "taglist", "social", "languages"]
 

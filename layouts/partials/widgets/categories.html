@@ -1,0 +1,16 @@
+{{- $categories := .Site.Taxonomies.categories }}
+{{- if gt (len $categories) 0 }}
+<div class="widget-categories widget">
+	<h4 class="widget__title">{{ T "categories_title" }}</h4>
+	<div class="widget__content">
+		{{- range $name, $taxonomy := $categories }}
+			{{- with $.Site.GetPage (printf "/categories/%s" $name) }}
+				<a class="widget__link separatedItem" href="{{ .RelPermalink }}">{{ .Title }}</a>
+				{{- if .Site.Params.widgets.categories_counter }}&nbsp;
+				<span class="widget__counter widget__counter--bubble">{{ $taxonomy.Count }}</span>
+				{{ end -}}
+			{{- end }}
+		{{- end }}
+	</div>
+</div>
+{{- end }}
