@@ -20,6 +20,9 @@ hugo -D
 # Go To Public folder
 cd public
 
+# Pum co correct branch
+git branch; git checkout main
+
 # Add 'public' (Github Pages repo) changes to git and commit/push.
 echo ""
 echo ""

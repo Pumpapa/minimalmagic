@@ -1,3 +1,4 @@
+baseurl = "https://beginnings.blog"
 title = "Beginnings"
 languageCode = "en-us"
 paginate = "99" # Number of posts per page
@@ -12,6 +13,8 @@ googleAnalytics = "" # Enable Google Analytics by entering your tracking id
 
 [Params]
   subtitle = "" # Deprecated in favor of .Site.Params.logo.subtitle
+  SEOTitle = "Beginnings Blog"
+  keyword = "Pum, Walters, System, Engineering, Term, Rewriting, Systems"
   description = "Pum's blog about Computer Science and more" # Site description. Used in meta description
   copyright = "Pum Walters" # Footer copyright holder, otherwise will use site title
   opengraph = true # Enable OpenGraph if true
