@@ -12,7 +12,8 @@ figure figcaption {
 .separatedItem + .separatedItem:before {
     content: " | "
 }
-.container, .container--outer {
+
+.container , .container--outer {
     max-width: 1280px;
 }
 
