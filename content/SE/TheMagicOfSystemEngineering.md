@@ -8,7 +8,7 @@ categories:
 tags:
   - "Brief"
   - "SE"
-  - "Gates"
+  - "Boolean"
   - "Numbers"
   - "Components"
 ---
