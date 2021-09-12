@@ -2,9 +2,10 @@
 title: "Beginnings"
 date: 2021-08-27T11:52:57+02:00
 draft: false
+weight: 10
 type: Main
 categories:
-  - "Brief"
+  - "General"
 tags:
   - "Brief"
 menu: main # Optional, add page to a menu. Options: main, side, footer

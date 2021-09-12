@@ -2,8 +2,9 @@
 title: "Pum Walters"
 date: 2021-08-26T10:17:43+02:00
 draft: false
+weight: 1000
 categories:
-  - "Brief"
+  - "General"
 tags:
   - "Brief"
   - "Profile"
