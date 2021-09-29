@@ -10,4 +10,4 @@ tags:
   - "Brief"
 menu: main # Optional, add page to a menu. Options: main, side, footer
 ---
-[I](/pumwalters/ "Pum Walters") once gave a freshman course on system engineering. [The magic of system engineering](/se/themagicofsystemengineering/ "The magic of system engineering.md") is that once you understand a transistor, you can mostly understand an entire CPU. Later, I started writing a book on term rewriting with a similar foundation: *ex principia omnia*. This gave me the idea to start a blog with work and musings on that underlying theme. 
+[I](/pumwalters/  "Pum Walters") once gave a freshman course on system engineering. [The magic of system engineering](/se/themagicofsystemengineering/ "The magic of system engineering.md") is that once you understand a transistor, you can mostly understand an entire CPU. Later, I started writing a book on term rewriting with a similar foundation: *ex principia omnia*. This gave me the idea to start a blog with work and musings on that underlying theme. 
