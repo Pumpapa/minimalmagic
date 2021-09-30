@@ -251,7 +251,7 @@ a → c
 ### Sub-Term Selection
 
 The *innermost* and *outermost* strategies limit the location where
-reduction are considered. An **innermost strategy** reduces a sub-term only, if all deeper sub-terms of that sub-term can not be reduced. An **outermost strategy** reduces only sub-terms of a term if it isn't contained in a (sub-) term which is reducible at root level.
+reductions are considered. An **innermost strategy** reduces a sub-term only, if all deeper sub-terms of that sub-term can not be reduced. An **outermost strategy** reduces only sub-terms of a term if it isn't contained in a (sub-) term which is reducible at root level.
 
 Consider this TRS:
 
@@ -285,7 +285,7 @@ reduces *if*.
 
 Speaking generally, outermost strategies are 'better behaved' with
 respect to termination, but innermost strategies can be implemented more
-efficiently. While it is true that innermost strategies can lead tocould
+efficiently. While it is true that innermost strategies can lead to
 non-termination, it is generally straightforward to write a term
 rewriting systems such, that non-termination is avoided in the same way
 that infinite loops should and can be avoided in general programming
@@ -309,12 +309,12 @@ Common strategies which address this are *specificity order* and
 As an example, consider a function `iszero` which tests if a number in the the *a-s-z-system* is zero.
 
 ```
-iszero(N) →  false
+iszero(N) → false
 iszero(z) → true
 ```
 
 Using textual order this term rewriting system always returns false, but
-using specificity order the results always
+using specificity order the implementation behaves appropriately.
 
 To be honest, this TRS is unnecessarily confusing, especially for a
 programmer who is used to read code from top to bottom. *By convention,
@@ -323,7 +323,7 @@ specificity order coincide.*
 
 ```
 iszero(z) → true
-iszero(N) →  false
+iszero(N) → false
 ```
 
 {{% collapsible "Hybrid Strategies" %}}
@@ -333,7 +333,7 @@ location and of the rule being applied.
 
 A priority-strategy assigns priorities to symbols, and only allows a reduction anywhere if no higher priority symbol can be reduced. In an annotation-strategy all rules are annotated with information on the order of (considered) reductions.
 
-For example, the if-true-flase system shown earlier, might indicate that for an *if*-symbol, the first argument must be normalized before the other arguments are considered.
+For example, the if-true-false system shown earlier, might indicate that for an *if*-symbol, the first argument must be normalized before the other arguments are considered.
 
 {{% /collapsible %}}
 
@@ -341,26 +341,26 @@ For example, the if-true-flase system shown earlier, might indicate that for an 
 So far, we used this notation for rules:
 ```
 iszero(z) → true
-iszero(N) →  false
+iszero(N) → false
 ```
 
 But the symbol `→` doesn't occur on any keayboard, and the lack of a separator between rules might lead to difficult to read code.
 
-TRAM.0 uses the symbol `=` in rules, and terminates rules by `;`. 
+Henceforth, we will use the symbol `=` in rules, and terminates rules by `;`. 
 
-In this document rule numbers are often included for reference. They are not part of the spec but obly of the presentation.
+In this document rule numbers are often included for reference. They are not part of the spec but only of the presentation.
 
 The above TRS would then appear as:
 
 ```
 1 iszero(z) = true;
-2 iszero(N) =  false;
+2 iszero(N) = false;
 ```
 
 # A meta-interpreter
-In this section we present a TRS which implements term rewriting using an innermost strategy (rules 1&2) interpreting rules in textual order (rule 13).
+In this section we present a TRS which implements term rewriting using an innermost strategy (rules 1&2, below) interpreting rules in textual order (rule 13). First, we describe the meta-notation of terms.
 
-* A term is 
+* A term is represented as
 	* `trm(F,Args)` for symbol `F` and terms `Args`, or
 	* `var(N)` for variable named `N`
 * Arguments `Args` are
@@ -374,7 +374,7 @@ In this section we present a TRS which implements term rewriting using an innerm
 ## Rewriting
 * Rule 1 states: after all sub-terms have been reduced, try to reduce at root level.  
 * Rules 2 and 3 attempt to reduce innermost sub-terms.  
-* Rule 4 attempts each rule at top level. A copy of the list of rules is given because there are no global variables. Once a reduction takes place, the entire TRS must be applied again to the reduced term.
+* Rule 4 attempts each rule at top level. A copy of the list of rules is kept because there are no global variables. Once a reduction takes place, the entire TRS must be applied again to the reduced term.
 * Rule 5 attempts to match (which will instantiate if a match is found)
 * Rule 6 terminates the entire rewrite process: the term is a normal form.
 ```
@@ -399,6 +399,7 @@ Function `match` has nine arguments:
 * entire term (needed if this match fails)
 * remaining list of rules (needed if this match fails)
 * entire TRS, needed if a match succeeds and we need to continue after this rewrite step
+
 The rules are straightforward:
 * Rule 7 adds a variable-value pair to the list of variables seen so far. Note that this rule assumes that every variable occurs at most once in the left-hand side
 * Rule 8 checks if the corresponding function symbols are equal
@@ -423,7 +424,7 @@ The rules are straightforward:
 ```
 ## Instantiation
 Instantiation is straightforwar:
-* (14) a variable is instantiated with the value with which it was, matched. Note that every variable in the right-hand side must have been matched, so there is no check for the reverse
+* (14) a variable is instantiated with the value with which it was matched. Note that every variable in the right-hand side must have been matched, so there is no check for the reverse
 * (15-17) all compound terms are recusrsively instantiated
 * (18-20) simple table lookup of a matched variable
 ```
@@ -442,9 +443,9 @@ The upside of a meta-interpreter is that it offers a precise (correct, complete,
 
 
 
-## TRAM.0
+## TRAM.1
 A downside of a meta-interpreter is that it doesn't directly bring us closer to an implementation -- it only offers an implementation if one already has an implementation.
 
-TRAM.0 is an implementation written in C, which nonetheless follows the structure of the meta-interpreter. The key difference is that the meta-interpreter uses recursion heavily, while recursion in C is usually limited to tens of thousands of levels. That may sound like a lot, but consider: `match` is attempted recursively through all rules (Rule 13), and when a match is found `inst` is called (Rule 10), which recursively continues reduction (Rule 15). This means the depth of the recursion is the length of the rewrite sequence, which can be anything. This recursion must be transformed to iteration in C.
+TRAM.1 is an implementation written in C, which nonetheless follows the structure of the meta-interpreter. The key difference is that the meta-interpreter uses recursion heavily, while recursion in C is usually limited to tens of thousands of levels. That may sound like a lot, but consider: `match` is attempted recursively through all rules (Rule 13), and when a match is found `inst` is called (Rule 10), which recursively continues reduction (Rule 15). This means the depth of the recursion is the length of the rewrite sequence, which can be anything. This recursion must be transformed to iteration in C.
 
-TRAM.0 is presented further in [TRAM.0](/trs/TRAM.0)
+TRAM.1 is presented further in [TRAM.1](/trs/TRAM.1)
