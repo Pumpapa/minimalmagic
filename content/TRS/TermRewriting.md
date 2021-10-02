@@ -9,7 +9,6 @@ tags:
   - "Set"
   - "Value"
   - "Pair"
-  - ""
   - "Tuple"
   - "Relation"
   - "Function"
