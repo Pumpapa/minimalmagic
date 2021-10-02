@@ -1,12 +1,28 @@
 ---
 title: "Term Rewriting"
-date: 2021-09-12T10:55:58+02:00
+date: 2021-09-12
 draft: false
-weight: 1
+weight: 100
 categories:
   - "TRS"
 tags:
-  - "Axiomatic Set Theory"
+  - "Set"
+  - "Value"
+  - "Pair"
+  - ""
+  - "Tuple"
+  - "Relation"
+  - "Function"
+  - "Symbol"
+  - "Variable"
+  - "Term"
+  - "Rule"
+  - "Substitution"
+  - "Matching"
+  - "Instantiation"
+  - "TRS"
+  - "Strategy"
+  - "Meta-Interpreter"
 ---
 {{< figure "Turtles all the way down" "/images/TRS/Turtles.png" right 30 >}}
 
@@ -15,7 +31,7 @@ C *array* vs *struct* definitions refer to **contiguously allocated** vs **seque
 
 Our aim is to define an entire programming language without any prerequisites other than  precision. [No turtles required](https://en.wikipedia.org/wiki/Turtles_all_the_way_down).
 
-## Sets of Turtles
+### Sets of Turtles
 {{< figure "Seven Turtles" "/images/TRS/7-turtles.png" right 40 >}}
 Consider these seven turtles.
 It is easy to imagine
@@ -29,7 +45,7 @@ Naive sets are sufficient (*equality* if they have the same elements, *union*, *
 
 We have already seen one set without turtles: the empty set, written as `{}`. To be clear: there is almost no presumption here, just notation. All we presume is the empty set, not containing turtles or anything else. Let’s give this set a name: `0`, so `0 = {}`
 
-## Unbounded numbers of sets
+### Unbounded numbers of sets
 Now consider a set with exactly one element: the only thing we know so far, which is the empty set `{}`. This set is `{{}}` and for clarity we’ll name it `1`. Clearly, `1 ≠ 0` because `1` has an element and `0` doesn’t. So now we now know two sets!
 
 The next set we might consider is `{0,1}`, the set containing two things called `0` and `1`. We could also have written `{{},{{}}}`. This is why we give our sets names; braces are pretty soon unintelligible for humans.
@@ -52,26 +68,26 @@ There are a few more Zermelo Fraenkel axioms, which are relevant for inifinite s
 The notion of **functions** pops up out of nowhere. We will discuss this below. The last axiom is trivial for our finite sets.
 {{% /collapsible %}}
 
-# Sets and Values
+## Sets and Values
 Starting from nothing, we have described mental artifacts called sets. We have given a sequence of these the names `0`, `1`, `2`, etcetera, so there is an unbounded number of them. Note that there are many more sets than the ones we have given names, such as for instance: `{1, 3, 10}`. To distinguish the named sets from the unnamed sets, we will call the named sets: **values**. The unnamed sets will still play a role in our discourse.
 
 It is easier for us to talk about values such as `3` than to talk about sets such as `{{},{{}},{{},{{}}}}`. But we haven't presumed numbers; we just reason about named sets.
 
-## Representation
+### Representation
 As it happens, computers are rather good at storing and processing numbers represented as strings of bits in a format that is called **binary**. The relation between stored numbers and the real numbers (which are also a mental construct) is by convention. The view that `101` is related to the number 5 is just as sensible (albeit more common) as the view that it might be ralated to the set `5` (which is `{{{}},{{},{{}}},{{},{{}},{{},{{}}}},{{{}},{{},{{}}},{{},{{}},{{},{{}}}}}}`.
 
 Conceptually we are still within the theory of sets, but values (which are sets) can be represented as bits and bytes and binary numbers and can be processed by computers.
 
-# Sets as Larger Constructs
+## Sets as Larger Constructs
 Now we will discuss several concepts based on the sets we have seen so far.
-## Pair, Tuple
+### Pair, Tuple
 Given two sets `a` and `b` the pair `<a,b>` is the set `{a,{a,b}}`. A pair is not a new concept but a notation. Note that from a pair the constituent two elements can be unequivocally determined. A pair is a set of two elements,  one of which is again a set with two elements. The larger and the smaller set have an element in common, which is the first constituent of the pair. The second element of the smaller set is also the second constituent of the pair.
 
 If you are a programmer and unused to think about sets: a pair is somewhat like a C struct or JavaScript list.
 
 Given `N` values `v1, …, vN` a tuple `<v1, …, vN>` is defined similar to a pair. A tuple is a set from which the `N` constituents can be retrieved, so it is again similar to a struct or list.
 
-## Relation, Function
+### Relation, Function
 A **relation** is a set of pairs. Example: `{<1,2>,<1,3>,<2,3>}` is a relation. Note that we are mixing notations to remain intelligable: the braces `{...}`, brackets `<...>` and numbers `1` notations. Just using braces, this example becomes:   
 `{{{{}},{{{}},{{},{{}}}}},
  {{{}},{{{}},{{},{{}},{{},{{}}}}}},
@@ -83,13 +99,13 @@ This is the same thing: `{<1,1>,<1,2>,<1,3>,<2,2>,<3,3>,<3,3>}` **is** the relat
 
 A **function** is a relation in which each first value in the pairs is unique: the relation  `{<1,1>,<1,2>,<2,2>,...}` is not a function.
 
-### The notation f(x) and R(x,y)
+#### The notation f(x) and R(x,y)
 The notation `f(x)`: 
 given a set of pairs `f` and a value `x`, `f(x)` denotes the value for which `<x,f(x)>` occurs in `f`. Similarly, `R(x,y)` means that `<x,y>`&isin;`R`.
 
 A function `f` is a set of pairs, and `f(x)` selects a value contained in `f`. A programmer tends to think of `f(x)` as `f` being applied to, or acting on `x`. There is nothing wrong with this view, but remember that underlying it is a statement about sets.
 
-## Symbols, Variables
+### Symbols, Variables
 Now consider two disjoint sets of values `S={s1, …, sN}` and `V={v1, …, vM}`. We’ll call each `si` a **symbol** and each `vi` a **variable**. There are no restrictions on the sets of values and symbols. For example, one might choose the set of symbols to be all odd-named values, and the set of variables all even-named values.
 
 We give symbols and variables names (identifiers). By convention, an identifier starting with:
@@ -100,7 +116,7 @@ Note that naming symbols and values is similar to middle-school practice for alg
 
 Note: symbols and variables are values (sets) and can be represented as binary numbers.
 
-## Terms
+### Terms
 A term is either a variable or a tuple `<f,t1,...,tk>` (for `k`>=1) where
 * `f` is a symbol
 * Each `ti` is a term 
@@ -113,7 +129,7 @@ If `f` has no arguments, no parentheses are used: we write `f` instead of `f()` 
 
 Given a term `t=f(s1,...,sk)`, the symbol `f` is called the **outermost function symbol** of `t`
 
-### Sub-term, Open / Closed Terms, Constant
+#### Sub-term, Open / Closed Terms, Constant
 
 Each `si` is a **sub-term** of `f(s1,...,sk)`, and all sub-terms of each `si` are also sub-terms of `f(s1,...,sk)`.
 
@@ -121,12 +137,12 @@ An **open term** is a term which contains variables; a **closed term** doesn’t
 
 A closed term without sub-terms (e.g. `f`) is called a **constant** (somewhat confusingly, since any closed term is in a way a constant because it doesn't contain a vraible, but there it is)
 
-### Trees
+#### Trees
 {{< figure "Term as Tree" "/images/TRS/fgabhfacfcb.png" right 40 >}}
 
 When terms are drawn, they appear tree-like as a structure of nodes and edges. In this sense we often refer to the outermost level (the highest level or top) as the **root**, and to the innermost (lowest) level as leaves. 
 
-## Substitution, Instantiation, Matching
+### Substitution, Instantiation, Matching
 A **substitution** is a function mapping variables to terms (i.e., set of pairs `<vi,si>` where each `vi` is a unique variable and each `si` is a term).
 
 {{< figure "Matching, Substitution, Instantiation" "/images/TRS/asxysaxy.png" right 50 >}}
@@ -138,7 +154,7 @@ For example: instantiating `s(a(X,Y))` with `{<X,s(z)>,<Y,s(z)>}` produces `s(a(
 Given a closed term such as `t=a(s(s(z)),s(z))` and an open term such as `p=a(s(X),Y)`, **matching** tries to find a substitution S such that S(p)=t.
 Matching can either fail or succeed producing a substitution.
 
-## Rules, Term Rewriting Systems
+### Rules, Term Rewriting Systems
 A **rewrite rule** is a pair of terms written as `lhs→rhs` where
 * `lhs` has at least one symbol (i.e. isn't a sole variable)
 * every variable in `lhs` occurs at most once
@@ -169,7 +185,7 @@ The one-step rewrite relation can be transitively extended:
 If `s↠t` and no rule is applicable to any sub-term of `t` (or `t` itself), `t` is called a **normal form** of `s` (or **the** normal form if there is only one).
 
 
-### Example
+#### Example
 Consider the following TRS:
 ```
 a(s(X),Y)→s(a(X,Y))
@@ -190,7 +206,7 @@ Now, interpret
 
 We have just defined addition for unsigned integers!
 
-# Operationalization
+## Operationalization
 It might seem that this document is turning into an abstract theoretical discussion. So let's take a step back and see where we are and where we are headed.
 
 Using only a naive sense of sets essentially founded only on the empty set, we have
@@ -213,7 +229,7 @@ such that `p` matches `l`, then we can replace `p` with the corresponding instan
 
 But what if more than one rule and sub-term exist for which this is the case? That is to say, what if given some term `s`, many terms `t` exist such that `s→t`  or `s↠t`.
 
-## Strategies
+### Strategies
 
 {{% collapsible "Confluence and Termination" %}}
 
@@ -248,7 +264,7 @@ a → c
 
 <br>A **rewrite strategy** determines which rule and which sub-term to pick.
 
-### Sub-Term Selection
+#### Sub-Term Selection
 
 The *innermost* and *outermost* strategies limit the location where
 reductions are considered. An **innermost strategy** reduces a sub-term only, if all deeper sub-terms of that sub-term can not be reduced. An **outermost strategy** reduces only sub-terms of a term if it isn't contained in a (sub-) term which is reducible at root level.
@@ -292,7 +308,7 @@ that infinite loops should and can be avoided in general programming
 languages.
 
 
-### Rule Selection
+#### Rule Selection
 
 A second aspect the strategy must address is: if more than one rule is
 applicable at the same location, which is chosen? If the term rewriting
@@ -337,7 +353,7 @@ For example, the if-true-false system shown earlier, might indicate that for an 
 
 {{% /collapsible %}}
 
-# Notation
+## Notation
 So far, we used this notation for rules:
 ```
 iszero(z) → true
@@ -357,7 +373,7 @@ The above TRS would then appear as:
 2 iszero(N) = false;
 ```
 
-# A meta-interpreter
+## A meta-interpreter
 In this section we present a TRS which implements term rewriting using an innermost strategy (rules 1&2, below) interpreting rules in textual order (rule 13). First, we describe the meta-notation of terms.
 
 * A term is represented as
@@ -371,7 +387,7 @@ In this section we present a TRS which implements term rewriting using an innerm
 	* `eor`  (end-of-rules) 
 * For now, we ignore the inner structure of function-symbols or variables in this meta-interpreter. We merely state that a function `eq` exists which returns `true` when applied to equal function-symbols or variables.
 
-## Rewriting
+### Rewriting
 * Rule 1 states: after all sub-terms have been reduced, try to reduce at root level.  
 * Rules 2 and 3 attempt to reduce innermost sub-terms.  
 * Rule 4 attempts each rule at top level. A copy of the list of rules is kept because there are no global variables. Once a reduction takes place, the entire TRS must be applied again to the reduced term.
@@ -388,7 +404,7 @@ In this section we present a TRS which implements term rewriting using an innerm
     = match(L,T,eol,eoa,eoa,R,T,Rs,TRS);
 6 toprewrRule(T,trm("eor",eoa),Rs) = T;
 ```
-## Matching
+### Matching
 Function `match` has nine arguments: 
 * pattern being matched,
 * term being matched,
@@ -422,7 +438,7 @@ The rules are straightforward:
     = match(Fs,Gs,E,As,Bs,R,T,Rs,TRS);
 13 matchq(X,Fs,Gs,E,As,Bs,R,T,Rs,TRS) = toprewrRule(T,Rs,TRS);
 ```
-## Instantiation
+### Instantiation
 Instantiation is straightforwar:
 * (14) a variable is instantiated with the value with which it was matched. Note that every variable in the right-hand side must have been matched, so there is no check for the reverse
 * (15-17) all compound terms are recusrsively instantiated
@@ -438,12 +454,12 @@ Instantiation is straightforwar:
 19 getq(ok,N,T,E) = T;
 20 getq(X,N,T,E) = get(N,E);
 ```
-# Conclusion
+## Conclusion
 The upside of a meta-interpreter is that it offers a precise (correct, complete, clear and concise) definition of innermost term rewriting. So far we have been informal, sketching rather than formally detailing term rewriting, but the meta-interpreter changes that.
 
 
 
-## TRAM.1
+### TRAM.1
 A downside of a meta-interpreter is that it doesn't directly bring us closer to an implementation -- it only offers an implementation if one already has an implementation.
 
 TRAM.1 is an implementation written in C, which nonetheless follows the structure of the meta-interpreter. The key difference is that the meta-interpreter uses recursion heavily, while recursion in C is usually limited to tens of thousands of levels. That may sound like a lot, but consider: `match` is attempted recursively through all rules (Rule 13), and when a match is found `inst` is called (Rule 10), which recursively continues reduction (Rule 15). This means the depth of the recursion is the length of the rewrite sequence, which can be anything. This recursion must be transformed to iteration in C.

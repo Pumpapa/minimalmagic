@@ -1,6 +1,6 @@
 ---
 title: "Memory Management"
-date: 2021-09-03 15:23:00
+date: 2021-09-03
 draft: false
 weight: 1000
 categories:
@@ -9,6 +9,10 @@ tags:
   - "Memory Management"
   - "Garbage"
   - "Garbage Collection"
+  - "Mark"
+  - "Sweep"
+  - "Handle"
+  - "Fragmentation"
 ---
 Software uses memory to store data objects. An object may contain data such as strings or numbers, but it may also contain references to other nodes. The collection of all nodes is called a **heap**.
 
