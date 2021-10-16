@@ -34,7 +34,7 @@ Powerful is a subjective and contextual term. Here we take it to mean "*capable 
 The design criteria for TRAM follow:
 
 * Small and easy to understand in minutes  
-TRAM.1 is small (\~600 lines of standard C code using a few standard libraries. One reason to make TRAM light-weight is the underlying goal to implement TRAM directly on FPGA hardware
+TRAM.1 is small (\~650 lines of standard C code using a few standard libraries. One reason to make TRAM light-weight is the underlying goal to implement TRAM directly on FPGA hardware
 * Reasonably efficient  
 TRAM is reasonably efficient (e.g., significantly more efficient than a naive recursive implementation).
 	* The absence of assignment in pure term rewriting means that the language is side-effect free and terms are never altered. Consequently, a single-pass garbage collector suffices
