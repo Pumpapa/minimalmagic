@@ -7,6 +7,8 @@ categories:
   - "TRS"
 tags:
   - "Binary Numbers"
+  - "Addition"
+  - "Multiplication"
 ---
 Tram does not offer built-in integers, which may seem an omission, but being unopinionated is at odds with built-in data types.  However, numbers are part and parcel with computing, so they can't be missed. [Elsewhere](https://www.minimalmagic.blog/trs/termrewriting/) we have seen how sets can represent numbers (Peano numbers), and how terms can also be used to represent numbers. For instance, addition on `s-z` numbers is defined in the TRS
 ```
