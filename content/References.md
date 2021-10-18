@@ -3,7 +3,6 @@ title: "References"
 date: 2021-10-1
 draft: false
 weight: 200
-type: Main
 categories:
   - "General"
 tags:
