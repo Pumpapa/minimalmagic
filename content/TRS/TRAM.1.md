@@ -93,7 +93,7 @@ TRAM.1 has three printers
 * to print a program (TRS). As mentioned, programs are stored in a more compact form than meta-terms, so they need their own printer
 
 ### Rewrite Engine
-The rewrite engine is closely related to the meta-interpreter in [Section Term Rewriting](https://www.beginnings.blog/trs/termrewriting/), but as mentioned there, the recusion and pattern matching must be implemented differently in C
+The rewrite engine is closely related to the meta-interpreter in [Section Term Rewriting](https://www.minimalmagic.blog/trs/termrewriting/), but as mentioned there, the recusion and pattern matching must be implemented differently in C
 
 The engine can be described as a push-down automaton. It uses states to keep track of where it is in the algorithm. Each state 'knows' which variables are stored on the stack when it is entered.
 
@@ -128,7 +128,7 @@ Comment:     '!' .* \n
 ```
 
 ### Tram.1 Semantics
-Tram's semantics is descibed in [Section Term Rewriting](https://www.beginnings.blog/trs/termrewriting/). Tram follows the right-most innermost reduction strategy. That is, 
+Tram's semantics is descibed in [Section Term Rewriting](https://www.minimalmagic.blog/trs/termrewriting/). Tram follows the right-most innermost reduction strategy. That is, 
 * given a term, first its right-most innermost sub-term is considered for reduction
 * then the left-hand sides of all rules are matched against that sub-term
 * rules are attempted in the order in which they have been read, either using the `-P` flag, or in the order of modules (`-p` flag) followed by the order within that module

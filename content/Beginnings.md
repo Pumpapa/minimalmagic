@@ -1,5 +1,5 @@
 ---
-title: "Beginnings"
+title: "Minimal Magic"
 date: 2021-08-27T11:52:57+02:00
 draft: false
 weight: 10

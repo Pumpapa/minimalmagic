@@ -1,5 +1,5 @@
-baseurl = "https://beginnings.blog"
-title = "Beginnings"
+baseurl = "https://minimalmagic.blog"
+title = "Minimal Magic"
 languageCode = "en-us"
 paginate = "99" # Number of posts per page
 theme = "mainroad"
@@ -13,7 +13,7 @@ googleAnalytics = "" # Enable Google Analytics by entering your tracking id
 
 [Params]
   subtitle = "" # Deprecated in favor of .Site.Params.logo.subtitle
-  SEOTitle = "Beginnings Blog"
+  SEOTitle = "Minimal Magic Blog"
   keyword = "Pum, Walters, System, Engineering, Term, Rewriting, Systems"
   description = "Pum's blog about Computer Science and more" # Site description. Used in meta description
   copyright = "Pum Walters" # Footer copyright holder, otherwise will use site title
@@ -48,7 +48,7 @@ googleAnalytics = "" # Enable Google Analytics by entering your tracking id
 
 [Params.logo]
   image = "images/480px-Tree_of_life_SVG.svg.png" # Logo image. Path relative to "static"
-  title = "Beginnings" # Logo title, otherwise will use site title
+  title = "Minimal Magic" # Logo title, otherwise will use site title
   subtitle = "A Blog about Computer Science and more" # Logo subtitle
 
 [Params.sidebar]
