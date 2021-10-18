@@ -1,5 +1,5 @@
 ---
-title: "Minimal Magic"
+title: "Binary Numbers"
 date: 2021-10-18
 draft: false
 weight: 1100
