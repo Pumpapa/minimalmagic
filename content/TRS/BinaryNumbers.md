@@ -70,3 +70,30 @@ mul(#0,N) = #0;
 mul(#1,N) = N;
 mul(bin(A,B),C) = bin(mul(A,C),mul(B,C));
 ```
+
+The module `BinaryNumbers` in TRAM.1's test suite has a few additional rules:
+* Generic function `eqn` is defined elsewhere
+* Equality of data `#0` and `#1` is defined elsewhere
+* Symmetrical rules for `add` are added for speed
+* The more complex form of `mul` is used for speed
+* `succ` is a short-hand 
+
+```
+bin(#0,X) = X;
+bin(X,bin(Y,Z)) = bin(add(X,Y),Z);
+
+eq(bin(N,M),bin(P,Q)) = eqn(eq(N,P),M,Q);
+
+add(#1,#1) = bin(#1,#0);
+add(#0,X) = X;
+add(X,#0) = X;
+add(X,bin(Y,Z)) = bin(Y,add(X,Z));
+add(bin(X,Y),Z) = bin(X,add(Y,Z));
+
+mul(#0,N) = #0;      mul(N,#0) = #0;
+mul(#1,N) = N;      mul(N,#1) = N;
+mul(bin(A,B),bin(C,D))
+   = bin(bin(mul(A,C),add(mul(A,D),mul(B,C))),mul(B,D));
+
+succ(N) = add(N,#1);
+```
