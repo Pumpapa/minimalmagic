@@ -134,7 +134,7 @@ Each `si` is a **sub-term** of `f(s1,...,sk)`, and all sub-terms of each `si` ar
 
 An **open term** is a term which contains variables; a **closed term** doesn’t.
 
-A closed term without sub-terms (e.g. `f`) is called a **constant** (somewhat confusingly, since any closed term is in a way a constant because it doesn't contain a vraible, but there it is)
+A closed term without sub-terms (e.g. `f`) is called a **constant** (somewhat confusingly, since any closed term is in a way a constant because it doesn't contain a variable, but there it is)
 
 #### Trees
 {{< figure "Term as Tree" "/images/TRS/fgabhfacfcb.png" right 40 >}}
@@ -164,7 +164,7 @@ Given a rule `lhs→rhs`, `lhs` and `rhs` are called the **left-hand** side and 
 A term `t` can be **rewritten** to a term `u` by rule `lhs→rhs` if a substitution `S` exists such that `t=S(lhs)` and `u=S(rhs)`. Rewriting is a relation (called the **rewrite relation**), and by convention we write it as `t→u` (confusingly, the notation for rules and for the rewrite relation are the same). That is: given a rewrite rule `lhs→rhs`, `→` is the rewrite relation between terms. In a more operational context the rewrite-step relation is also called **reduction**.
 
 This relation can be extended in an obvious way, by rewriting sub-terms:  
-if `t→u` and if `t` is a sub-term of `v`, than `v→w` when `w` is obtained from `v` by replacing that sub-term `t` in `v` by `u`. 
+if `t→u` and if `t` is a sub-term of `v`, than `v→w` when `w` is obtained from `v` by replacing that sub-term `t` in `v` by `u`. A more precise definition follows in the last section of this page.
 
 Secondly, the relation can be extended by regarding multiple rules at once: `t→u` if a rule `l→r` exists such that `t→u` for that rule.
 
@@ -186,13 +186,13 @@ If `s↠t` and no rule is applicable to any sub-term of `t` (or `t` itself), `t`
 
 #### Example
 Consider the following TRS:
-```
+```Prolog
 a(s(X),Y)→s(a(X,Y))
 a(z,X) →X
 ```
 
 and consider the following sequence of rewrite steps ('*the a-s-z-system*'):
-```
+```Prolog
 a(s(s(z)),s(s(z))) 
 → s(a(s(z),s(s(z)))
 → s(s(a(z,s(s(z)))))
@@ -244,7 +244,7 @@ there are no infinite reduction chains `u → v → w →  ...`
 
 These properties are important because confluence guarantees that even
 when diverging reductions are possible, we can always converge, and termination guarantees there are no unending
-paths. Together they guarantee that **every term has a uniqie normal form**.
+paths. Together they guarantee that **every term has a uniqe normal form**.
 
 However, it is generally undecidable if a TRS is terminating and/or confluent and significant research exists to determine if term rewriting systems have these desirable properties, or under which (syntactical) restriction the properties can be proved.
 
@@ -254,7 +254,7 @@ Strategies are important because they are strongly related to these important pr
 
 For example, the term rewriting system below is not terminating, but if one rigorously applies the third rule before any other rule, every reduction sequence terminates.
 
-```
+```Prolog
 f(a) → f(b)
 f(b) → f(a)
 a → c
@@ -266,11 +266,11 @@ a → c
 #### Sub-Term Selection
 
 The *innermost* and *outermost* strategies limit the location where
-reductions are considered. An **innermost strategy** reduces a sub-term only, if all deeper sub-terms of that sub-term can not be reduced. An **outermost strategy** reduces only sub-terms of a term if it isn't contained in a (sub-) term which is reducible at root level.
+reductions are considered. An **innermost strategy** reduces a sub-term only, if all deeper sub-terms of that sub-term can not be reduced. An **outermost strategy** reduces only sub-terms of a term if itthey aren't contained in a (sub-) term which is reducible at root level.
 
 Consider this TRS:
 
-```
+```Prolog
 f(a) → f(b)
 f(b) → f(a)
 a → c
@@ -280,7 +280,7 @@ This TRS is terminating under an innermost strategy but not under an outermost s
 
 Now consider a function `if` for which two rules are given:
 
-```
+```Prolog
 if(true,X,Y) → X
 if(false,X,Y) → Y
 ```
@@ -293,7 +293,7 @@ irrelevant until the Boolean expression is reduced to either `true` or `false`.
 If `B` proves to be `true`, any reductions in the *else* part were
 pointless (when one considers an implementation, superfluous reductions
 represent wasted time) and potentially *harmful* if the *else* part
-leads to infinite reduction sequences.
+leads to infinite reduction sequences (which may not be a bug if `B` is `true`..
 
 A safer and more optimal strategy (for instance, the left-most outermost reduction strategy) evaluates the Boolean, and only then
 reduces *if*. 
@@ -323,7 +323,7 @@ Common strategies which address this are *specificity order* and
 
 As an example, consider a function `iszero` which tests if a number in the the *a-s-z-system* is zero.
 
-```
+```Prolog
 iszero(N) → false
 iszero(z) → true
 ```
@@ -334,9 +334,9 @@ using specificity order the implementation behaves appropriately.
 To be honest, this TRS is unnecessarily confusing, especially for a
 programmer who is used to read code from top to bottom. *By convention,
 the order of rules is always given such, that textual order and
-specificity order coincide.*
+specificity order coincide* as much as possible.
 
-```
+```Prolog
 iszero(z) → true
 iszero(N) → false
 ```
@@ -346,7 +346,7 @@ Some reduction strategies address location selection and rule selection
 in one go. *Priority* and *annotation* strategies combine selection of the
 location and of the rule being applied.
 
-A priority-strategy assigns priorities to symbols, and only allows a reduction anywhere if no higher priority symbol can be reduced. In an annotation-strategy all rules are annotated with information on the order of (considered) reductions.
+A priority-strategy assigns priorities to symbols, and only allows a reduction anywhere if no higher priority symbol can be reduced. In an annotation-strategy some or all rules are annotated with information on the order of (considered) reductions.
 
 For example, the if-true-false system shown earlier, might indicate that for an *if*-symbol, the first argument must be normalized before the other arguments are considered.
 
@@ -354,20 +354,20 @@ For example, the if-true-false system shown earlier, might indicate that for an 
 
 ## Notation
 So far, we used this notation for rules:
-```
+```Prolog
 iszero(z) → true
 iszero(N) → false
 ```
 
-But the symbol `→` doesn't occur on any keayboard, and the lack of a separator between rules might lead to difficult to read code.
+But the symbol `→` doesn't occur on any keyboard, and the lack of a separator between rules might lead to difficult to read code.
 
-Henceforth, we will use the symbol `=` in rules, and terminates rules by `;`. 
+Henceforth, we will use the symbol `=` instead of `→` in rules, and terminate rules by `;`. 
 
 In this document rule numbers are often included for reference. They are not part of the spec but only of the presentation.
 
 The above TRS would then appear as:
 
-```
+```Prolog
 1 iszero(z) = true;
 2 iszero(N) = false;
 ```
@@ -392,7 +392,7 @@ In this section we present a TRS which implements term rewriting using an innerm
 * Rule 4 attempts each rule at top level. A copy of the list of rules is kept because there are no global variables. Once a reduction takes place, the entire TRS must be applied again to the reduced term.
 * Rule 5 attempts to match (which will instantiate if a match is found)
 * Rule 6 terminates the entire rewrite process: the term is a normal form.
-```
+```Prolog
 1 burewr(trm(F,As),Rs) = toprewr(trm(F,burewr(As,Rs)),Rs);
 2 burewr(arg(A,As),Rs) = arg(burewr(A,Rs),burewr(As,Rs));
 3 burewr(eoa,Rs) = eoa;
@@ -423,9 +423,9 @@ The rules are straightforward:
 	* (10) if there are none, matching has succeeded and instantiation should take place
 	* (11) otherwise, matching continues
 * auxiliary function `matchq` either (12) continues matching (if sub-term and pattern have the same corresponding function symbol), or (13) attempts to apply the remainder list of rules if the match failed.
-```
-7 match(var(N),P,E,As,Bs,R,T,Rs,TRS)
-    = match(As,Bs,tab(N,P,E),eoa,eoa,R,T,Rs,TRS);
+```Prolog
+7 match(var(N),ST,E,As,Bs,R,T,Rs,TRS)
+    = match(As,Bs,tab(N,ST,E),eoa,eoa,R,T,Rs,TRS);
 8 match(trm(F,Fs),trm(G,Gs),E,As,Bs,R,T,Rs,TRS)
     = matchq(eq(F,G),Fs,Gs,E,As,Bs,R,T,Rs,TRS);
 9 match(arg(P,Ps),arg(Q,Qs),E,As,Bs,R,T,Rs,TRS)
@@ -442,7 +442,7 @@ Instantiation is straightforwar:
 * (14) a variable is instantiated with the value with which it was matched. Note that every variable in the right-hand side must have been matched, so there is no check for the reverse
 * (15-17) all compound terms are recusrsively instantiated
 * (18-20) simple table lookup of a matched variable
-```
+```Prolog
 14 inst(var(N),E,TRS) = get(N,E);
 15 inst(trm(F,As),E,TRS) = toprewr(trm(F,inst(As,E,TRS)),TRS);
 16 inst(eoa,E,TRS) = eoa;

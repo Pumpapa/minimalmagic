@@ -121,11 +121,12 @@ Term:        Data
 Data:        '#' '0x' [0-9a-fA-F]+
            | '#' '-'? [0-9]+
            | '\'' . '\''?
-Var:         [*&A-Z] [^0-9a-zA-Z]{0-4}
-Sym:         [@$a-z] [^0-9a-zA-Z]{0-5}
+Var:         [*&A-Z] [.0-9a-zA-Z]{0-4}
+Sym:         [@$a-z] [.0-9a-zA-Z]{0-5}
 Whitespace:  [ \n\r\t\v\f]
 Comment:     '!' .* \n
 ```
+Characters `*` and `&` in varibles, and `$` and `@` in symbols have no special significance, other than to express the special status of variables or symbols from the perspective of the programmer.
 
 ### Tram.1 Semantics
 Tram's semantics is descibed in [Section Term Rewriting](https://www.minimalmagic.blog/trs/termrewriting/). Tram follows the right-most innermost reduction strategy. That is, 

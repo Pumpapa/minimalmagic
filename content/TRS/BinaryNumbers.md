@@ -7,6 +7,7 @@ categories:
   - "TRS"
 tags:
   - "Binary Numbers"
+  - "Positional Numbering System"
   - "Addition"
   - "Multiplication"
 ---
@@ -62,7 +63,7 @@ Completenes of these rules (proved in [(Walters & Zantema, 1995)](https://www.mi
 > 
 > *This formulation is a useful rule of thumb, but it is somewhat vague (what does 'smaller' mean) and it is incomplete in any event (bug-free systems exist which do not meet this property). If this were not the case, the study of confluence and termination mentioned in [here](https://www.minimalmagic.blog/trs/termrewriting/) would be straightforward.*
 
-In five rules we have now defined binary numbers with addition. The number of bits required to store a value are the same order (differing only a constant factor) as the term representation. The complexity of addition using this TRS is the same as that of adding binary numbers, although, admittedly, [adding integers in a CPU](https://www.minimalmagic.blog/se/bigger-things/) takes a single clock cycle whereas it takes `O(N)` steps for an `N`-bit number.
+In five rules we have now defined binary numbers with addition. The number of bits required to store a value are the same order (differing only a constant factor) as the term representation. The complexity of addition using this TRS is the same as that of adding binary numbers, although, admittedly, adding an `N`-bit number using this TRS takes `O(N)` steps whereas [adding integers in a CPU](https://www.minimalmagic.blog/se/bigger-things/) takes a single clock cycle. However, that feat is only possible due to the massive level of parallellism in a CPU. Adding 64-bit numbers takes 64 small components to work in unison. It is a truism that everything in a computer is O[1].
 
 To finalize this module, we add multiplication, which is entirely trivial.
 ```

@@ -9,6 +9,9 @@ tags:
   - "Memory Management"
   - "Garbage"
   - "Garbage Collection"
+  - "Fragmentation"
+  - "Mark"
+  - "Sweep"
 ---
 Software uses memory to store data objects. An object may contain data such as strings or numbers, but it may also contain references to other nodes. The collection of all nodes is called a **heap**.
 
