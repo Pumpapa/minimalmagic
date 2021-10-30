@@ -4,11 +4,11 @@ languageCode = "en-us"
 paginate = "99" # Number of posts per page
 theme = "mainroad"
 disqusShortname = "" # Enable Disqus comments by entering your Disqus shortname
-googleAnalytics = "" # Enable Google Analytics by entering your tracking id
+googleAnalytics = "291765298" # Enable Google Analytics by entering your tracking id
 
 [Author] # Used in authorbox
   name = "Pum Walters"
-  bio = "Pum Walters (associate professor of softw. devp. & tech. comp. at [HU Utrecht University of Applied Sciences](https://hu.nl)) writes about Computer Science, Education and more."
+  bio = "Pum Walters writes about Computer Science, Education and more."
   avatar = "img/avatar.png"
 
 [Params]
