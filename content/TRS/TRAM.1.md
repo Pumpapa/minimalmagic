@@ -11,13 +11,17 @@ tags:
   - "Symbol"
   - "Variable"
   - "Memory Management"
+  - "Memory"
   - "Garbage Collector"
   - "Scanner"
   - "Parser"
+  - "Printer"
+  - "Rewrite Engine"
   - "Engine"
-  - "Syntax"
   - "TRAM.1"
   - "Formats"
+  - "Syntax"
+  - "Semantics"
 ---
 TRAM.1 is an implementation of term rewriting systems.  TRAM.1 is written in standard C using only a few standard libraries. TRAM.1 is small (~650 lines of code). The memory manager and garbage collector are in a certain sense efficient. TRAM.1 contains a naive, handcrafted sunny-day parser (i.e., almost without error handling). The rewrite engine is naive: rules are attempted sequentially without much compilation or optimization.
 

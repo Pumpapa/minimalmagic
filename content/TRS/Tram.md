@@ -7,7 +7,9 @@ categories:
   - "TRS"
 tags:
   - "Memory Management"
+  - "Strategy"
   - "Node"
+  - "Value"
   - "Stack"
 ---
 TRAM (Term Rewriting Abstract Machine) is an implementation of term rewriting systems. There are a few versions named TRAM.1, etcetera, in which different design-choices have been made.
