@@ -12,7 +12,7 @@ tags:
   - "Positional"
   - "Full Adder"
 ---
-## Positional Number Systems
+# Positional Number Systems
 
 As mentioned: numbers are an abstraction. One number can be **represented** in many ways, including the *positional number systems*.
 
@@ -28,13 +28,13 @@ In this case the number consists of 32 bits, but by convention we are used to wr
 
 For IPv4 this notation works, but it does have a disadvantage: each 8-bit section uses 1, 2 or 3 places in the decimal notation. 
 
-## Hexadecimal
+# Hexadecimal
 
 For this reason, **hexadecimal** is often used using the 16 digits **0-9** and **A-F**. Because 16 equals 2 ^ 2 ^ 2, a 4-bit number (which is called a **nibble**) can be written using one hexadecimal digit, and a byte as two digits.
 
 Now, long numbers can be written in a way which humans can copy at a glance. For instance, the IP (v6) number of Google's primary DNS server is: 2001:4860:4860::8888 (note: :: means all zeroes). Try it out in your browser: `https://[2001:4860:4860::8888]`.
 
-{{< figure "Wireshark" "/images/wireshark.png" right 50 >}}
+{{<figure `Wireshark` `/images/wireshark.png` right 50 >}}
 
 Other places where hexadecimal is used extensively include **memory dumps**. Memory is usually divided in bytes (8 bits) and then records (disk) or pages (memory) of 512, 1024 or 4096 bytes each (2^9, 2^10, 2^12). Memory addresses on a modern computer are typically 64 bits.
 
@@ -44,7 +44,7 @@ The left column consists of the offset within the package, the middle part shows
 
 Because memory dumps are hexadecimal, specialists specialsts using them must be able to convert hexadecimal to decimal to ascii almost on sight.
 
-### Hexadecimal to Decimal 
+## Hexadecimal to Decimal 
 
 One nibble: digits 0-9 are themselves; digits A-Z or a-z => 10-15
 
@@ -55,7 +55,7 @@ E.g. A4c9 = (10 \* 16 + 4) \* 256 + (12 \* 16 + 9) = 42185
 
 Such a calculation can be made using pen and paper.
 
-### Hexadecimal to Binary and Vice-Versa
+## Hexadecimal to Binary and Vice-Versa
 
 One nibble: learn the table by heart. 
 
@@ -73,7 +73,7 @@ Similarly, the reverse is easy:
 
 101 1100 1001 0100 1010: 5C94A
 
-### Decimal to Hexadecimal
+## Decimal to Hexadecimal
 
 If you are comfortable doing long division: repeated division by 16 noting down the remainders does the trick.
 
@@ -88,7 +88,7 @@ If you are comfortable doing long division: repeated division by 16 noting down 
 
 If not, convertion to binary is appropriate, noting down the nibble values using the table.
 
-## Two's complement
+# Two's complement
 
 One of the most effective System Engineering feats is **two's complement**: a representation of negative integers which allows the same digital electronic circuit to perform addition of negative **and** non-negative integers as well as subtraction of those numbers!
 
@@ -110,7 +110,7 @@ But most importantly, the rules for addition work whether a number is negative o
  00000000 (= zero in 8 bits, as it should be)
 ```
 
-### Conversion
+## Conversion
 
 Consider this 4-bit addition (we'll use 4-bit numbers to keep the examples small):
 
@@ -133,11 +133,11 @@ So: 00000101 => 11111010 => 11111011
 
 Interestingly, the other way round works exactly the same!
 
-## Other Data
+# Other Data
 
 What does the number `10111010101011011111000000001101` signify?
 
-### Information ≠ Data
+## Information ≠ Data
 
 It's a trick question:, you can't know. It's just data, but without context it's not information.
 
@@ -152,7 +152,7 @@ Would you believe this number (-0.0013270393) has several hits on Google?
 
 It is a Microsoft error message indicating a corrupt heap; convert to hex to get the joke!
 
-## Floating Point Numbers
+# Floating Point Numbers
 
 IEEE standard 754 is a standard for the representation of approximate real numbers:
 
@@ -163,7 +163,7 @@ IEEE standard 754 is a standard for the representation of approximate real numbe
 
 And we use only 32 bits for a number.
 
-### Scientific Notation 
+## Scientific Notation 
 
 Humans are bad at long strings of number. What would you rather get: €1341265142643 or €924395963572?
 
@@ -180,7 +180,7 @@ In the notation 1.34e12 the number 1.34 is called the **mantissa**, and 12 the *
 
 Note that the exponent can be either positive or negative. 10^-3 = 1/(10^3) = 0.001. So 1.34e-2 = 0.0134
 
-### Calculation 
+## Calculation 
 
 Calculation is straightforward. 
 
@@ -192,8 +192,8 @@ Calculation is straightforward.
 
 ---
 
-### IEEE 754
-{{< figure "Floating Point Numbers" "/images/SE1.floats.png" right 50 >}}
+## IEEE 754
+{{<figure `Floating Point Numbers` `/images/SE1.floats.png` right 50 >}}
 
 The scientific notation is used as a basis in IEEE 754 with an obvious adaptation: since we are using binary numbers, the base for the exponent is 2.
 
@@ -204,13 +204,14 @@ Since the first digit of the normalised mantissa is always 1, it isn't stored.
 The exponent can be positive or negative. We could store it as a 2's complement number, but in fact we simply offset it by 127. A typical engineering solution: this way sorting (the > operator) is the same for ints as it is for floats.
 
 For instance the representation of 0.375 is
+
 * it's positive, so first bit 0
 * 0.375 = 0.25 + 0.125 = 1/4 + 1/8 = 0.011 (bin) = 1.1e-2
 * exponent bits 125 binary: 01111101
 * mantissa bits: 100⋯0 (the first 0ne is dropped)
 * 001111101100000⋯0
 
-### Conversion to Decimal
+## Conversion to Decimal
 What floating point number does 0x40490fdb represent:
 
 * binary: 01000000010010010000111111011011
@@ -219,7 +220,7 @@ What floating point number does 0x40490fdb represent:
 * mantissa: 1.10010010000111111011011
     * Note: working with fractions of 2 soon becomes error prone. An alternative is to view this as a large integer (convert to hex) and divide by 2^23. So: 1100 1001 0000 1111 1101 1011 = 0xc90fdb = 13176795. 
 
-## ASCII
+# ASCII
 
 At their heart, computers process zeros and ones. But using positional numbers we can process all non-negative integers; using two's complement we can process negative integers; and using the floating point representation we can process (near) real numbers. In short, we can process most 'kinds' of numbers.
 

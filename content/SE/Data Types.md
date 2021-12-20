@@ -24,7 +24,7 @@ A modern ISA understands several data types (implied by an instruction):
 * Instructions
 * Others: floats, strings, very long ints (currently 512 bits), vectors, ...
 
-## Word
+# Word
 
 A ***word*** is a number of bytes that fits in a compute-register and on an ALU bus, which is often also the width of the data bus. Bytes and words can be fetched and stored in one instruction. Often other sizes can also be fetched and stored in a single instruction.
 
@@ -32,7 +32,7 @@ The order of bytes in a word, and therefore in memory, may differ between system
 
 CS experts must be aware of this possible difference to interpret memory dumps.
 
-## Addressing Modes
+# Addressing Modes
 
 The CPU is connected to memory with an ***address bus***, which is usually 16, 24 or 32 bits wide. If the bus is narrow, few addressable locations exist. To address more memory, it is sometimes split in a set of banks which can first be selected. 
 
@@ -50,34 +50,35 @@ ISA instructions locate operands in different ways:
 All modes except immediate occur as source and destination. Often many modes are available for `mv` but fewer for ALU instructions.
 
 
-{{< figure "Array" "/images/SE1.array.png" right 30 >}}
+{{<figure `Array` `/images/SE1.array.png` right 30 >}}
 
-## Larger Structures
+# Larger Structures
 
 Two essential aggregate structures are
 * An ***Array*** is a sequence of cells, each of which has the same type (bytes, words, pointers, ...). Cells are accessed by computing the address of the first cell plus the size of a cell times the index (in the sequence) of the cell of interest. This means access time to an element is constant and independent of the array size.
-* {{< figure "Struct" "/images/SE1.struct.png" right 100 >}} A ***Struct*** is a collection of cells each of which has a different type (but the types are known beforehand by the program that uses them). Cells are accessed by computing the address of the first cell plus the sum of the sizes of the cells in between. Note that a compiler 'knows' the layout of a struct and computes all offsets beforehand. This means access time to a field is constant and independent of the struct size.
+* {{<figure "Struct" "/images/SE1.struct.png" right 100>}} A ***Struct*** is a collection of cells each of which has a different type (but the types are known beforehand by the program that uses them). Cells are accessed by computing the address of the first cell plus the sum of the sizes of the cells in between. Note that a compiler 'knows' the layout of a struct and computes all offsets beforehand. This means access time to a field is constant and independent of the struct size.
 
 
 
 Arrays and structs are essential in all programming languages, though details may vary.
 
-{{< figure "Stack" "/images/SE1.stack.png" right 20 >}}
+{{<figure `Stack` `/images/SE1.stack.png` right 20 >}}
 
 * A ***Stack*** is a structure which exhibits last-in-first-out behavior: the last element added is the first one taken out. At the ISA level it is implemented with an array and a pointer into that array. Adding an element means storing it and advancing the pointer. When the pointer reaches either end of the array, it's called stack over/underflow. Unless prevented by bounds checking this is an error situation (hence the website). </reportonly>Typically recursion and function calls use a stack.
 
-* A ***Queue*** is a structure which exhibits first-in-first-out (FIFO) behavior. It can be implemented using an array. Adding happens at one end just like in a stack, but removing happens at the other end.{{< figure "Queue" "/images/SE1.queue.png" right 100 >}}  
+* A ***Queue*** is a structure which exhibits first-in-first-out (FIFO) behavior. It can be implemented using an array. Adding happens at one end just like in a stack, but removing happens at the other end.
+{{<figure `Queue` `/images/SE1.queue.png` right 100 >}}  
 So there are two additional aspects:
     * A second pointer is used to keep track of the removal point. When the two pointers meet there is over- or underflow (depending on the operation)
     * When the insertion pointer meets the end of the array, it can be moved and insertions can continue (until the other pointer is met). The queue has two states: insertion above or below removal.
 
-{{< figure "Linked List" "/images/SE1.linked.png" right 40 >}}
+{{<figure `Linked List` `/images/SE1.linked.png` right 40 >}}
 
 * A ***Linked List*** is set of structs each of which includes a pointer to another struct in the set (and other data). The order of structs in the list isn't determined by their address but is encoded in the links. A linked list can easily exhibit FIFO and LIFO behavior, so they are used for stacks and queues when performance isn't crucial.
-{{< figure "Binary Tree" "/images/SE1.bintree.png" right 40 >}}
+{{<figure `Binary Tree` `/images/SE1.bintree.png` right 40 >}}
 * Many other pointer-based structures exist, optimized for different sorting and searching circumstances. For instance, using this ***binary search tree*** we can determine set-inclusion of a number by following at most three pointers.
 
-## Memory Pyramid
+# Memory Pyramid
 
 We've seen two types of memory: registers and DRAM. Registers are faster (closer to the ALU) but require more transistors (more chip surface). DRAM is slower (separate chip) but offers more bang-per-buck (lower cost per bit).
 
@@ -93,7 +94,7 @@ System Engineering is about finding the perfect balance between cost and perform
 
 ---
 
-### Caches
+## Caches
 
 A cache is a block of fast memory in which a copy of data from slower memory is kept in order to access that data faster. When the cache's copy is altered, it is called *dirty* and it's up to the caching system to copy that data back to slow memory.
 
@@ -103,8 +104,8 @@ A Level 1 cache is located in a processor core (there can be more than one). Oft
 
 Note that in a multi-core system L1 and L2 caches introduce an engineering challenge: a change by one core in its cache may invalidate another core's cache. If a second core loads a memory page stored in one core's cache, that page must be offloaded into an L3 cache.
 
-### Virtual Memory
+## Virtual Memory
 
 The same principle is used to cache disk content in memory. This type of cache goes by the name Virtual Memory and will be discussed separately.
 
-{{< figure "Linked List" "/images/SE1.linked.png" right 40 >}}
+{{<figure `Linked List` `/images/SE1.linked.png` right 40 >}}

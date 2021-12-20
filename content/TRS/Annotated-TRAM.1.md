@@ -21,13 +21,15 @@ tags:
   - "TRAM.1"
 ---
 In this section the full source of TRAM.1 (version of Oct 2021) is annotated.
-### Standard libraries
+
+# Basics
+## Standard libraries
 ```C
 #include <stdio.h>  
 #include <stdlib.h>  
 #include <stdint.h>  
 ```
-### Single Error Logger
+## Single Error Logger
 ```C
 #define error(...) {\  
     fprintf( stderr, "***ERROR***\n"); \  
@@ -37,7 +39,7 @@ In this section the full source of TRAM.1 (version of Oct 2021) is annotated.
     exit(1); \  
 }  
 ```
-### Tagged Value Type
+## Tagged Value Type
 ```C
 typedef uint32_t tval; // tagged value  
   
@@ -47,58 +49,59 @@ typedef uint32_t tval; // tagged value
 // LVvvv0..011 var: V=[*&A-Z], v=[^A-Za-z0-9] or null (right-to-left), L=1 if longer than 4  
 // ffffFL11 id, F=[@$A-Z], f=[^A-Za-z0-9] or null (right-to-left), L=1 if longer than 5  
 ```
-### Predicates for Node, Variable, Symbol
+## Predicates for Node, Variable, Symbol
 ```C
 #define isREF(t) (((t)&1)==0)  
 #define isNREF(t) (((t)&1)==1)  
 #define isVAR(t) (((t)&0xff)==3)  
 #define isFUN(t) (((t)&3==3)&&((t)&0xff)>3)  
 ```
-### Conversion Pointer <==> Reference-value
+## Conversion Pointer <==> Reference-value
 ```C
 #define ref(t) (mem+(t)/2)  
 #define idx(r) ((r-mem)*2)  
 ```
-### Node Structure
+## Node Structure
 ```C
 typedef struct _node {  
     tval car, cdr, nxt;  
 } node;  
 typedef node *ref; 
 ```
-### Forward Declaration
+## Forward Declaration
 ```C
 ref new(tval x,tval y);  
 ```
-### Stack Manipulation
+## Stack Manipulation
 ```C
 #define Push(X,a) X=new(a,idx(X));  
 #define Pop(X) X->car; X=ref(X->cdr);  
 #define PopRef(X) ref(X->car); X=ref(X->cdr);  
 ```
-### Declaration of Memory and Mem Mngmnt Variables
+## Declaration of Memory and Mem Mngmnt Variables
 ```C
 int MEMSIZE=100000; //nodes  
 ref mem, usedNodes, freeNodes;  
 #define nil mem  
 ```
-### Debugging Levels
+## Debugging Levels
 ```C
 int Dbg=0;  
 enum DbgSt {DNone,DIO,DGC,DSteps,DStepDump,DCycles};  
 //debug levels -- 0: none, 1: I/O, 2: gc, 3: rewr steps, 4:: dump steps, 5:dump cycles  
 ```
-### Counters for Logging
+## Counters for Logging
 ```C
 int Drulei,Drewrcnt=0; 
 ```
-### GC Registers
+# Memory Management and Garbage Collector
+## GC Registers
 ```C
 //registers safe from GC  
 ref P, S, X;  
 tval T, V;  
 ```
-### Memory Initialisation
+## Memory Initialisation
 ```C
 void init() {  
     if (sizeof(tval)!=4 || sizeof(node)!=12) {  
@@ -115,14 +118,14 @@ void init() {
     T = V = 0;  
 }  
 ```
-### Node Bit Manipulation
+## Node Bit Manipulation
 ```C
 #define MARK 1  
 #define set(t,n) ((n)|=(t))  
 #define has(t,n) ((n)&(t))  
 #define rst(t,n) ((n)&=(~(t)))  
 ```
-### Garbage Collection
+## Garbage Collection
 Memory Management is discussed in [Section Memory Management](https://www.minimalmagic.blog/trs/memorymanagement/).
 ```C
 int gen=0;  
@@ -169,7 +172,7 @@ void gc() {
    if (Dbg>=DGC) fprintf( stdout, "%ld freed\n",cnt);  
 }  
 ```
-### New Node
+## New Node
 ```C
 ref new(tval x, tval y) {  
     if (freeNodes==nil) {  
@@ -187,11 +190,12 @@ ref new(tval x, tval y) {
     return tmp;  
 }  
 ```
-### Forward Declaration
+# I/O
+## Forward Declaration
 ```C
 void pval(tval v,int nl);  
 ```
-### Scanner / Parser 
+## Scanner / Parser 
 Scanner / Parser discussed in [Section Converting from C to Tram (Scanner/Parser)](https://www.minimalmagic.blog/trs/convertingctotram/)
 ```C
 FILE *in;  
@@ -336,7 +340,7 @@ tval readTerm(char *nm) {
     }  
 }  
 ```
-### Rewrite Engine States 
+## Rewrite Engine States 
 These values are used to represent states of the rewrite engine. For debugging purposes the print-names of those states are defined.
 ```C
 enum states {BURED=1000, BUDONECDR, BUDONEBOTH, TOPRED, FORRULES, MATCH, MATCHDONE, MATCHDONECAR,  
@@ -344,12 +348,12 @@ enum states {BURED=1000, BUDONECDR, BUDONEBOTH, TOPRED, FORRULES, MATCH, MATCHDO
 const char * prstates[] = {"BURED", "BUDONECDR", "BUDONEBOTH", "TOPRED", "FORRULES", "MATCH", "MATCHDONE", "MATCHDONECAR",  
     "INSTDONECAR", "INSTDONEBOTH", "BUILD", "ALLDONE", "INST", "INSTCONT"};  
 ```
-### Conversion for Data Values 
+## Conversion for Data Values 
 ```C
 #define asDTA(d)  1+4*d  
 #define PopDTA(X) (X->car-1)>>2; X=ref(X->cdr);  
 ```
-### Function Symbol Constants
+## Function Symbol Constants
 These constants are used by the CLI-interpreter in conversion from string to term representation. These aren't [magic constants](https://en.wikipedia.org/wiki/Magic_number_(programming), but rather pre-encoded symbols `eos`, `str`, `lst` and `eol`.
 ```C
 #define FSYMeos 0xD380003B  
@@ -357,21 +361,21 @@ These constants are used by the CLI-interpreter in conversion from string to ter
 #define FSYMlst 0xE3900073  
 #define FSYMeol 0xD310003B  
 ```
-### Identifier Decoding 
+## Identifier Decoding 
 Auxiliary values to decode identifiers
 ```C
 char *var0="~*&ABCDEFGHIJKLMNOPQRSTUVWXYZ",  
 *idc="~^0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz", 
 *fun0="~@$abcdefghijklmnopqrstuvwxyz"; 
 ```
-### Optionally Print
+## Optionally Print
 'Short' identifiers are filled with zeroes; `qpc` prints a character only if it's index isn't zero.
 ```C 
 void qpc(char const c) {  
     if (c!='~') fprintf(stdout, "%c",c);  
 }  
 ```
-### Print Value (Reference, Date, Variable or Symbol) 
+## Print Value (Reference, Date, Variable or Symbol) 
 ```C
 void pval(tval v,int nl) {  
     if ((v&1)==0) {//ref  
@@ -390,7 +394,7 @@ void pval(tval v,int nl) {
     if (nl) fprintf(stdout, "\n");  
 }  
 ```
-### Print Term
+## Print Term
 Print a term; `flats` requests flat strings, i.e., terms such as `str('o',str('n',str('e',eos)))` to be printed as `"one"` to help in debugging.
 ```C
 int flats=0;  
@@ -447,7 +451,7 @@ void ptrm(tval t) {
     }  
 }  
 ```
-### Print TRS 
+## Print TRS 
 ```C
 void pprg(ref p) {  
     while(p!=nil) {  
@@ -460,7 +464,7 @@ void pprg(ref p) {
     fprintf(stdout, "\n");  
 } 
 ```
-### Rewrite Engine
+# Rewrite Engine
 Discussed in [Section # Converting Rewrite Engine from Tram to C](https://www.minimalmagic.blog/trs/convertingtramtoc/)
 ```C
 ref reduce (/*tval T, ref P*/) {  
@@ -617,7 +621,7 @@ loop: //full-reduce is BURED
     }  
 }  
 ```
-### `rcat`, `rev`
+## `rcat`, `rev`
 Auxiliary functions to reverse a string or list.
 ```C
 ref rcat(ref r, ref s) {//prepend reverse r to s  
@@ -629,7 +633,7 @@ ref rcat(ref r, ref s) {//prepend reverse r to s
 }  
 #define rev(r) rcat(r,nil)  
 ```
-### CLI Interpreter 
+# CLI Interpreter 
 ```C
 int main(int argc, char *argv[]) {  
     int i=1;  

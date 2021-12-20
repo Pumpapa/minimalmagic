@@ -12,7 +12,7 @@ tags:
   - "Multiplication"
 ---
 Tram does not offer built-in integers, which may seem an omission, but being unopinionated is at odds with built-in data types.  However, numbers are part and parcel with computing, so they can't be missed. [Elsewhere](https://www.minimalmagic.blog/trs/termrewriting/) we have seen how sets can represent numbers (Peano numbers), and how terms can also be used to represent numbers. For instance, addition on `s-z` numbers is defined in the TRS
-```
+```Prolog {linenos=false}
 a(s(X),Y) = s(a(X,Y));
 a(z,X) = X;
 ```
@@ -29,7 +29,7 @@ Before proceeding we need to sanitize this specification, because currently dist
 
 The rules to 'fix' (i.e. reduce) such spurious terms are:
 
-```
+```Prolog {linenos=false}
 bin(#0,X) = X;
 bin(X,bin(Y,Z)) = bin(add(X,Y),Z);
 ```
@@ -37,18 +37,20 @@ bin(X,bin(Y,Z)) = bin(add(X,Y),Z);
 Note that the second rule is intuitively obvious if one takes `bin(A,B)` in a binary positional numbering system to mean `2*A+B`. Then `bin(X,bin(Y,Z))` is `2*X+(2*Y+Z)`, which is `2*(X+Y)+Z`
 
 How can one be certain these are the only spurious terms that might occur? There are two answers:
+
 * The TRS described here also appears in [(Walters & Zantema, 1995)](https://www.minimalmagic.blog/references/). That article proves that the TRS is confluent and terminating (which implies every term has a unique normal form), and that the normal forms coincide with the non-negative integers.
 * A more intuitive answer is based on the following observation: every `bin`-term corresponds to a parenthesised binary number, i.e. a binary number in which as many balanced meaningful parentheses have been inserted as possible (here, we call the outer parentheses in `1((01))` meaningless because they do not alter the tree-shape).  For three bits this results in the two strings `(10)1` and `1(01)`.  
 If every right-associated string is reduced, only left-associated strings remain, and they coincide trivially with binary numbers
 
 This TRS requires the definition of addition:
-```
+```Prolog {linenos=false}
 add(#0,X) = X;
 add(#1,#1) = bin(#1,#0);
 add(bin(X,Y),Z) = bin(X,add(Y,Z));
 ```
 
 Completenes of these rules (proved in [(Walters & Zantema, 1995)](https://www.minimalmagic.blog/references/)) is intuitively clear when one considers
+
 * The normal forms of this system are `#0`, `#1` and `bin(P,Q)`, for normal forms `P` and `Q`.
 * `add` applied to a normal form can always be reduced.
 * When it is reduced, the first argument of `add` is smaller (`Y` is smaller than `bin(X,Y)`)
@@ -66,20 +68,21 @@ Completenes of these rules (proved in [(Walters & Zantema, 1995)](https://www.mi
 In five rules we have now defined binary numbers with addition. The number of bits required to store a value are the same order (differing only a constant factor) as the term representation. The complexity of addition using this TRS is the same as that of adding binary numbers, although, admittedly, adding an `N`-bit number using this TRS takes `O(N)` steps whereas [adding integers in a CPU](https://www.minimalmagic.blog/se/bigger-things/) takes a single clock cycle. However, that feat is only possible due to the massive level of parallellism in a CPU. Adding 64-bit numbers takes 64 small components to work in unison. It is a truism that everything in a computer is O[1].
 
 To finalize this module, we add multiplication, which is entirely trivial.
-```
+```Prolog {linenos=false}
 mul(#0,N) = #0;
 mul(#1,N) = N;
 mul(bin(A,B),C) = bin(mul(A,C),mul(B,C));
 ```
 
 The module `BinaryNumbers` in TRAM.1's test suite has a few additional rules:
+
 * Generic function `eqn` is defined elsewhere
 * Equality of data `#0` and `#1` is defined elsewhere
 * Symmetrical rules for `add` are added for speed
 * The more complex form of `mul` is used for speed
 * `succ` is a short-hand 
 
-```
+```Prolog {linenos=false}
 bin(#0,X) = X;
 bin(X,bin(Y,Z)) = bin(add(X,Y),Z);
 

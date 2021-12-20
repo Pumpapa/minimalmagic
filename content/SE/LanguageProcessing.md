@@ -14,7 +14,7 @@ tags:
   - "RPN"
   - "JIT"
 ---
-## Assembler
+# Assembler
 
 A CPU fetches bits from memory and decodes and executes them, which means that bits are altered here and there. All a CPU sees are bits -- numbers. People aren't too good at numbers. Programming a computer using bits or even hexadecimal would be disastrously complex.
 
@@ -31,7 +31,7 @@ Assembler offers
 
 We could look into manuals and tutorials to study assembly, but there is a much more effective way: study it on your own computer. The ***GNU C compiler*** offers all one needs.
 
-### The GNU C compiler
+## The GNU C compiler
 
 Every Linux machine, VM or Mac either has `gcc` installed, or it's easy to do so.
 Gcc compiles C to executable, but can also produce assembly language code.
@@ -50,9 +50,9 @@ int main() {
 }
 ```
 
-{{< figure "Assembly" "/images/SE1.ASM.png" right 40 >}}
+{{<figure `Assembly` `/images/SE1.ASM.png` right 40 >}}
 
-### Assembly
+## Assembly
 
 * labels are at the beginning of a line followed by a colon. They are used for jump-to (jmp) or jump-on-greater (jg).
 * most lines have the form  `opc oprnd` where `opc` is an opcode: the name of an ISA instruction, and `oprnd` are the zero or more operands that instruction requires.
@@ -65,21 +65,26 @@ compares `i` (located 12 bytes below the frame pointer) with 30 and jumps (i.e. 
 * note that by using labels we avoid having to count the number of instruction bytes. The assembler translates the label to an appropriate offset.
 * the C language statement `s += i;` translates to three instructions: `i` is put in the general purpose register `eax`, then `s` is added to it, and then the result is stored in `s`.
 
-### Machine Language
+## Machine Language
 
 Below is a snippet of the machine code taken from the executable of this program. The use of numbers such as 55, allows us to quickly determine the location of this snippet.
 
 Using the knowledge we now have, we can already interpret this snippet to some degree.
 
 
- {{% exercise %}}
+{{%exercise%}}
+
 The values at address `0f42`...`0f45` are `37 00 00 00`. `37` hex = `55` decimal, so the least significant byte occurs first, so this machine is little-endian.
-{{% /exercise %}}
+
+{{%/exercise%}}
 
 1. Exercise:  if I tell you `c7 45` is `movl`, can you tell me if this machine is little endian or big endian?  
-{{< figure "Machinecode" "/images/SE1.machinecode.png" right 100 >}}
 
-### Lower & Higher Level Languages
+{{<figure `Machinecode` `/images/SE1.machinecode.png` center 100 >}}
+
+
+
+## Lower & Higher Level Languages
 
 Assembly is called low-level because it doesn't offer any abstraction mechanisms beyond labels, opcodes and macro's. 
 
@@ -89,7 +94,7 @@ Java, C#, JavaScript and Python offer Object Orientation, a complex scala of par
 
 So, lower vs higher is a relevant distinction, but most languages are in fact high-level.
 
-## Functional vs Imperative Languages
+# Functional vs Imperative Languages
 
 All languages mentioned so far are **imperative**: statements (assignments) change an existing state.
 
@@ -101,7 +106,7 @@ Not a single assignment in sight. It just defines and calls a function. It does 
 
 A **functional language** is a language which isn't imperative. Javascript is both functional and imperative.
 
-### Is There Something Wrong With Imperative Languages?
+## Is There Something Wrong With Imperative Languages?
 
 Mutability is a source of bugs. Consider this snippet of code
 
@@ -119,12 +124,12 @@ One key reason: immutability. Erlang data structures can not be changed.
 
 There is no other language in the world that is as reliable as Erlang (and derived languages such as Elixir).
 
-## Compilation
+# Compilation
 
 An assembler translates assembly into object code: a sequence of numbers. Such a process is called **compilation**. The C compiler compiles a program either into assembly or directly into object code. 
 In general, compilation is the process of translating one (computer) language into another.
 
-### Source-to-ISA Compilation Phases
+## Source-to-ISA Compilation Phases
 
 * Lexical Analysis. Combining character sequences into logical units called tokens: identifier, keyword, operator, etc.
 * Syntax Analysis. Determining the grammatical structure of token-sequences into an 'abstract syntax tree' structure which reflects the containment hierarchy
@@ -134,7 +139,7 @@ In general, compilation is the process of translating one (computer) language in
 * Code Generation. Finally, generate actual ISA instructions.
 * Symbol Table. All identifiers needed 
 
-### Compilation, and what's wrong with it
+## Compilation, and what's wrong with it
 
 The main disadvantage of compilation is portability. In order to work on a platform, the compiler must be implemented specifically for that platform (not only the ISA, of which there are a few hands full, but also the OS, of which there are many).
 
@@ -142,7 +147,7 @@ For C this needs to be done anyway: most OSs are written in C.
 
 For other languages this development would be prohibitively expensive.
 
-### Compilation and Virtual Machines
+## Compilation and Virtual Machines
 
 The common solution to the problem of portability of compiled code is "Virtual Machines".  This is a concept similar to using an ISA to provide a standard "virtual processor" which is implemented on different platforms by different microarchitectures.
 
@@ -154,7 +159,7 @@ The language compiler itself is often written in its own language, so once the V
 
 The Virtual Machine is generally written in C and requires only mild adaptations to any new platform, so porting the VM is usually straightforward. 
 
-### Some Common Virtual Machines
+## Some Common Virtual Machines
 
 *<small>Note that these virtual machines are entirely different from the VMs used to run, say, Linux on a Windows machine</small>*
 
@@ -163,7 +168,7 @@ The Virtual Machine is generally written in C and requires only mild adaptations
 * **Beam**: the Erlang virtual machine, supports a handful of languages aimed at its specific conceptual model
 * **Python Virtual Machine**: supports mostly Python and derivatives
 
-## Interpretation
+# Interpretation
 
 Once a compiler has translated a source program into the 'machine language' of a virtual machine, there are two ways to proceed. 
 
@@ -173,13 +178,13 @@ Another way is ***Interpretation***. Just as the µarchitecture fetches, decodes
 
 An interpreter is a program that interprets instructions in some language one by one, and mimics their effect on the machine state.
 
-### Bytecode
+## Bytecode
 
 Few languages are interpreted at the source code level, because that would mean that the analysis of the source text (syntax, grammar, validation) would have to be done repeatedly. If the source language is high-level, any sensible interpreter would first analyze the source text and translate it to some intermediate language, suited for direct interpretation.
 
 In practice, any such intermediate language is modeled as a virtual machine. Since the instructions of this machine are commonly represented as numbers, or bytes, (just as ISA instruction), the language for such a machine is often called bytecode.
 
-### Reverse Polish Notation (RPN)
+## Reverse Polish Notation (RPN)
 
 How much is `(((5-3)*(7+1)-(6-4)*(4-3))+((5-2)*(2-5)+(6-3)*(4-2)))`?
 
@@ -203,7 +208,7 @@ To compute RPN we need a stack (to hold the data, operands and intermediate resu
 
 Here, below every item the content of the stack is shown **when that item is processed**
 
-{{< figure "RPN" "/images/SE1.rpn.png" right 100 >}}
+{{<figure `RPN` `/images/SE1.rpn.png` right 100 >}}
 
 
 ```
@@ -217,11 +222,11 @@ Here, below every item the content of the stack is shown **when that item is pro
 
 RPN can handle arbitrarily complex expressions. It can be optimized by using registers to make it faster than simply using the memory-based stack. Interesting note: in the earlier phases, compilers often use RPN!
 
-### PDF
+## PDF
 
 Some languages are built entirely around RPN. Today, one notable example is PDF. If you open the contents of a pdf document as a text-file, you'll see lots of encoded data, but also snippets written in the RPN-based PDF programming language.
 
-## Language Processing
+# Language Processing
 
 Most modern language processing systems consist of something like the following phases:
 
@@ -237,7 +242,7 @@ bytecode: interpreted by VM
 bytecode =======> C/assembler =======> ISA: interpreted by µArch
 ```
 
-### Linking
+## Linking
 
 Libraries are an important tool in software development because they allow us to leverage earlier work. When compiling a program that uses libraries it wouldn't be sensible to have to compile the entire library again. But that poses a problem: when we call a function in the library, we must know its address. Where is that?
 
@@ -246,7 +251,7 @@ Running code using ***statically linked libraries*** requires an initial step: *
 Today, we also use ***dynamically linked libraries***. They are called using a slightly different mechanism which allows the OS to link them when the code is already running. There is a slight overhead.
 
 
-### JIT
+## JIT
 
 Compilation takes time. For some languages, linked libraries are appropriate. However in some other circumstances, another principle is used: just-in-time compilation (JIT). The library isn't compiled, and maybe not even loaded until it is actually used. More likely, the libraries are compiled to bytecode, but the second phase (ISA-compilation and linking) happens "JIT".
 

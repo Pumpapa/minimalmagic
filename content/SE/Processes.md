@@ -23,9 +23,9 @@ The OS maintains administration of many aspects including:
 * pending I/O
 * resources sharing or exclusively using
 
-## Resource & Process Management
+# Resource & Process Management
 
-{{< figure "Process Table" "/images/SE1.procestab.png" right 60 >}}
+{{<figure `Process Table` `/images/SE1.procestab.png` right 60 >}}
 
 * Memory tables 
 (partly discussed for VM)
@@ -37,7 +37,7 @@ of the hierarchical file system
 * The process table contains information 
 (state etc) on all known processes
 
-### Process Table
+## Process Table
 
 * User Program + Data (e.g. Stack)
 * Process Control Block
@@ -53,7 +53,7 @@ of the hierarchical file system
     * Memory Mngmnt
     * Resource ownership & Utilization (files, CPU use statistics)
 
-### Memory Management
+## Memory Management
 
 OS responsibilities:
 
@@ -65,7 +65,7 @@ OS responsibilities:
 * **Modular programming support**: creation, destruction and change of program modules
 * **Persistance**: access to long term storage
 
-### Information Protection
+## Information Protection
 
 * **Availability**: an information service must be accessible for intended use (think of DDOS)
 * **Confidentiality**: information must be accessible to intended parties and not to others (think of phishing)
@@ -73,7 +73,7 @@ OS responsibilities:
 * **Authenticity**: information sources (when intended to be accessible) should be true (think of spoofing)
 * **Accountability**: all changes can be traced to identities
 
-## Scheduling
+# Scheduling
 
 which process gets access to the two main resources: CPU and memory?
 
@@ -85,7 +85,7 @@ add to the pool of running processes (allow into CPU)
 * **I/O**: management sleep/wakeup for I/O
 
 
-### Scheduling Goals
+## Scheduling Goals
 
 * **Fairness**: the current Linux scheduler is called *'Completely Fair Scheduler'*, which uses a **red-black-tree** (a *self-balancing binary search tree*) to maintain a timeline for every process adding real or virtual (when waiting) nanoseconds towards priority.
 * **Differential Responsiveness**: individual applications may need priority (phone=>real-time scheduler, first-person shooter=> works better in windows)
@@ -93,7 +93,7 @@ add to the pool of running processes (allow into CPU)
 
 These goals are often conflicting
 
-### Short-term scheduling aka Dispatch
+## Short-term scheduling aka Dispatch
 
 which ready process to execute next?
 
@@ -108,7 +108,7 @@ which ready process to execute next?
 	* throughput
 	* qualitative criteria such as predictability
 
-{{< figure "Source: Richard Stallings, Operating Systems: Internals and Design Principles" "/images/SE1.dispatch.png" right 60 >}}
+{{<figure `Source: Richard Stallings, Operating Systems: Internals and Design Principles` `/images/SE1.dispatch.png` right 60 >}}
 
 <small>
 *Source: Richard Stallings, Operating Systems: Internals and Design Principles*
@@ -121,11 +121,12 @@ which ready process to execute next?
 * feedback: give lower priority to long-running processes
 
 
-### Process State
+## Process State
 
-{{< figure "9 State Transition Diagram" "/images/SE1.9state.png" right 60 >}}
+{{<figure `9 State Transition Diagram` `/images/SE1.9state.png` right 60 >}}
 
 Represents whether a process can run (or possibly why not). The book builds up to the seven state model, but we've added two here for run-level and preemption state.
+
 * New: process has just been created
 * Ready/Suspended: ready process is moved to disk to free up memory
 * Ready: process is ready in memory waiting for CPU and not for I/O
@@ -137,7 +138,7 @@ Represents whether a process can run (or possibly why not). The book builds up t
 * Blocked/Suspended: has been moved from memory to disk
 * Zombie: finished, no resources but still in table (for parent)
 
-### Termination
+## Termination
 
 * Normal completion
 * Time limit exceeded
@@ -154,7 +155,7 @@ Represents whether a process can run (or possibly why not). The book builds up t
 * Parent terminated
 * Parent request
 
-## Processes vs Threads
+# Processes vs Threads
 
 Process:
 
@@ -180,14 +181,14 @@ Thread has
 
 Threads are 'light', Processes are 'heavy'
 
-### Thread Uses
+## Thread Uses
 
 * Foreground (UI) / Background (Logic, Data)
 * Async
 * Modularity
 * Parallelism
 
-### Thread Types
+## Thread Types
 
 * User-level threads  
 the application manages (using a thread library). The kernel doesn’t ‘see’ threads (only the entire process has a state).

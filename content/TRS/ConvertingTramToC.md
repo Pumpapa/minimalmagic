@@ -11,23 +11,24 @@ tags:
 ---
 Section [Tram -- A Meta-Interpreter](https://www.minimalmagic.blog/trs/termrewriting/) describes a rewrite engine on meta-terms. That specification is used as the basis for the C implementation in TRAM.1.
 
-### States
+## States
 A big difference between term rewriting and the C programmers' model is the limited availability of recursion in C. [Section Converting a Scanner from C to Tram](https://www.minimalmagic.blog/trs/convertingctotram/) uses an explicit  stack to avoid recursion in C, in a way transforming a recursive descent parser to a push-down automaton.
 
 But the simple parser has only a single state in which recursion is initiated (after reading a `(`), and only a single state after which it is returned from (after `)`). In the rewrite engine, more states exist. Consider the first two rules in the meta-interpreter:
 
- ```Prolog
+```Prolog
 burewr(trm(F,As),Rs) = toprewr(trm(F,burewr(As,Rs)),Rs);
 burewr(arg(A,As),Rs) = arg(burewr(A,Rs),burewr(As,Rs));
 ```
 In Rule 1, after `burewr`  returns a result, `toprewr` must be called. That pqttern, *after this do that,* suggests a state, which is either maintained explicitly or returned by `burewr` (in this case). In Rule 2 there are two recursive calls to `burewr`, so these are (at least) two additional states.
 
-### Nodes
+## Nodes
 A second difference between the meta-terms and the reewrite engine has been discussed in [Section Nodes](https://www.minimalmagic.blog/trs/tram/): TRAM represents terms as nodes (structures with two fields: `car` and `cdr`) (ignoring memory management for the moment). This means 
-* there is no distinction (in TRAM) between `trm(...)` and `arg(...)`. A `trm(...)` head-node is recognized by the fact that the `car` is a symbol
-* a variable in the meta-term representation (`var(name)` is a base value in TRAM (a 32-bit value with least significant byte binary 00000011)
 
-### Basics
+* there is no distinction (in TRAM) between `trm(...)` and `arg(...)`. A `trm(...)` head-node is recognized by the fact that the `car` is a symbol
+* a variable in the meta-term representation (`var(name)`) is a base value in TRAM (a 32-bit value with least significant byte binary 00000011)
+
+## Basics
 The entire implementation of TRAM.1 is [discussed in this section](https://www.minimalmagic.blog/trs/annotated-tram.1/), so here we only mention a few primitives used in the rewrite engine.
 
 * predicates to discern values  
@@ -58,7 +59,7 @@ ref new(tval x,tval y);
 #define PopRef(X) ref(X->car); X=ref(X->cdr);  
 ```
 
-## TRAM.1's Rewrite Engine
+# TRAM.1's Rewrite Engine
 
 The meta-interpreter discussed in [Section Term Rewriting](https://www.minimalmagic.blog/trs/termrewriting/#a-meta-interpreter).
 
@@ -76,27 +77,30 @@ ref reduce (/*tval T, ref P*/) {
     	switch (state) { // T is subject term, V is result
 ```
 
-### `burewr`
-{{<highlight prolog "linenos=false">}}
-1   burewr(trm(F,As),Rs) = toprewr(trm(F,burewr(As,Rs)),Rs);
-2   burewr(arg(A,As),Rs) = arg(burewr(A,Rs),burewr(As,Rs));
-3   burewr(eoa,Rs) = eoa;
-{{</highlight>}}
+## `burewr`
+```Prolog {linenos=false}
+ 1   burewr(trm(F,As),Rs) = toprewr(trm(F,burewr(As,Rs)),Rs);
+ 2   burewr(arg(A,As),Rs) = arg(burewr(A,Rs),burewr(As,Rs));
+ 3   burewr(eoa,Rs) = eoa;
+```
 
 Note that in TRAM there is no structural distinction between `trm(...)` and `arg(...)`.
 
 Rules 1-3 of the meta-interpreter define bottom-up rewriting. An imperative description of rules 1-3 is:
+
 * Rules 1-2 push down `burewr` through an entire tree, such that `burewr` is applied to each node in that tree, which replaces that node with it's `burewr` image
 * Rule 3 states that an empty tree isn't changed by `burewr`
 * Rule 1 states that once a proper sub-term has been normalised, `topred` should be applied.
 
 Four states can be distinguished:
+
 * `BURED`, the initial state
 * `BUDONECDR`. TRAM implements the right-most innermost strategy, so the sub-term `burewr(As,Rs)` is reducede first (in rules 1 and 2). The result will be captured by the state at which the `cdr` of the `arg(...)` or `trm(...)` node has been handled (`BUDONECDR` for bottom-up, done cdr)
 * `BUDONEBOTH` is self-describing. In case of Rule 2, `burewr` has been applied to the entire tree; in case of Rule 1, the next state should now be visited:
 * `TOPRED`, try to reduce a term at root level
 
 Lines
+
 * 2-4: A base value or the null pointer is irreducible (as in Rule 3). Pop the next state
 * 7-9: Otherwise, save the `car`, push the subsequent state, and continue with the `cdr`
 * 12-15: Pop the `car`, push the normalized `cdr` and the subsequent state, and recurse
@@ -135,21 +139,23 @@ case BUDONEBOTH: //(V is car), tos is cdr
 ```
 
 
-### `toprewr`
-{{<highlight prolog "linenos=false">}}
+## `toprewr`
+```Prolog {linenos=false}
 4   toprewr(T,Rs) = toprewrRule(T,Rs,Rs);
 5   toprewrRule(T,trm("rl",arg(L,arg(R,arg(Rs,eoa)))),TRS)
     = match(L,T,eol,eoa,eoa,R,T,Rs,TRS);
 6   toprewrRule(T,trm("eor",eoa),Rs) = T;
-...
+. . .
 10  match(eoa,eoa,E,eoa,eoa,R,T,Rs,TRS) =  inst(R,E,TRS);
-...
+. . .
 13  matchq(X,Fs,Gs,E,As,Bs,R,T,Rs,TRS) = toprewrRule(T,Rs,TRS);
-{{</highlight>}}
+```
+
 
 Function `toprewr` sets up for `toprewrRule` to attempteach rule in the program/TRS in function `match` . If this succeeds, the right-hand side is instantiated (Rule 10); if it fails, function `match` should attempt the next alternative (Rule 13).
 
 Five states can be distinguished:
+
 * `TOPRED`, as mentioned, sets up the loop at root level
 * `FORRULES`, a 'for' loop over all rules
 * `MATCH`, the state in which a term is matched
@@ -181,13 +187,15 @@ case FORRULES: //(f,t,p, T, P)
 case MATCH: //(t,pat,sub,p, T, P)
 ```
 Lines
+
 * 3-5: set up loop
 * 9-10: no match, build the term
 * 14-15: the outermost function symbol of the subject term and that of the left-hand side of the rule **differ**; the next rule is attempted
 * 18-21: the outermost function symbol of the subject term and that of the left-hand side of the rule **are the same**; matching is set up with an as-yet empty substitution
 
-### `match`
+## `match`
 The arguments in `match(X,ST,E,As,Bs,R,T,Rs,TRS)` are:
+
 * `X`: the current pattern (sub-term of the left-hand side of the rule)
 * `ST`: the current sub-term being matched
 * `E`: the substitution in the form of `tab(<variable-name>,<value>,<rest-of-substitution>)`. No check is done to see if the variable was already defined. That would constitute a non-linear TRS
@@ -197,7 +205,7 @@ The arguments in `match(X,ST,E,As,Bs,R,T,Rs,TRS)` are:
 * `Rs`: the remaining rules, to be used if matching fails
 * `TRS`: the entire rewrite system, to be used after the current subject term is reduced
 
-{{<highlight prolog "linenos=false">}}
+```Prolog {linenos=false}
 7   match(var(N),ST,E,As,Bs,R,T,Rs,TRS)
     = match(As,Bs,tab(N,ST,E),eoa,eoa,R,T,Rs,TRS);
 8   match(trm(F,Fs),trm(G,Gs),E,As,Bs,R,T,Rs,TRS)
@@ -210,9 +218,10 @@ The arguments in `match(X,ST,E,As,Bs,R,T,Rs,TRS)` are:
 12  matchq(true,Fs,Gs,E,As,Bs,R,T,Rs,TRS) 
     = match(Fs,Gs,E,As,Bs,R,T,Rs,TRS);
 13  matchq(X,Fs,Gs,E,As,Bs,R,T,Rs,TRS) = toprewrRule(T,Rs,TRS);
-{{</highlight>}}
+```
 
 The logic is straightforward:
+
 * Rule 7-11 match different forms of a pattern
 * Rule 7 matches a variable, which always succeeds, and which results in substitution being extended
 * Rules 8-9 match term-trees. Note that matching a `trm(...)`  against an `arg(...)`would signify a syntactical error in the subject term or TRS
@@ -223,6 +232,7 @@ The logic is straightforward:
 * Rules 12-13: auxiliary function `matchq` proceeds or fails, according to (in) equality of symbols
 
 Five states can be distinguished:
+
 * `MATCH`, `MATCHDONE`: as mentioned
 * `fail` is not a state but a lable to be jumped to when matching fails
 *  `MATCHDONECAR`: the `car` has been verified; continue with the `cdr`
@@ -270,6 +280,7 @@ case MATCHDONE://(sub,p)
 case INST: //(pat,sub)
 ```
 Lines
+
 * 3: if the pattern is a node, and the sub-term is not, matching fails
 * 4-8: otherwise, push the `cdr`'s and continue with the `car` (i.e., recurse)
 * 11-13: add a variable and value to the substitution
@@ -278,10 +289,10 @@ Lines
 * 30-32: pop the cdr and continue matching
 * 35-36: get and instantiate the right-hand side
 
-### `inst`
+## `inst`
 Function `inst` is trivial; no additional states ensue.
 
-{{<highlight prolog "linenos=false">}}
+```Prolog {linenos=false}
 14  inst(var(N),E,TRS) = get(N,E);
 15  inst(trm(F,As),E,TRS) = toprewr(trm(F,inst(As,E,TRS)),TRS);
 16  inst(eoa,E,TRS) = eoa;
@@ -289,7 +300,7 @@ Function `inst` is trivial; no additional states ensue.
 18  get(N,tab(M,T,E)) = getq(eq(N,M),N,T,E);
 19  getq(ok,N,T,E) = T;
 20  getq(X,N,T,E) = get(N,E);
-{{</highlight>}}
+```
 
 * Rule 14, 18-20: for every variable, get it's associated value
 * Rules 15-17: recursively instantiate all sub-terms of the right-hand side
@@ -344,6 +355,7 @@ case INSTCONT: {// V is car
 ```
 
 Lines
+
 * 2-5: for a compound, push the `cdr` and continue with the `car`
 * 9-14: for a variable, fetch the corresponding value. This implements Rules 14, 18-20
 * 17-18: done; continue
@@ -353,7 +365,7 @@ Lines
 * 37-38: otherwise, build the `arg(...)` node and continue
 * 41-43: a saved instantiation is continued after intermediate `TOPRED` of proper sub-term of the right-hand side
 
-### `ALLDONE`
+## `ALLDONE`
 The final segment is trivial.
 
 * 2-3: as mentioned, build a node if no rule is applicable

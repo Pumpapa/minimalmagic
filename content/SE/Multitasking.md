@@ -21,7 +21,7 @@ Although Multi-tasking, Concurrency and Parallelism all refer to the same concep
 
 **Multi-tasking** refers to the broad concept of computers seemingly doing many things at once. *Seemingly*, because actual parallelism isn't needed.
 
-## Multitasking
+# Multitasking
 
 Early single-CPU computers allowed multiple users to use that CPU by giving every user in turn a (fixed) small amount of time on the CPU. The OS would allow user A's process to run for a tenth of a second, and then that process was interrupted and user B's process could run, and so on. When the only interaction is by keyboard, this kind of task switching is hardly noticeable.
 
@@ -29,14 +29,14 @@ Interrupting one process to allow another process to run is called **preempting*
 
 The mechanism used to preempt is an **interrupt**. We already mentioned interrupts: the CPU  quickly stores the PC and some relevant registers on the stack. The CPU state is elevated to get system rights, and the scheduler determines which process can now execute. 
 
-### Concurrency issues
+## Concurrency issues
 
 * running many programs in parallel, all using many different I/O devices with different speeds and properties, requires a complex *system of signals* being sent around. Subtle bugs (such as buffer overflow) may occur in rare circumstances 
 * mechanisms must ensure that only one program at a time may use certain resources (e.g. write to a file), but it is very difficult to ensure that *mutual exclusion* is correct in all circumstances
 * when run in isolation the result of a program depends on the input, but if concurrent programs communicate or share a resource the result may depend on the way they are interleaved: *non-determinism*
 * a program needs two resources. It obtains (exclusive rights to) the first and then waits until the second becomes available. Another program needs the same two resources and has obtained (exclusive rights to) the second and is waiting for the first resource to become available: *deadlock*
 
-### Non-Determinism
+## Non-Determinism
 
 Ordinary programs are deterministic: given the same input they will do the same thing and produce the same output. Parallel programs sharing a resource such as memory can be non-deterministic. *(Note: despite the definitions given above, the terms 'parallel' and 'concurrent' are used interchangeably. Most people don't consider our technical interpretation of the term concurrent.)*
 
@@ -74,11 +74,11 @@ Writing correct concurrent software, which is deterministic or at least where th
 
 There have been attempts to automate this, by writing compilers that take a sequential program and parallelize it. But the results aren't very good. At the moment, writing reliable concurrent software is still something only humans can do.
 
-## Mutual Exclusion 
+# Mutual Exclusion 
 
 The problem in our P1|P2 example stems from the fact that both programs have unlimited access to the shared variable. What we want is **Mutual Exclusion**: while one program has access to `x`, the other doesn't.
 
-### Semaphores
+## Semaphores
 
 A basic programming mechanism to offer this is a **Semaphore**: an OS-level mechanism which can limit access to a shared resource (such as variable `x`). Using a semaphore, the statement `x=x+3` can be made into a critical region. While one program has access the other will be suspended if it tries to access `x`.
 
@@ -90,7 +90,7 @@ Semaphores allow us to manage non-determinism but not necessarily to prevent it 
 
 And there is still room for deadlock
 
-## Deadlock
+# Deadlock
 
 Suppose you are editing a huge photo of the Moon using the Gimp (an open-source Photoshop-like program). To do that, the Gimp needs a very large chunk of memory and it needs access to the photo file on your hard disk. Your OS swaps out as many processes as possible and is barely able to free the amount of memory needed. 
 

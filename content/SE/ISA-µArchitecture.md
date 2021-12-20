@@ -38,6 +38,7 @@ businesses and education, system engineers were again hard pressed to improve th
 Designing functionality in chips is intricate and time-consuming so mechanisms were sought to make this faster and more manageable. The limits of the possible were found while trying to create hardware that executed instructions implementing complex programming patterns such as array access.
 
 Two different philosophies emerged:
+
 * Today we call computers built until 1970 ***CISC***: Complex Instruction Set Computer. The statement *a[i++]=o.b+2* might be compiled to a single instruction on a CISC processor. However, that instruction took many clock cycles to execute.
 * On the other hand, a ***RISC*** (Reduced Instruction Set) computer offers simple instructions, but requires multiple instructions to implement such a complex statement. Because instructions and addressing modes are simpler, the chip design is simpler.
 
@@ -48,7 +49,7 @@ Today all CPU's are RISC by nature but the instructions that are supported are a
 Today, we use a language such as [Verilog](http://www.verilog.com/) or [VHDL](https://en.wikipedia.org/wiki/VHDL) to describe the circuits, and then use computers to create chips from that description. 
 
 
-## Micro Architecture
+# Micro Architecture
 A Microarchitecture (µArchitecture) is a hardware processor, the purpose of which is to simulate an ISA. Key processor generations are named after the µArchitecture that drives them. The ISA may contain complex instructions which are interpreted by the µArchitecture (in this sense, ISA is CISC). Chip manufacturers can innovate CPU's by creating new µArchitectures, as long as the µArchitecture implements the standard ISA. Note however, that the ISA itself can also be upgraded (usually backwards compatible, as mentioned). Toda's x86-family extends over many generations, for instance growing from 8-bit registers to 64-bit registers
 
 The µarchitecture is the most complex component that can still be understood in terms of underlying hardware (transistors). 
@@ -57,11 +58,11 @@ The main purpose of the µarchitecture is to implement the ISA. That is, the ISA
 
 The fact that the µarchitecture is driven by software is occasionally used to alter the ISA interpreter, for instance when there are bugs in the hardware, or to prevent vulnerabilities such as Spectre.
 
-### Mic-1
+## Mic-1
 
 In Andrew Tananbaum's wonderful book 'Structured Computer Organization' a microarchitecture called Mic-1 is presented, with can be easily understood with all aspects we have seen so far. It is designed for educational purposes, but allows us to zoom in on many relevant aspects.
 
-{{< figure "x86 Registers" "/images/SE1.MIC1.png" right 100 >}}
+{{<figure `x86 Registers` `/images/SE1.MIC1.png` right 100 >}}
 
 Briefly:
 
@@ -85,10 +86,11 @@ Briefly:
 
 Mic-1 communicates with memory in two ways: 8-bit data or 32-bit words. The first is used to fetch ISA instructions: the ISA PC is used as address to fetch one byte into the low part of MBR. While that is fetched, PC is incremented in one cycle. MAR is a word address, meaning that four bytes of ISA data are fetched or stored at once to/from MDR. Two control lines signal memory read/write through MAR/MDR; one control line signals memory read through PC/MBR
 
-## Conclusion
+# Conclusion
 Starting from the humble beginnings of the transistor we have now been able to sketch the working of a µArchitecture, and through that hinted at the workings of modern processors.
 
 Several aspects haven't yet been looked at. We will discuss
+
 * Language Processing  
 We have used the word '**interpretation**' loosely, but we will briefly go into language processing in general;
 * Parallelism  

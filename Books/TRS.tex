@@ -1,0 +1,302 @@
+%\UseRawInputEncoding
+\input{src/Preamble.tex} % pre document class
+
+\input{src/DocumentClass.tex} % between documentclass and begin document
+	% also inputs structure.tex
+
+	%added by Pum
+
+	\def\utfch@rundefined{}
+	\def\defutfmathch@r#1#2{%
+	  \ifx#2\utfch@rundefined%
+	  \DeclareUnicodeCharacter{#1}{?%
+	%    \PackageWarning{utf8math}{Unicode character U+#1 undefined}%
+	%    \PackageError{utf8math}{Unicode character U+#1 undefined}%
+	  }%
+	  \else%
+	  \DeclareUnicodeCharacter{#1}{\ensuremath{#2}}%
+	  \fi%
+	}
+	\defutfmathch@r{2260}{\not=} % NOT EQUAL TO (≠)
+	\defutfmathch@r{2264}{\leq} % LESS-THAN OR EQUAL TO (≤)
+	\defutfmathch@r{2265}{\geq} % Greater-THAN OR EQUAL TO (≥)
+	\defutfmathch@r{2208}{\in} % ELEMENT OF (∈)
+	\defutfmathch@r{03C0}{\pi} %π
+	\defutfmathch@r{00A7}{\para} %§
+	\defutfmathch@r{00BD}{\text{1/2}}
+	\defutfmathch@r{00BD}{\text{1/2}}
+	\defutfmathch@r{2190}{\rightarrow}
+	\defutfmathch@r{21A0}{\twoheadrightarrow}
+	%\defutfmathch@r{FF20}{＠}
+	%%\defutfmathch@r{219E}{\to}%↞
+	%%\defutfmathch@r{21D8}{\to}%⇘
+	%\defutfmathch@r{2192}{\to}%→
+	%%\defutfmathch@r{1f852}{\to}%🡒
+	%%\defutfmathch@r{1f802}{\to}%🠂
+	%%\defutfmathch@r{27f6}{\to}%⟶
+	%%\defutfmathch@r{1f83a}{\to}%🠺
+
+
+	\newcommand{\Xin}{$\in$}
+	
+	\providecommand{\tightlist}{%
+	  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+	\usepackage{soul}
+
+	\usepackage{xcolor}
+
+	%\usepackage[
+	%	colorlinks=true,
+	%	urlcolor=blue,
+	%	linkcolor=blue,
+	%	citecolor=blue,
+	%	filecolor=blue,
+	%]{hyperref}
+
+	%sectioning commands
+	\usepackage{titlesec}
+
+	% improves float interface
+	\usepackage{float}
+
+	% wrapped text around figures
+	\usepackage{wrapfig}
+		\restylefloat{figure}
+
+
+	% control over itemize
+	\usepackage{enumitem}
+
+	\usepackage[many]{tcolorbox}
+
+
+	\usepackage{listings}
+	\lstset{
+		inputencoding=utf8,
+		extendedchars=false,
+		mathescape = false,
+		escapeinside = {(*}{*)},
+		basicstyle = \ttfamily,
+		captionpos=b,                    % sets the caption-position to bottom
+		frame=tb,	                   	   % adds a frame around the code
+		rulecolor=\color{red},
+		keepspaces=true,                 % keeps spaces in text, 
+		language=Prolog,                 % the language of the code (can be overrided per snippet)
+		numberstyle=\tiny\color{commentsColor}, % the style that is used for the line-numbers
+		rulecolor=\color{black},         % if not set, frame-color may be changed on line-breaks within not-black text (e.g. comments)
+		columns=fixed,                    % Using fixed column width (for e.g. nice alignment)
+		numbers=left,
+		numberstyle=\footnotesize,
+		stepnumber=1,
+		numbersep=5pt,
+		backgroundcolor=\color{ocre!10},
+		showspaces=false,
+		showstringspaces=false,
+		showtabs=false,
+		tabsize=2,
+		captionpos=b,
+		breaklines=true,
+		breakatwhitespace=true,
+		breakautoindent=true,
+		linewidth=\textwidth
+		}
+	\newcommand{\passthrough}[1]{#1}
+
+	\newcounter{lstcntr}
+
+	\tcbuselibrary{listings,theorems,breakable,skins}
+
+	% define earth for background code listing
+	\definecolor{earth}{RGB}{255, 237, 219}
+
+	\newtcblisting[use counter=lstcntr,number within=chapter]{code}{%
+	listing options={extendedchars=true,literate={→}{{$\to$}}1,
+		mathescape,basicstyle=\ttfamily\footnotesize,basewidth = {.5em,0.5em}},
+	listing only,listing remove caption=false, colback=ocre!5!white,colframe=red!60!orange!80,
+	fonttitle=\bfseries, before	skip=7pt plus 2pt,
+	%title=Listing \thetcbcounter: #2, label={#1}
+	}
+
+	\newtcblisting[use counter=lstcntr,number within=chapter]{Shaded}[2]{%
+	listing options={mathescape,basicstyle=\ttfamily\footnotesize,basewidth = {.5em,0.5em}},
+	listing only,listing remove caption=false, colback=ocre!5!white,colframe=red!60!orange!80,
+	fonttitle=\bfseries, before	skip=7pt plus 2pt,
+	%title=Listing \thetcbcounter: #2, label={#1}
+	}
+		
+	\newcommand{\tbox}[3]{
+		\noindent
+		\begin{minipage}{#2\textwidth}
+			\newtcolorbox{mybox}{colback=red!5!white,colframe=red!75!black}
+			\begin{mybox}
+				#3
+			\end{mybox}
+		\vspace{-10pt}
+		\end{minipage} 
+	}
+
+
+	% image
+	\newcommand{\img}[7]{
+	% l(eft)/r(right) width(%page) scale(%img) botfil filename label caption
+	\begin{wrapfigure}{#1}{#2\textwidth} % pos width
+		\vspace{-20pt}
+		\begin{center}
+			\includegraphics[width=#3\textwidth]{images/#5}
+			\caption{#7}
+			\label{#6}
+		\end{center}
+		\vspace{#4pt}
+	\end{wrapfigure}
+	\vspace{7pt}
+	}
+
+	
+	\usepackage{fontawesome}
+	%\usepackage[hidelinks]{hyperref}
+
+	\let\orighref\href
+	\renewcommand{\href}[2]{\orighref{#1}{#2\,\color{blue}\faExternalLink}}
+
+	\newcommand{\mydollar}[0]{% 
+		\ensuremath{\\$}}
+	\newcommand{\myat}[0]{% 
+		\ensuremath{@}}
+	\newcommand{\myamp}[0]{% 
+		\ensuremath{\&}}
+		
+	
+	
+			%\newcounter{dummy} 
+			%\numberwithin{dummy}{section}
+			%\theoremstyle{ocrenumbox}
+			%\newtheorem{listingT}[dummy]{Listing}
+			%\newtheorem{problem}{Problem}[chapter]
+			%\newtheorem{exerciseT}{Exercise}[chapter]
+			%\theoremstyle{blacknumex}
+			%\newtheorem{exampleT}{Example}[chapter]
+			%\theoremstyle{blacknumbox}
+			%\newtheorem{vocabulary}{Vocabulary}[chapter]
+			%\newtheorem{definitionT}{Definition}[section]
+			%\newtheorem{corollaryT}[dummy]{Corollary}
+			%\theoremstyle{ocrenum}
+			%\newtheorem{proposition}[dummy]{Proposition}
+
+
+\input{src/BeginDocument.tex} % post begin document
+
+
+
+	\draw (current page.center) node [fill=ocre!30!white,fill opacity=0.6,text opacity=1,inner sep=1cm]{\Huge\centering\bfseries\sffamily\parbox[c][][t]{\paperwidth}{\centering Term Rewriting Systems\\[15pt] % Book title
+	{\Large with Minimal Magic}\\[20pt] % Subtitle
+	{\huge Pum Walters}}}; % Author name
+
+\input{src/BeginCopyright.tex}
+
+	\noindent Copyright \copyright\ 2021 Pum Walters\\ % Copyright notice
+
+	\noindent \textsc{Published by Publisher}\\ % Publisher
+
+	\noindent \textsc{book-website.com}\\ % URL
+
+	\noindent Licensed under the Creative Commons Attribution-NonCommercial 3.0 Unported License (the ``License''). You may not use this file except in compliance with the License. You may obtain a copy of the License at \url{http://creativecommons.org/licenses/by-nc/3.0}. Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an \textsc{``as is'' basis, without warranties or conditions of any kind}, either express or implied. See the License for the specific language governing permissions and limitations under the License.\\ % License information, replace this with your own license (if any)
+
+	\noindent \textit{First printing, December 2021} % Printing/edition date
+
+\input{src/ToC.tex} % Begin toc
+
+	\chapterimage{chapter_head_1.pdf} % Table of contents heading image
+
+\input{src/BeginChapters.tex}
+
+% begin text proper
+
+\chapterimage{images/Chapters/pexels-will-mu-3802667.jpg} % Chapter heading image
+\chapter{Minimal Magic}
+\input{texs/MinimalMagicIntro.tex}
+
+\chapterimage{images/Chapters/pexels-stefan-stefancik-919606.jpg} % Chapter heading image
+\chapter{Pum Walters}
+\input{texs/PumWalters.tex}
+
+\chapterimage{images/Chapters/pexels-toa-heftiba-şinca-1194420.jpg} % Chapter heading image
+\chapter{About this Book}
+
+This book is a direct (automatic) rendition of the blog Minimal Magic \href{https://www.minimalmagic.blog/}() with \emph{only} changes that affect the graphic design and leave further content as-is. Currently, internal links in the book refer to the blog.
+
+
+\part{Part One}
+
+\chapterimage{images/Chapters/pexels-jakob-rosen-9737563.jpg} % Chapter heading image
+\chapter{Minimal Magic}
+\input{texs/MinimalMagic.tex}
+
+
+\chapterimage{images/Chapters/pexels-harrison-candlin-2441454.jpg} % Chapter heading image
+\chapter{Term Rewriting}
+\input{texs/TermRewriting.tex}
+
+
+\chapterimage{images/Chapters/pexels-luis-del-río-15286.jpg} % Chapter heading image
+\chapter{Meta-Terms and Meta-Interpreter}
+\input{texs/MetaInterpreter.tex}
+
+\part{Part Two}
+
+
+\chapterimage{images/Chapters/pexels-silvia-772650.jpg} % Chapter heading image
+\chapter{Tram: Term Rewriting Abstract Machine}
+\input{texs/Tram.tex}
+
+
+\chapterimage{images/Chapters/pexels-aarti-vijay-2693529.jpg} % Chapter heading image
+\chapter{Memory Management}
+\input{texs/MemoryManagement.tex}
+
+
+\chapterimage{images/Chapters/pexels-evi-10058566.jpg} % Chapter heading image
+\chapter{Binary Numbers}
+\input{texs/BinaryNumbers.tex}
+
+
+\chapterimage{images/Chapters/pexels-aaron-burden-10324751.jpg} % Chapter heading image
+\chapter{TRAM.1}
+\input{texs/TRAM.1.tex}
+
+
+\part{Part Three}
+
+
+\chapterimage{images/Chapters/pexels-giovanni-figueroa-9661740.jpg} % Chapter heading image
+\chapter{Annotated TRAM.1}
+\input{texs/Annotated-TRAM.1.tex}
+
+
+\chapterimage{images/Chapters/pexels-longxiang-qian-1718337.jpg} % Chapter heading image
+\chapter{Converting C to Tram}
+\input{texs/ConvertingCtoTram.tex}
+
+
+\chapterimage{images/Chapters/pexels-sofía-rabassa-10305718.jpg} % Chapter heading image
+\chapter{Converting Tram To C}
+\input{texs/ConvertingTramToC.tex}
+
+
+\chapterimage{images/Chapters/pexels-björn-austmar-þórsson-7267852.jpg} % Chapter heading image
+\chapter{Patterns: Writing an Encoding-Checker from Scratch}
+\input{texs/Patterns-TramFromScratch.tex}
+
+
+\part*{References}
+\chapterimage{images/Chapters/pexels-longxiang-qian-1718337.jpg} % Chapter heading image
+\chapter{Acknowledgements}
+
+\input{texs/Acknowledgements.tex}
+
+
+%------------------------------------------------
+
+
+
+\input{src/EndOfDocument.tex}

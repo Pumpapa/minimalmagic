@@ -14,7 +14,7 @@ tags:
   - "Conversion"
   - "Truth Tables"
 ---
-## Booleans
+# Booleans
 
 There are two values: ***true*** and ***false***.
 Many operations, such as *comparisons*, on other data (e.g. numbers, dates) result in a boolean. For instance: *x>5* is *true* if *x* exceeds 5 and is *false* otherwise.
@@ -27,7 +27,7 @@ For example, for example, you can only join this park ride if your length is bet
 
 Other operators include **OR**, **NAND**, **NOR** and **NOT**.
 
-### Boolean Arithmetic
+## Boolean Arithmetic
 
 It is sometimes convenient to represent Boolean values as numbers: 0 (*false*) and 1 (*true*). A single bit can be interpreted as an integer or as a Boolean.
 
@@ -39,15 +39,17 @@ In many programming languages, AND and OR are often written as `&` and `|`.
 
 <span style="font-size:smaller;">*In programming, identifiers **true** and **false** are generally used to avoid confusion with integers, although in many languages integers can be used as 'truth values'.*</span>
 
-## Truth Tables
-{{< figure "Truth Tables" "/images/SE1.NOT-AND-tables.png" right 20 >}}
+# Truth Tables
+
+{{<figure `Truth Tables` `/images/SE1.NOT-AND-tables.png` right 20 >}}
 
 Truth Tables are a technique to compute the value of Boolean expressions. In a truth table all possible values of all variables are listed together with the value of the expression (or its sub-expressions if the expression is complex).
 
 The truth table of NOT and AND are:
 
-### Complex Truth Tables
-{{< figure "Complex Truth Tables" "/images/SE1.complex-table.png" right 40 >}}
+## Complex Truth Tables
+
+{{<figure `Complex Truth Tables` `/images/SE1.complex-table.png` right 40 >}}
 
 Using truth tables, the value of complex Boolean expressions can be computed even if their value isn't obvious immediately. For instance: what is the value of  
 
@@ -63,13 +65,17 @@ Without the truth table it is not immediately clear that
 
 is always *false*.
 
-{{% exercise %}}
+{{%exercise%}}
+
 ![Gates](/images/SE1.to-be-or-not-XOR.png#fr4)
 The truth tables of `p xor q` and `(not p and q) or (p and not q)` are identical!
-{{% /exercise %}}
+
+{{%/exercise%}}
 
 1. Create the truth table of "to be or not to be"  
-{{< figure "XOR Gate" "/images/SE1.XOR-gate.png" right 40 >}}
+
+{{<figure `XOR Gate` `/images/SE1.XOR-gate.png` right 40 >}}
+
 An important operator is XOR (exclusive or): *p xor q = (p or q) and not (p and q)*.  
 This operator is important because unlike AND and OR it does not lose information and is therefore useful in encryption: (p xor q) xor p = q. To the right is a common symbol for an XOR gate.
 1. Create the truth table of XOR
@@ -88,7 +94,7 @@ This is a number of dots .... .... ....
 * In binary it is written as: 1100  
 * In hexadecimal (which we will revisit) it's written as: c
 
-### Binary to Decimal Conversion
+## Binary to Decimal Conversion
 
 Conversion from binary to decimal is very simple. 
 
@@ -99,7 +105,7 @@ For instance, to convert 1001 to decimal, write the weights: 8,4,2,1 (each posit
 
 Note that the weight of the n-th position from the right is 2^n, the n-th power of 2.
 
-### Decimal to Binary Conversion
+## Decimal to Binary Conversion
 
 To convert a decimal numer to a binary number do the following:
 
@@ -116,16 +122,19 @@ For instance: convert 91
 
 Binary: 1011011 (check: 1+2+8+16+64=91)
 
-{{% exercise %}}
+{{%exercise%}}
+
 1. 1+4 = 5
 2. (101) 1 (50) 0 (25) 1 (12) 0 (6) 0 (3) 1 (1) 1 (0) => 1100101
-{{% /exercise %}}
+
+{{%/exercise%}}
 
 1. Convert the binary number 101 to decimal
 2. Convert the decimal number 101 to binary
 
-## Binary Arithmetic
-{{< figure "Add with Carry" "/images/SE1.add-with-carry.png" right 20 >}}
+# Binary Arithmetic
+
+{{<figure `Add with Carry` `/images/SE1.add-with-carry.png` right 20 >}}
 
 Exactly the same rules and methods exist for binary arithmetic as for decimal arithmetic: 1 + 1 can't be 2, so it is 10; that is 0 with a carry 1.
 

@@ -1,0 +1,67 @@
+Images created with
+https://tabatkins.github.io/railroad-diagrams/generator.html
+
+Screenshot @ 240%
+
+
+Diagram(
+  Optional('+', 'skip'),
+  Choice(0,
+    NonTerminal('name-start char'),
+    NonTerminal('escape')),
+  ZeroOrMore(
+    Choice(0,
+      NonTerminal('name char'),
+      NonTerminal('escape'))))
+
+ComplexDiagram(
+  Terminal('job'),
+  NonTerminal('('),
+  NonTerminal('Term'),
+  NonTerminal(','),
+  OneOrMore(
+  	Sequence(
+	  NonTerminal('Term'),
+  	  NonTerminal('='),
+  	  NonTerminal('Term'), 
+  	  NonTerminal(';')
+	)
+  ),
+  Terminal('eor'),
+  NonTerminal('.'),
+  NonTerminal(')'))
+
+Diagram(
+  Choice(1,
+    NonTerminal('Var'),
+    Sequence(
+      NonTerminal('Fun'),
+      Optional(
+      	 Sequence(
+             NonTerminal('('),
+	     OneOrMore(
+  		Sequence(
+	      	    NonTerminal('Term')
+		),
+	     	 NonTerminal(',')
+	     ),
+	     NonTerminal('('),
+	 ),
+      'skip')
+    )
+	))
+
+Diagram(
+	NonTerminal('[A-Z]'),
+	ZeroOrMore(
+		NonTerminal('[A-Za-z0-9]')
+	)
+)
+
+
+Diagram(
+	NonTerminal('[a-z]'),
+	ZeroOrMore(
+		NonTerminal('[A-Za-z0-9]')
+	)
+)

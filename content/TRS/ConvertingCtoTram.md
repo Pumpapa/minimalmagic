@@ -11,11 +11,12 @@ tags:
 ---
 This section describes how TRAM's scanner / parser written in C was used as a basis to implement the scanner / parser in Tram.
 
-## Annotated Scanner / Parser in C
+# Annotated Scanner / Parser in C
 
 The scanner is a loop which processes input characters and terminates when EOF is read. Inside the loop a `switch` branches based on the current character under consideration.
 
 Variables:
+
 * `v` holds the current value
 * `num` and `sgn` are auxiliary variable used to read numbers
 * `len` is an auxiliary variable used to read identifiers 
@@ -69,6 +70,7 @@ A quoted character is immediately encoded to a corresponding data value.
 		break;  
 ```
 A `#` can be followed by 
+
 * `0x` followed by a hexadecimal value, or 
 * a decimal value. A `0` not followed by `x` is the beginning of a decimal value (`goto` is used to jump into the decimal handler). 
 The encoding data value is computed on the fly.
@@ -129,13 +131,11 @@ case '%': // dec (meta-variable)
 
 A Tram variable consists of `*`, `&` or an upper-case letter, followed by between zero and three letters, digits or `.`. Only the first four characters are significant, although variables shorter than 5 characters and variables longer than 4 characters are distinguished, so `Abcd` and `Abcde` differ, but `Abcde` and `Abcdf` are considered identical.
 
+{{<figure `Tagged Values` `/images/TRS/TaggedValues.png` right 60 >}}
+
 A symbol consists of `$`, `@` or a lower-case letter, followed by between zero and three letters, digits or `.`. Only the first five characters are significant, although symbols shorter than 6 characters and symbols longer than 5 characters are distinguished, so `abcde` and `abcdef` differ, but `abcdef` and `abcdeg` are considered identical.
 
 Only the first five characters are significant, so `abcde` and `abcdef` differ, but `abcdef` and `abcdeg` are considered identical.
-
-The encoding is shown here.
-
-{{< figure "Tagged Values" "/images/TRS/TaggedValues.png" right 60 >}}
 
 * In a variable or symbol the L bit signifies whether the identifier is longer than the max (4 for variables, 5 for symbols)
 * `AAAAA` in a variable, or `FFFFF` in a symbol encode the first character
@@ -230,7 +230,8 @@ case ';':
 	v=0; V=0;  
 	break;  
 ```
-Finally, two situations might accor:
+Finally, two situations might occur:
+
 * A term is read (`S==nil`)  
 The (possibly coerced) term is returned.
 * A TRS is read  (`S!=nil`)  
@@ -251,8 +252,9 @@ The stack contains the pairs of left- and right-hand sides in reverse order. It 
 }
 ```
 
-## Scanner / Parser in Tram
+# Scanner / Parser in Tram
 The main loop is implemented in the function `sccc`, short for 'scan with character class'. This function implements the `switch` statement of the automaton and has these arguments `sccc(Cc,C,S,V,Stck)`
+
 * `C` is the character currently being considered
 * `Cc` is its charcater class
 * `S` is the remainder of the input (string)
@@ -316,14 +318,14 @@ cc(#0x20) = ws;  cc(#0xA) = ws;  cc(#0xD) = ws;  cc(#0x9) = ws;
 
 Note: this scanner doesn't treat `.` correctly => ToDo.
 
-### `scaffix`
+## `scaffix`
 Function `scaffix` processes a symbol immediately following a term (i.e., `,`, `=`, `;` and `)`). 
 
 An `=` only occurs after the (possibly coerced) left-hand side of a rule. A partial rule is pushed with only the left-hand side as argument.
 
 Otherwise, the top of the stack is a partial term, and the current value ((possibly coerced) term or variable) is added as the last argument in the top of the stack.
 
-```Prolog
+```Prolog {linenos=false}
 scaffix(equ,S,trm(F,As),Stck)
 = sclini(equ,S,lst(trm(str('r',str('l',eos)),arg(trm(F,As),eoa)),Stck));
 scaffix(equ,S,F,Stck)
@@ -338,7 +340,7 @@ scaffix(Cc,S,F,lst(T,Stck))
 = sclini(Cc,S,lst(append(trm(F,eoa),T),Stck));
 ```
 
-### `sclini`
+## `sclini`
 Function `sclini` accepts a `)` or any of (`,`, `=` and `;`). In the first case (done; the last term is complete), the top-of-stack is popped and set as current value; in the second case (not yet done, the last term is incomplete and remains on the stack to be extended). 
 
 ```Prolog
@@ -346,12 +348,12 @@ sclini(rpar,S,lst(T,Stck)) = sccc(cc(first(S)),first(S),rest(S),T,Stck);
 sclini(Cc,S,Stck) = sccc(cc(first(S)),first(S),rest(S),null,Stck);
 ```
 
-### `scfinalize` and `scancollrls`
+## `scfinalize` and `scancollrls`
 Function `scfinalize` processes EOF. yielding either the list of pairs of left- and right-hand sides, or a term (possibly an extended symbol).
 
 Note that whereas the C implementation needs the rules in reverse order (because thay need to be joined by the `-C` option), the Tram version can at this moment only process a single module. But: rules have been pushed in reverse order, so function `scancollrls` reverses the order of the rules.
 
-```Prolog
+```Prolog {linenos=false}
 scfinalize(first(eos),rest(eos),trm(F,As),eol) = trm(F,As);
 scfinalize(first(eos),rest(eos),F,eol) = trm(F,eoa);
 scfinalize(first(eos),rest(eos),null,Stck) = sccollrls(eol,Stck);
@@ -361,7 +363,7 @@ sccollrls(Rs,lst(trm(str('r',str('l',eos)),arg(L,arg(R,eoa))),Stck))
 sccollrls(V,eol) = V;
 ```
 
-### `scsym`, `scspec`, `scdec` and `schx`
+## `scsym`, `scspec`, `scdec` and `schx`
 Function `scsym` parses an id and returns a symbol (string) or a variable. 
 
 Function `scspec` parses a data value. Unlike C, Tram doesn't need the 32-bit version of data, so all data values are represented as strings.

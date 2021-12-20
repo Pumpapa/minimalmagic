@@ -9,8 +9,9 @@ tags:
   - "Ancient"
   - "Computers"
 ---
-## Oldest computers
-{{< figure "Stonehenge" "/images/stonehenge.jpg" right 50 >}}
+# Oldest computers
+
+{{<figure `Stonehenge` `/images/stonehenge.jpg` right 50 >}}
 
 In many introductions to computing, the **Antikythera mechanism** is mentioned, which is a 60-gear mechanical astrological calculator made about 2000 years ago.
 
@@ -26,8 +27,9 @@ That would mean the system uses data (the position of pebbles) and a hard-wired 
 
 ---
 
-## Mechanical computing
-{{< figure "Abacus" "/images/abacus.png" right 50 >}}
+# Mechanical computing
+
+{{<figure `Abacus` `/images/abacus.png` right 50 >}}
 
 * An ***abacus*** is a frame containing beads capable of representing large integers and performing (by hand) operators including addition, subtraction, multiplication, division, and taking square and cube roots.
 * A ***slide rule*** represents real numbers by distances and can perform multiplication and division.
@@ -36,8 +38,9 @@ That would mean the system uses data (the position of pebbles) and a hard-wired 
     * the first looms in which patterns were coded in punched cards 
     * the (incomplete) design of Charles Babbage's Analytical Engine, which includes and 16K memory, an ALU, control flow and even conditional branching. Note that this engine has never been built.
 
-## Electric Computers
-{{< figure "von Neuman Architecture" "/images/SE1.vonNeumann.png" right 50 >}}
+# Electric Computers
+
+{{<figure `von Neuman Architecture` `/images/SE1.vonNeumann.png` right 50 >}}
 
 Highlights:
 

@@ -29,8 +29,9 @@ TRAM.1 is available at [Github](https://github.com/BabelfishNL/Tram.git)
 
 This section contains a rationale and explanation of TRAM.1 followed by a detailed user manual
 
-## Rationale
+# Rationale
 TRAM.1 consists of the following parts (lines of code per part):
+
 * The definition of `struct node` and some auxiliary macro's (\~30 loc)
 * Declaration of global variables (\~10 loc)
 * Initialisation, in which memory is formatted (\~10 loc)
@@ -41,8 +42,8 @@ TRAM.1 consists of the following parts (lines of code per part):
 * Rewrite engine (\~150 loc)
 * CLI argument processor (\~100 loc)
 
-### Tagged Values
-{{< figure "Tagged Values" "/images/TRS/TaggedValues.png" right 60 >}}
+## Tagged Values
+{{<figure `Tagged Values` `/images/TRS/TaggedValues.png` right 60 >}}
 
 TRAM.1 uses 32 bit ints to represent values (symbols, variables, references). The set of symbols is divided in a set 'Data', for which the engine assumes no rewrite rules exist, and other symbols. This means there are over 1 billion proper function symbols, and as many constants to represent characters, (30 bit) integers, tiny floats, etcetera. Note that separating the set of symbols doesn't introduce magic. There are no built-in functions for integers, floats, etcetera.
 
@@ -50,20 +51,20 @@ TRAM.1 is intended to be self-contained, i.e. able to process term rewriting sys
 
 The conflict of the limitation to 32-bit ints and the need to read and write identifiers is solved by encoding short identifiers. TRAM.1 encodes symbol names five characters maximum and variable names of four characters maximum in a 32-bit int. Data-symbols can be input as characters, integers or hexadecimal numbers, but are represented as binary numbers (this means, `'A'`, `#65` and `#0x41` represent  the same value and are output as `#0x41`,  or `A` when using the appropriated CLI flag).
 
-* `[@$a-z][A-Za-z0-9^]+ => Symbol`  
+* `[@$a-z][A-Za-z0-9.]+ => Symbol`  
 Only the first five characters are significant, so `abcdef` and `abcdefg` are considered identical. Identifiers shorter than 6 characters and identifiers longer than 5 characters are distinguished, so `abcde` and `abcdef` differ, but `abcdef` and `abcdeg` are identical and are output as `abcde...`
-* `[*&A-Z][A-Za-z0-9^]+ => Variable`  
+* `[*&A-Z][A-Za-z0-9.]+ => Variable`  
 Only the first four characters are significant, using a similar mechanism as symbols
-* `'#'0x[0-9a-fA-F]+  |  #'-'?[0-9]+  |  ['].['] => Symbol`  
+* `'#''0''x'[0-9a-fA-F]+  |  '#''-'?[0-9]+  |  ['].['] => Symbol`  
 Data can be any decimal integer, hexadecimal number, or character. 
 
 
-### Memory
+## Memory
 Memory is allocated as a single block for a fixed number of nodes. This number has a default but can be set with a CLI argument.
 
 On initialisation, all nodes are pushed on the list of free nodes (linked through the `nxt` field). Creating a `new` node pops one off the free-list and pushes it on the `nxt`-linked list of used nodes, ready for garbage collection.
 
-### Garbage Collector
+## Garbage Collector
 When a new node is created but the list of free nodes is empty, the garbage collector is activated.
 
 * First, all global variables are marked (marking uses an unused bit in the `nxt` field)
@@ -74,6 +75,7 @@ If the list of free nodes is still empty, memory has overflown and TRAM.1 exits.
 Otherwise a new node can be created.
 
 There are only a few global variables (called the **registers** of TRAM.1) that the garbage collector needs to be aware of:
+
 * `P`, the current rewrite system 'program' (pointer to node)
 * `S`, the stack (pointer to node
 * `X`, an auxiliary register (pointer to node)
@@ -82,58 +84,48 @@ There are only a few global variables (called the **registers** of TRAM.1) that 
 
 In principle, local variables can be used to hold values or pointers to nodes, but: if a node `N` is pointed to by a local variable, and a new node is created, a garbage collection might be trigered, and `N` wouldn't be recognised as a used node. For this reason, care is taken to store nodes only in the registers when `new` might be called (and to reset the registers to avoid floating garbage).
 
-### Scanner / Parser
+## Scanner / Parser
 The scanner / parser is a straightforward scanner for values. The following tokens deserve description:
+
 * `(`: a symbol has been seen (the ofs of a term) and a term without arguments is pushed on the stack
 * `,`: if a symbol has just been seen it is apparently a term without sub-terms, and that term is added to the top-of-stack. Otherwise the compound term just seen is added
 * `)`: if a symbol has just been seen it is apparently a term without sub-terms, and that term is added to the top-of-stack. Otherwise the compound term just seen is added. Then, the top-of-stack is popped
 * `=`: this means the *lhs* of a rule has just been seen; it is left on the stack.
 * `;`: this means the *rhs* of a rule has just been seen. The pair of this rhs and the corresponding lhs is left on the stack. Note that this means the stack now holds node, which do not represent meta-terms. Representing a TRS as a meta-term at run-time wastes time and space
 * `EOF`: either a term has been read (which is then returned) or the stack contains a linked list of pairs lhs/rhs in reversed textual order. Then this is returned.
-### Printers
+## Printers
 TRAM.1 has three printers
+
 * to print a value
 * to print a term (uses X as a stack)
 * to print a program (TRS). As mentioned, programs are stored in a more compact form than meta-terms, so they need their own printer
 
-### Rewrite Engine
+## Rewrite Engine
 The rewrite engine is closely related to the meta-interpreter in [Section Term Rewriting](https://www.minimalmagic.blog/trs/termrewriting/), but as mentioned there, the recusion and pattern matching must be implemented differently in C
 
 The engine can be described as a push-down automaton. It uses states to keep track of where it is in the algorithm. Each state 'knows' which variables are stored on the stack when it is entered.
 
 Some states are:
+
 * `BUDONECDR`: bottom-up rewriting, after the cdr has been normalised
 * `TOPRED`: top-reduce, after all sub-terms have been normalised 
 * `FORRULES`: iterate over the list of all rules
 
-### CLI Argument Processor
+## CLI Argument Processor
 The argument processor is straightforward.
+
 * Program (TRS's) and terms each can be read in one go (one file) or in chunks.
 * flag `-P` reads the TRS at once, while repeated `-p` read progam fragments (\= set of rules), after which `-C` joins the fragments. This allows programs to be maintained as a set of modules.
 * flag `-T` reads a term at once, while repeated `-t` read sub-terms , after which `-M` reads a meta-term. This is a term which may contain meta-variables `%n`, where `n` is the index of the n-th read sub-term. This way (for instance) a function can be applied to an input term
 * in addition to terms, TRAM.1 can also read text files, which will be represented as a `str(...eos)`-term.
 
-## User Manual
-### Tram.1 Syntax
-```
-TRS:         Rule+ EOF
-Rule:        Term '=' Term ';'
-Term:        Data
-           | Var
-           | Sym
-           | Sym '(' Term ( ',' Term )* ')'
-Data:        '#' '0x' [0-9a-fA-F]+
-           | '#' '-'? [0-9]+
-           | '\'' . '\''?
-Var:         [*&A-Z] [.0-9a-zA-Z]{0-4}
-Sym:         [@$a-z] [.0-9a-zA-Z]{0-5}
-Whitespace:  [ \n\r\t\v\f]
-Comment:     '!' .* \n
-```
+# User Manual
+## Tram.1 Syntax
 Characters `*` and `&` in varibles, and `$` and `@` in symbols have no special significance, other than to express the special status of variables or symbols from the perspective of the programmer.
 
-### Tram.1 Semantics
+## Tram.1 Semantics
 Tram's semantics is descibed in [Section Term Rewriting](https://www.minimalmagic.blog/trs/termrewriting/). Tram follows the right-most innermost reduction strategy. That is, 
+
 * given a term, first its right-most innermost sub-term is considered for reduction
 * then the left-hand sides of all rules are matched against that sub-term
 * rules are attempted in the order in which they have been read, either using the `-P` flag, or in the order of modules (`-p` flag) followed by the order within that module
@@ -144,7 +136,7 @@ Tram's semantics is descibed in [Section Term Rewriting](https://www.minimalmagi
 	* Then, the next right-most innermost term is attempted
 * if no match is found, the sub-term is built and the next right-most, innermost sub-term is considered
 * this process continues until the entire subject-term has been processed. The result is the now normalised subject term
-### TRAM.1 CLI 
+## TRAM.1 CLI 
 TRAM.1 accepts the following CLI arguments
 ```
       Note that D and X must appear as 1st/2nd cli argument, when used
@@ -174,8 +166,9 @@ TRAM.1 accepts the following CLI arguments
 -B <fname> <todo> print result as binary
 ```
 
-### Formats 
+## Formats 
 TRAM.1 accepts these input formats:
+
 * Source  
 The TRAM.1 source language for terms and term rewriting systems;
 * Text  
@@ -184,11 +177,12 @@ Any text stream (arbitrary text terminated by EOF). The text "ccccc...", where '
 This language is the same as the source language with one extension: meta-variables `'%' [0-9]+`. As input is read, each source, text or binary stream is rendered as a sub-term, and is kept in a cache. As a meta-source input is read and the corresponding term is built, each meta-variable `%n` is immediately replaced by the `n`-th previously read term. Example: to transform a text file using some function, TRAM.1 might be called with arguments 
 `-P <transformatinProgram> -s <textToTransform> -M <meta>`, where the meta-text is `transform(%1)`.
 
-### Examples
+## Examples
 The TRAM.1 distribution contains a large number of examples.
 
-### Distribution
+## Distribution
 The TRAM.1 distribution at  [Github](https://github.com/BabelfishNL/Tram.git) contains the following files:
+
 * `TRAM.1.c`  
 The single C source file. There are no headers; TRAM.1 only includes `stdio.h`,  `stdlib.h` and `stdint.h`.
 * `test`  
@@ -202,7 +196,7 @@ The Makefile handles three commands:
 	* `make test` executes the test script
 	* `make clean` removes all files generated by the test script
 
-### Installation
+## Installation
 Requirements: `gcc`, `sh`
 
 Execute: `make test`

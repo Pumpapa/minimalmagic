@@ -16,7 +16,7 @@ It can video a year of your life, non-stop, easy. It weighs about 150 grams.
 
 How is that possible? It is a cutting edge of System Engineering.
 
-## Engineering
+# Engineering
 Engineering is about 
 
 * finding solutions to problems and
@@ -38,7 +38,7 @@ Engineers solved this problem by *understanding that precise voltages change, bu
 
 Today a phone has > 1.000.000.000 transistors switching (determining the presence or absence of voltage) > 1.000.000.000 times per second.
 
-## Layers
+# Layers
 In order to understand systems with thousands of millions of parts, humans need to apply structure. Just as the TCP/IP stack is used to understand computer networks, another layered model is used to understand systems. 
 
 Whereas the TCP/IP stack is (part of) an international (ISO) standard, the 6-level structured computer organization is not. **Why not?**

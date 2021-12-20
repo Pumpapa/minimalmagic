@@ -22,7 +22,7 @@ Given a TRS, function `encchk` should indicate which functions or variables are 
 
 That is, given a text file, the term `encchk(scan(%1))` whould produce such a list.
 
-## Pattern: Initializing Local Variables
+# Pattern: Initializing Local Variables
 Tram has no local variables, and yet, some functions need auxiliary data structures, which must be initialised. Inside module `EncChecker` a list of all identifiers must be maintained, which is initialised to the empty list.
 
 ```Prolog
@@ -35,12 +35,12 @@ The meta-trem representation produced by `scan` generates four types:
 1. `eoa` the empty argument list
 1. `var(N)` variable with name `N`
 
-## Pattern: Function Name or Extra Parameter
+# Pattern: Function Name or Extra Parameter
 The checker could maintain two lists: one for functions and one for variables, but for simplicity, a single list is used. However, encoding rules for functions and variables differ, so processing `F` in Case 1 above, and `N` in Case 4 must be distinguished. 
 
 The **function name pattern** might distinguish these cases as follows:
 
-```Prolog
+```Prolog {linenos=false}
 ck(trm(F,As),L) = ck(As,mpqf(F,L));
 ...
 ck(var(N),L) = mpqv(N,L);
@@ -50,7 +50,7 @@ But the rules for `mpqf` and `mpqv` are likely to be very similar.
 
 The **extra parameter pattern** encodes the distinction in a data value. In this case the character class of the first character in the identifier is used: `low` for functions, and `cap` for variables:
 
-```Prolog
+```Prolog {linenos=false}
 ck(trm(F,As),L) = ck(As,mpq(low,F,L));
 ...
 ck(var(N),L) = mpq(cap,N,L);
@@ -74,7 +74,7 @@ mpq(Cc,Id,eol) = lst(Id,eol);
 mpq(Cc,Id1,lst(Id2,L)) = mpqc(Cc,cc(first(Id2)),Id1,Id2,L);
 ```
 
-## Pattern: Have your Cake
+# Pattern: Have your Cake
 Ordinarily, sub-terms of arguments are accessed by matching the argument against a pattern. Function `mpq` could have been defined by
 
 ```Prolog
@@ -88,7 +88,7 @@ The pattern leaves an argument as-is and uses an accessor (`first`, in this case
 
 The next function, `mpqc` should distinguish two situations: the subject and the first identifier in the list have the same type, or not. If they are the same type, `four` and `five` are used to identify the number of characters that should coincide. We could also use values `#4` and `#5`, but since no built-in operators exist for data values, they offer little added value.
 
-```Prolog
+```Prolog {linenos=false}
 mpqc(low,low,Id1,Id2,L)
   = eqnc(five,eq(first(Id1),first(Id2)),rest(Id1),rest(Id2),low,Id1,Id2,L);
 mpqc(cap,cap,Id1,Id2,L)
@@ -98,7 +98,7 @@ mpqc(Cc1,Cc2,Id1,Id2,L) = lst(Id2,mpq(Cc1,Id1,L));
 
 Note that the 'have-your-cake-pattern' is used again. Without it the specification would have been almost as clear:
 
-```Prolog
+```Prolog {linenos=false}
 mpqc(low,low,str(C1,S1),str(C2,S2),L)
   = eqnc(five,eq(C2,C2),S1,S2,low,str(C1,S1),str(C2,S2),L);
 mpqc(cap,cap,str(C1,S1),str(C2,S2),L)
@@ -113,15 +113,16 @@ Finally, the heart of the checker (the function `eqnc`, for *equal encoding*) sh
 4. an inequality is found beyond the length of the encoding: two different identifiers will be encoded the same
 5. an inequality is found within the encoding length. These are simply distinct identifiers
 
-{{<highlight prolog "linenos=false">}}
+```Prolog {linenos=false}
 1 eqnc(N,ok,eos,eos,Cc,Id1,Id2,L) = lst(Id2,L);
 2 eqnc(zero,ok,str(C1,S2),str(C2,S2),Cc,Id1,Id2,L)
   = eqnc(zero,eq(C1,C2),S1,S2,Cc,Id1,Id2,L);
 3 eqnc(N,ok,str(C1,S2),str(C2,S2),Cc,Id1,Id2,L)
   = eqnc(prev(N),eq(C1,C2),S1,S2,Cc,Id1,Id2,L);
-4 eqnc(zero,P,Q,R,Cc,Id1,Id2,L) = lst(str('$',str('$',eos)),lst(Id1,lst(Id2,L)));
+4 eqnc(zero,P,Q,R,Cc,Id1,Id2,L) 
+  = lst(str('$',str('$',eos)),lst(Id1,lst(Id2,L)));
 5 eqnc(N,P,Q,R,Cc,Id1,Id2,L) = lst(Id2,mpq(Cc,Id1,L));
-{{</highlight>}}
+```
 
 Finally, auxiliary function `prev` is defined:
 

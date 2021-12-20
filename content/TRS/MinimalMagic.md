@@ -2,7 +2,7 @@
 title: "Minimal Magic"
 date: 2021-10-1
 draft: false
-weight: 1001
+weight: 99
 categories:
   - "TRS"
 tags:
@@ -33,14 +33,14 @@ This has been the situation for almost all programming languages and it is the w
 
 By choice, in Tram, the strength and simplicity outweigh other concerns, which is formulated in the adage: 'minimal magic'.
 
-## Magic
+# Magic
 '*Magic*' refers to built-in concepts that do not follow from the underlying theoretical framework, and '**minimal magic**' refers to the desire to minimize the level of concepts thus introduced.
 
 Tram is [based on set theory](https://www.minimalmagic.blog/trs/termrewriting/) and therefore has the concepts of symbols, variables, terms, rules and rewrite systems. One might say this mental structure is part of our minimal magic. Common prerequisites of programming languages such as data types, operations, data structures, control structures, modularity, etcetera, are absent.
 
 Unfortunately, one further bit of magic is inescapable, and in light of the above it is fitting to characterize why.
 
-### The Black Box
+## The Black Box
 Imagine a black box which implements a term rewriting system. In order to be of any practical or theoretical use, a user must have the ability to '*introduce*' a term in the unit and '*extract*' the normal form after it has been normalized. In addition, assuming the unit has finite memory, status information must be exchanged, such as '*out of memory*', when that situation occurs.
 
 How could this introduction/extraction take place?
@@ -61,18 +61,19 @@ Exchanging bits of information is another conceivable approach. One could imagin
 
 In any event, the interface between the term rewriting black box and its outside user must be unambiguous (and is considered magic because it doesn't follow from the theoretical term rewriting framework).
 
-## Minimal Magic
+# Minimal Magic
 In the previous section we have seen that the interface of the term rewriting black box should (at least) identify three symbols: two to *carry meaning* and one to *structure* the other two. But since most term rewriting systems define more than three symbols, it follows that aggregates must be used to identify symbols. 
 
 A naive approach suggests to number all symbols in the term rewriting system and use those numbers (encoded in aggregates of the meaning-carying constants) in the interface. 
 
 But there's a snag: the term rewriting system might not include all symbols that subject terms might contain. Consider, for example, a compiler implemented in a term rewriting system and assume variables in the subject language occur as symbols in terms representing programs. For instance, the statement `x=x+1` (in this imaginary language) might be represented as  `let(x,plus(x,1))` (note that `x` is a variable in the language but obviously not in the term rewriting system). This observation is true for **every variable in the subject language**. But a compiler does not '*know*' all possible variables. The term rewriting system must be able to process terms containing symbols that are unknown beforehand. The only way to proceed is the ability to encode *all possible symbols*.
 
-### Interfaces
+## Interfaces
 Using only three symbols may seem minimal, but if aggregates are 
 then used to encode infinitely many further symbols that 'three symbol' minimalism becomes less meaningful. Not only the number of interface-symbols should be considered, but also the encoding of other symbols. We will refer to these as **explicit** and **implicit** interface definition. The explicit interface is the set of symbols used; the implicit interface is the set of symbols that is encoded in the explicit interface.
 
 Tram  uses the following **explicit interface** definition:
+
 * The implementation defines 128 or 256 constants coinciding with the 7-bit ASCII characters or 8-bit bytes
 * Implicitly, the sequence-operation strings characters or bytes together
 
@@ -81,8 +82,9 @@ Fewer symbols could be used. An alternative might have been to define only const
 The **implicit interface** uses numbers to encode symbols and variables. The encoding differs per version of TRAM. TRAM.1, for instance, reversibly converts human-readable identifiers to 32-bit ints.
 As long as all occurences of a symbol consistently use the same number to encode it, the semantics are sound. 
 
-## Summary
+# Summary
 To summarize, 
+
 * Tram is based on term rewriting, which is based on naive sets
 * Tram uses an explicit interface of sequences of 7- or 8-bit data
 * Each TRAM version uses an appropriate encoding as its implicit interface

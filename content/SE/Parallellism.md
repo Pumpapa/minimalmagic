@@ -15,7 +15,7 @@ Users don't like to wait, and while a single ALU is fast, it can only do so much
 
 Many different sections of a CPU can and do work in parallel. We'll only discuss a small number of aspects to give an overview.
 
-## Multiple Cores
+# Multiple Cores
 
 Today, the largest desktop CPU's offer many cores: Intel i9: 18 cores; AMD Naples: 32 cores. For typical household use including gaming, about 16 cores is sufficient.
 
@@ -23,7 +23,7 @@ For servers, larger CPU's exist: Intel Xeon Phi: 72 cores. Ampere releases a 128
 
 Just adding cores is easy, but engineering the cache architecture and supporting hardware to keep many cores running effectively (using a single memory and network connection) is very difficult. In particular given the fact that **all software is aimed at the singular x86 or ARM model** (although software may be written to make use of multiple cores if they're there).
 
-## Pipeline
+# Pipeline
 
 A core executes the fetch-decode-execute cycle. Naively, this would mean the fetch and decode circuitry is idle while the ALU is executing, but processors are somewhat predictable. When an instruction is executed, the next instruction is usually the one immediately following. That instruction can already be fetched and decoded while the first is executing.
 
@@ -31,13 +31,13 @@ Around 1980 the 5-stage pipeline was introduced, executing five aspects in paral
 
 However, the next instruction isn't always the one following. If the current instruction is a jump, the next instruction is at the place we are jumping to. This situation becomes known in the decode stage. Then, the fetch stage can be restarted to fetch the right instruction.
 
-### Conditional Branches
+## Conditional Branches
 
 The situation becomes more complex for conditional branches, because the branch may or may not be taken *and the condition which decides this hasn't yet been computed*. Because any improvement is better than waiting, an entire field of engineering involves **branch prediction**.
 
 Lets assume about 20% of instructions are conditional branches. An ideal 6-stage pipeline without prediction must therefore wait 20% of the time. This implies that instead of 1 cycle per instruction, it requires 0.8+0.2*6 cycles per instruction which is 2 cycles: the cpu runs at only half the best possible speed!
 
-### Branch prediction
+## Branch prediction
 
 Branch prediction heuristics include:<small>*(source https://danluu.com/branch-prediction/)*</small>
 
@@ -48,13 +48,13 @@ Branch prediction heuristics include:<small>*(source https://danluu.com/branch-p
 
 Most of these heuristics were developed between 1990 and 2000. Current performance is in the area of 5% off 'always right' prediction!
 
-## Superscalar
+# Superscalar
 
 Many instructions require more than one cycle to execute. Some common examples are floating point operations, and instructions that must fetch or store results in memory. During the execution of such an instruction, the pipeline and other hardware shouldn't be idle.
 
 A **superscalar** is an extension on the pipeline, which allows multiple ALU functions to be executed at the same time. The ALU might for instance contain an additional integer arithmetic unit and a floating point unit. In that way, even though the instructions in isolation might take more than one cycle, a new operation can be started almost every cycle.
 
-## Simultaneous multithreading & Hyperthreading
+# Simultaneous multithreading & Hyperthreading
 
 Many processors advertise on the box: *n cores, m threads* (where m=2n). What's that about?
 
@@ -64,7 +64,7 @@ Every core has to wait less than a microsecond every now and then, when data or 
 
 Whenever one thread needs to wait briefly, another set of registers is used to advance another thread. Obviously the pipeline and superscalar must be integrated for this to work. 
 
-### Thread vs Process
+## Thread vs Process
 
 We will look at processes and threads later on, but for the moment it is relevant to note that by definition threads always share memory, so simultaneous multithreading doesn't introduce global issues around shared resources.
 
@@ -72,7 +72,7 @@ To introduce 'hyper-processes', many issues around shared-resource contention an
 
 But simultaneous multithreading doesn't introduce these issues. In desktop CPU's the maximum is 2 logical cores per real core, but server CPU's exist with more than that.
 
-## SIMD
+# SIMD
 
 Our processor model might be called SISD: a single instruction processes a few single data values. Consider that your favorite first-person shooter game generating 60 fps at, say, 1920x1080 resolution is performing roughly 120 million computations per second. Every second the same (or similar) instructions need to be fetched and decoded to perform the same calculations (on different data).
 

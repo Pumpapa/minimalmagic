@@ -17,9 +17,9 @@ As memory grew, the demands also grew, so programmers were spending significant 
 
 Conceptually, virtual memory means a program can use a lot more memory than is (physically) available. That virtual memory is simply stored on disk, and physical memory is used as a cache for the memory stored on disk (very much as a CPU cache temporarily stores memory content). Note that this is the same as a program storing intermediate results in a file, with one exception: the operating system must handle the virtual memory administration automatically.
 
-## Paging
+# Paging
 
-{{< figure "Virtual Memory" "/images/SE1.virtmem.png" right 100 >}}
+{{<figure `Virtual Memory` `/images/SE1.virtmem.png` right 100 >}}
 
 The heart of virtual memory is **paging**. The entire memory a program uses is divided in **pages**. Whenever the program accesses a page which isn't currently stored in physical memory (this is called a **page fault**), that page is loaded into a section of memory of equal size, called a **frame**. When no unused frame is available (memory is full), the OS looks for a frame it can recycle, for instance a frame which hasn't been used for some time (the OS remembers last access times for all frames). If that frame is dirty it is first written back to disk. Then the page the program wanted to access is loaded into the now unused frame, and memory access can finally take place. 
 
@@ -31,7 +31,7 @@ The second part is that some specific hardware, called the **MMU** (Memory Manag
 
 Thirdly, if the CPU (or rather a core) needs to wait a moment, a second logical core quickly takes over to avoid waiting (multithreading).
 
-### Memory Management Unit, Translation Lookaside Buffer
+## Memory Management Unit, Translation Lookaside Buffer
 
 An **MMU** is a dedicated piece of hardware (today embedded in the CPU) which controls all memory access (so it's located between the cores and the address bus), either before or after the caches.
 
@@ -39,18 +39,18 @@ Before looking into the Page Table, the MMU may look into an associative cache: 
 
 The MMU generates a trap (i.e. invokes the OS) if a page isn't yet loaded in memory or if any error condition occurs =>
 
-### Page Table Entry
+## Page Table Entry
 
 A page table entry (there's one per virtual memory page) holds the virtual and physical (if loaded) page addresses and various control information:
 
 * a dirty bit
 * an R/W bit (allows pages to be R/O)
 * a bit indicating the required permission level (user or system)
-*  
+
 
 If the virtual address points outside virtual memory, or if R/O or access rights are violated, the MMU generates a trap which invokes an error handler in the OS.
 
-## Segmentation
+# Segmentation
 
 Segmentation stems from the time of overlays: instead of using a single continuous memory space, a program divides its memory in separate segments, each holding code or data belonging to different aspects of the program. Segmentation is used for virtual memory, where segments are loaded and stored as the need arises, but it is also used as a programming structuring mechanism. 
 
@@ -58,7 +58,7 @@ The main difference between paging and segmentation is that paging is automatic 
 
 Segmentation is still being used today, and one of the most dreaded error messages when programming in C is 'segmentation fault, core dumped': indicating a memory access violation.
 
-## Page Size
+# Page Size
 
 There is no ideal page size: too small and the administration overhead becomes noticeable; too large and waste and performance loss might result.
 
@@ -66,7 +66,7 @@ The ARM MMU (included in all modern ARM processors) offers four sizes: 4k / 64k 
 
 The x86-64 MMU usualy sticks to 4k pages, but does support larger 'hugepages'.
 
-## x86-64 Paging
+# x86-64 Paging
 
 Today, most Intel processors offer 4-level paging, but this architecture is limited to 256 TiB, so this Intel whitepaper [https://software.intel.com/sites/default/files/managed/2b/80/5-level_paging_white_paper.pdf](https://software.intel.com/sites/default/files/managed/2b/80/5-level_paging_white_paper.pdf) sketches the next gen 5-level architecture, good for 128 PiB.
 
@@ -74,9 +74,9 @@ This mode uses 57 bit addresses =>
 
 <small>*Note: Whereas metric kilo, mega, giga, tera and peta count in powers of 1000, tera being 1000^4, the ISO and IEC promulgated standard counts in powers of 1024: kibi, mebi, gibi, tebi and pebi, a pebibyte being 1024^5 bytes, so 128PiB=1.4e17 B*</small>
 
-## x86-64 Five-level Paging
+# x86-64 Five-level Paging
 
-{{< figure "5 Level Paging" "/images/SE1.5level.png" right 100 >}}
+{{<figure `5 Level Paging` `/images/SE1.5level.png` right 100 >}}
 
 * lower 12 bits are the offset in the physical page (2^12=4k)
 * other layers use 9 bits = 512 entries (2^9=512) of 64 bits. A 40-bit base pointer and control various bits

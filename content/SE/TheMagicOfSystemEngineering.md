@@ -12,11 +12,12 @@ tags:
   - "Numbers"
   - "Components"
 ---
-{{< figure "Logarithmic Barrel Shifter" "/images/LogarithmicBarrelShifter.png" right 40 >}}
+{{<figure `Logarithmic Barrel Shifter` `/images/LogarithmicBarrelShifter.png` right 40 >}}
 
 Starting with a functionally trivial 
 component, the transistor, we can 
 create a multitude of components including
+
 * Memory
 * Boolean Logic (NAND, ...)
 * Binary & Integer Math (+, -, *, <<, &, !, ...)
