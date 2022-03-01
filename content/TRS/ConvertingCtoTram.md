@@ -17,7 +17,7 @@ The scanner is a loop which processes input characters and terminates when EOF i
 
 Variables:
 
-* `v` holds the current value
+* `v` holds the currently value being read
 * `num` and `sgn` are auxiliary variable used to read numbers
 * `len` is an auxiliary variable used to read identifiers 
 * `in` and `nm` are file name and descriptor
@@ -42,9 +42,9 @@ tval readTerm(char *nm) {
 Note: immediately after the switch statement is the single statement:
 
 ```C
-		}
-		c = fgetc(in);
-	}
+    	}
+    	c = fgetc(in);
+    }
 ```
 
 This means that the `break` statement results in the next character being read and the loop restarted, whereas `continue` restarts the loop without reading a character (i.e., when the next character has already been read).
@@ -52,22 +52,22 @@ This means that the `break` statement results in the next character being read a
 Whitespace and comments are simply skipped. 
 
 ```C
-	case ' ': case '\n': case '\r': case '\t': 
-	case '\v': case '\f':  
-		break;  
-	case '!': // comment  
-		while ((c=fgetc(in))!='\n') {}  
-		break;  
+    case ' ': case '\n': case '\r': case '\t': 
+    case '\v': case '\f':  
+    	break;  
+    case '!': // comment  
+    	while ((c=fgetc(in))!='\n') {}  
+    	break;  
 ```
 
 A quoted character is immediately encoded to a corresponding data value.
 
 ```C
-	case '\'': //data (char)  
-		v = (fgetc(in)<<2)|1;  
-		if ((c=fgetc(in))!='\'') 
-			error("expected ' got character %c (%d)",c,c);  
-		break;  
+    case '\'': //data (char)  
+    	v = (fgetc(in)<<2)|1;  
+    	if ((c=fgetc(in))!='\'') 
+    		error("expected ' got character %c (%d)",c,c);  
+    	break;  
 ```
 A `#` can be followed by 
 
@@ -77,55 +77,55 @@ The encoding data value is computed on the fly.
 
 ```C
 case '#': // data (hex or dec)  
-	if ((c=fgetc(in))=='0') {  
-	   if ((c=fgetc(in))=='x') {  
-		   num = 0;  
-		   while ((c = fgetc(in)) >= '0' && c <= '9' 
-		           || c >= 'a' && c <= 'f' || c >= 'A' && c <= 'F') {  
-			   num = 16 * num + 
-			         (c <= '9' ? c - '0' 
-			            : c <= 'F' ? 10 + c - 'A' : 10 + c - 'a');  
-		   }  
-		   v = (num << 2) | 1;  
-		   continue;  
-	   } else if (c>='0'&&c<='9') {  
-		   sgn = 1;  
-		   num = c-'0';  
-		   goto decimal;  
-	   } else {  
-			   v = 1;  
-			   continue;  
-	   }  
-	} else {  
-	   if (c=='-') {  
-		   sgn = -1;  
-		   num = 0;  
-	   } else {  
-		   sgn = 1;  
-		   num = c-'0';  
-	   }  
-	 decimal:  
-	   while ((c=fgetc(in))>='0'&&c<='9') {  
-		   num = 10*num+c-'0';  
-	   }  
-	   v = ((sgn*num)<<2)|1;  
-	   continue;  
-	}
+    if ((c=fgetc(in))=='0') {  
+       if ((c=fgetc(in))=='x') {  
+    	   num = 0;  
+    	   while ((c = fgetc(in)) >= '0' && c <= '9' 
+    	           || c >= 'a' && c <= 'f' || c >= 'A' && c <= 'F') {  
+    		   num = 16 * num + 
+    		         (c <= '9' ? c - '0' 
+    		            : c <= 'F' ? 10 + c - 'A' : 10 + c - 'a');  
+    	   }  
+    	   v = (num << 2) | 1;  
+    	   continue;  
+       } else if (c>='0'&&c<='9') {  
+    	   sgn = 1;  
+    	   num = c-'0';  
+    	   goto decimal;  
+       } else {  
+    		   v = 1;  
+    		   continue;  
+       }  
+    } else {  
+       if (c=='-') {  
+    	   sgn = -1;  
+    	   num = 0;  
+       } else {  
+    	   sgn = 1;  
+    	   num = c-'0';  
+       }  
+     decimal:  
+       while ((c=fgetc(in))>='0'&&c<='9') {  
+    	   num = 10*num+c-'0';  
+       }  
+       v = ((sgn*num)<<2)|1;  
+       continue;  
+    }
 ```
 
 Meta variables contain a decimal number identifying the n-th element (in reverse order) from the list in `T`. This value is returned as the value just read.
 
 ```C
 case '%': // dec (meta-variable)
-	num = 0;  
-	while ((c=fgetc(in))>='0'&&c<='9') {  
-		num = 10*num+c-'0';  
-	}  
-	for (v=T, len=0; v!=0; v=ref(v)->cdr) len++;  
-	num = len-num;  
-	for (v=T; num--; v=ref(v)->cdr) {}  
-	v = ref(v)->car;  
-	continue;  
+    num = 0;  
+    while ((c=fgetc(in))>='0'&&c<='9') {  
+    	num = 10*num+c-'0';  
+    }  
+    for (v=T, len=0; v!=0; v=ref(v)->cdr) len++;  
+    num = len-num;  
+    for (v=T; num--; v=ref(v)->cdr) {}  
+    v = ref(v)->car;  
+    continue;  
 ```
 
 
@@ -133,13 +133,13 @@ A Tram variable consists of `*`, `&` or an upper-case letter, followed by betwee
 
 {{<figure `Tagged Values` `/images/TRS/TaggedValues.png` right 60 >}}
 
-A symbol consists of `$`, `@` or a lower-case letter, followed by between zero and three letters, digits or `.`. Only the first five characters are significant, although symbols shorter than 6 characters and symbols longer than 5 characters are distinguished, so `abcde` and `abcdef` differ, but `abcdef` and `abcdeg` are considered identical.
+A symbol consists of `$`, `@` or a lower-case letter, followed by between zero and four letters, digits or `.`. Only the first five characters are significant, although symbols shorter than 6 characters and symbols longer than 5 characters are distinguished, so `abcde` and `abcdef` differ, but `abcdef` and `abcdeg` are considered identical.
 
 Only the first five characters are significant, so `abcde` and `abcdef` differ, but `abcdef` and `abcdeg` are considered identical.
 
 * In a variable or symbol the L bit signifies whether the identifier is longer than the max (4 for variables, 5 for symbols)
 * `AAAAA` in a variable, or `FFFFF` in a symbol encode the first character
-* `aaaaaa`, `bbbbbb` etcetera encode subsequent characters.
+* `aaaaaa`, `bbbbbb`, etcetera encode subsequent characters.
 
 ```C
 case '*': case '&': // Var  
@@ -150,10 +150,10 @@ case 'V': case 'W': case 'X': case 'Y': case 'Z':
     len = 1;  
     num = c=='*'?1:c=='&'?2:c-'A'+3;  
     while ((c=fgetc(in))=='.'||c>='0'&&c<='9'
-	       ||c>='a'&&c<='z'||c>='A'&&c<='Z') {  
+           ||c>='a'&&c<='z'||c>='A'&&c<='Z') {  
         if (++len<=4) {  
             num = num << 6 | (c == '^' ? 1 
-			  : c - (c <= '9' ? '0'-2 : (c <= 'Z' ? 'A'-12 : 'a'-38)));  
+    		  : c - (c <= '9' ? '0'-2 : (c <= 'Z' ? 'A'-12 : 'a'-38)));  
         }  
     }  
     sgn = len>4?1<<31:0;  
@@ -170,10 +170,10 @@ case 'v': case 'w': case 'x': case 'y': case 'z':
     len = 1;  
     num = c=='@'?1:c=='$'?2:c-'a'+3;  
     while ((c=fgetc(in))=='.'||c>='0'&&c<='9'
-	       ||c>='a'&&c<='z'||c>='A'&&c<='Z') {  
+           ||c>='a'&&c<='z'||c>='A'&&c<='Z') {  
         if (++len<=5) {  
             num = num << 6 | (c == '^' ? 1 
-			: c - (c <= '9' ? '0'-2 : (c <= 'Z' ? 'A'-12 : 'a'-38)));  
+    		: c - (c <= '9' ? '0'-2 : (c <= 'Z' ? 'A'-12 : 'a'-38)));  
         }  
     }  
     sgn = len>5?4:0;  
@@ -188,47 +188,47 @@ So far, we have seen a scanner and not a parser. The only feature in Tram that i
 When a `(` is encountered, a symbol must just have been seen. The current value is kept in variable `v`, so a term with `v` as outermost function symbol is pushed on the stack (`new(v,0)`). This term will be extended as arguments are parsed.
 ```C
 case '(':  
-	Push(S, idx(new(v,0)));  
-	v=0;  
-	break;  
+    Push(S, idx(new(v,0)));  
+    v=0;  
+    break;  
 ```
 A `,` means a (possibly coerced) term has just been read. That term is pushed on whatever partial term is on the stack. These pushed sub-terms therefore occur in the wrong order. We will fix this at the closing `)`. Note that `V` is cleared to avoid floating garbage, and that `v` is cleared because there is no current read object.
 ```C
 case ',':  
-	if (isFUN(v)) v=idx(new(v,0));  
-	V = Pop(S);  
-	Push(S, idx(new(v,V)));  
-	V=v=0;  
-	break;  
+    if (isFUN(v)) v=idx(new(v,0));  
+    V = Pop(S);  
+    Push(S, idx(new(v,V)));  
+    V=v=0;  
+    break;  
 ```
-Just like a `,`, a  `)` immediately follows a (possibly coerced) term. However, that structure is in the wrong order: The last argument is on top, and the function symbols is deepest. A new object is created in which all parts occur in the right order.
+Just like a `,`, a  `)` immediately follows a (possibly coerced) term. However, that structure is in the wrong order: The last argument is on top, and the function symbols are deepest. A new object is created in which all parts occur in the right order.
 ```C
 case ')':  
-	if (isFUN(v)) v=idx(new(v,0));  
-	v=idx(new(v,0));  
-	V = Pop(S);  
-	while (V!=0) {  
-		v=idx(new(ref(V)->car,v));  
-		V = ref(V)->cdr;  
-	}  
-	break;  
+    if (isFUN(v)) v=idx(new(v,0));  
+    v=idx(new(v,0));  
+    V = Pop(S);  
+    while (V!=0) {  
+    	v=idx(new(ref(V)->car,v));  
+    	V = ref(V)->cdr;  
+    }  
+    break;  
 ```
 `=` occurs in a rule, but otherwise behaves as a `,`.
 ```C
 case '=':  
-	if (isFUN(v)) v=idx(new(v,0));  
-	Push(S,v);  
-	v=0;  
-	break;  
+    if (isFUN(v)) v=idx(new(v,0));  
+    Push(S,v);  
+    v=0;  
+    break;  
 ```
-Similarly, `;` terminates a rule, and behaves somewhat as a `)`. However, no term-structure with outermost function symbol is created for rules, because a linked list with pairs is more efficient. That list is needed in reverse textual order, so the pair of the left- and right-hand sides is left on the stack.
+Similarly, `;` terminates a rule, and behaves somewhat as a `)`. However, no term-structure with an outermost function symbol is created for rules, because a linked list with pairs is more efficient. That list is needed in reverse textual order, so the pair of the left- and right-hand sides is left on the stack.
 ```C
 case ';':  
-	if (isFUN(v)) v=idx(new(v,0));  
-	V = Pop(S);  
-	Push(S, idx(new(V,v)));  
-	v=0; V=0;  
-	break;  
+    if (isFUN(v)) v=idx(new(v,0));  
+    V = Pop(S);  
+    Push(S, idx(new(V,v)));  
+    v=0; V=0;  
+    break;  
 ```
 Finally, two situations might occur:
 
@@ -237,26 +237,26 @@ The (possibly coerced) term is returned.
 * A TRS is read  (`S!=nil`)  
 The stack contains the pairs of left- and right-hand sides in reverse order. It is returned (`S` is reset)
 ```C
-			case EOF:  
-				if (S!=nil) {  
-					v=idx(S);  
-					S=nil;  
-				}  
-				if (isFUN(v)) v=idx(new(v,0));  
-				return v;  
-			default:  
-				error("unexpected character %c (%d)",c,c);  
-		};  
-		c = fgetc(in);  
+    		case EOF:  
+    			if (S!=nil) {  
+    				v=idx(S);  
+    				S=nil;  
+    			}  
+    			if (isFUN(v)) v=idx(new(v,0));  
+    			return v;  
+    		default:  
+    			error("unexpected character %c (%d)",c,c);  
+    	};  
+    	c = fgetc(in);  
     }  
 }
 ```
 
 # Scanner / Parser in Tram
-The main loop is implemented in the function `sccc`, short for 'scan with character class'. This function implements the `switch` statement of the automaton and has these arguments `sccc(Cc,C,S,V,Stck)`
+The main loop is implemented in the function `sccc`, short for 'scan with character class'. This function implements the `switch` statement of the automaton and has these arguments `sccc(Cc, C, S, V, Stck)`
 
 * `C` is the character currently being considered
-* `Cc` is its charcater class
+* `Cc` is its character class
 * `S` is the remainder of the input (string)
 * `V` is the current value 
 * `Stck` is the current stack
@@ -279,7 +279,8 @@ sccc(spec,C,S,V,Stck) = scspec(C,S,Stck);
 sccc(cap,C,str(B,S),V,Stck) = scsym(cc(B),B,S,cap,str(C,eos),Stck);
 sccc(low,C,str(B,S),V,Stck) = scsym(cc(B),B,S,low,str(C,eos),Stck);
 sccc(lpar,C,S,V,Stck)
-  = sccc(cc(first(S)),first(S),rest(S),null,lst(trm(V,eoa),Stck));
+  = sccc(cc(first(S)),first(S),
+          rest(S),null,lst(trm(V,eoa),Stck));
 sccc(cc(first(eos)),C,S,V,Stck) = scfinalize(C,S,V,Stck);
 sccc(CC,C,S,V,Stck) = scaffix(CC,S,V,Stck);
 
@@ -327,9 +328,11 @@ Otherwise, the top of the stack is a partial term, and the current value ((possi
 
 ```Prolog {linenos=false}
 scaffix(equ,S,trm(F,As),Stck)
-= sclini(equ,S,lst(trm(str('r',str('l',eos)),arg(trm(F,As),eoa)),Stck));
+= sclini(equ,S,lst(trm(str('r',str('l',eos)),
+                       arg(trm(F,As),eoa)),Stck));
 scaffix(equ,S,F,Stck)
-= sclini(equ,S,lst(trm(str('r',str('l',eos)),arg(trm(F,eoa),eoa)),Stck));
+= sclini(equ,S,lst(trm(str('r',str('l',eos)),
+                       arg(trm(F,eoa),eoa)),Stck));
 scaffix(Cc,S,var(V),lst(T,Stck))
 = sclini(Cc,S,lst(append(var(V),T),Stck));
 scaffix(Cc,S,str(F,Fs),lst(T,Stck))
@@ -359,7 +362,8 @@ scfinalize(first(eos),rest(eos),F,eol) = trm(F,eoa);
 scfinalize(first(eos),rest(eos),null,Stck) = sccollrls(eol,Stck);
 
 sccollrls(Rs,lst(trm(str('r',str('l',eos)),arg(L,arg(R,eoa))),Stck))
- = sccollrls(trm(str('r',str('l',eos)),arg(L,arg(R,arg(Rs,eoa)))),Stck);
+ = sccollrls(trm(str('r',str('l',eos)),
+                 arg(L,arg(R,arg(Rs,eoa)))),Stck);
 sccollrls(V,eol) = V;
 ```
 
@@ -381,7 +385,8 @@ scspec('#',str('0',str('x',S)),Stck) = schx(S,eos,Stck);
 scspec('#',str('0',S),Stck) = scdec(S,str('0',eos),Stck);
 scspec('#',str('-',S),Stck) = scdec(S,str('-',eos),Stck);
 scspec('#',S,Stck) = scdec(S,eos,Stck);
-scspec(#0x27,str(C,str(#0x27,S)),Stck) = sccc(cc(first(S)),first(S),rest(S),C,Stck);
+scspec(#0x27,str(C,str(#0x27,S)),Stck) 
+ = sccc(cc(first(S)),first(S),rest(S),C,Stck);
 
 scdec(str('0',S),V,Stck) = scdec(S,str('0',V),Stck);
 scdec(str('1',S),V,Stck) = scdec(S,str('1',V),Stck);
@@ -419,3 +424,6 @@ schx(str('8',S),V,Stck) = schx(S,str('8',V),Stck);
 schx(str('9',S),V,Stck) = schx(S,str('9',V),Stck);
 schx(S,V,Stck) = sccc(cc(first(S)),first(S),rest(S),reverse(V),Stck);
 ```
+
+
+

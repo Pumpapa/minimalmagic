@@ -110,14 +110,15 @@ A naive description is a recursive algorithm:
 ```
 
 There is quite some complexity hidden here:
-### How to visit all objects
-If objects are laid out in memory, one might visit all objects. But given an object in memory, it is not necessarily possible to find the next object in use in memory. It might be at the next word boundary or some other boundary. But if the next fragment of memory is unused, it may not be formatted as an object and it is impossible in general to find the next used object. At the price of some overhead this could be solved.
 
-But even if, line (2) in the algorithm introduced a problem because it extends the set of used objects. An object which seems unused at the first pass may turn out to be used after all. Multiple passes over the entire memory would lead to too much time overhead.
+### How to visit all objects
+If objects are laid out adjacently in memory, one might visit all objects by walking linearly through memory. But given an object in memory, it is not necessarily possible to find the next object in use in memory. It might be at the next word boundary or some other boundary. But if the next fragment of memory is unused, it may not be formatted as an object and it is impossible (in general) to find the next used object. At the price of some overhead this could be solved.
+
+But even if, line (2) in the algorithm introduces a problem because it extends the set of '*used*' objects. An object which seems unused at the first sequential pass may turn out to be in use after all. Multiple passes over the entire memory would lead to too much time overhead.
 
 Another way to look at the algorithm is as a recursive function. But the worse case behavior of such a function is to recurse across all objects in memory (cycles are not a problem because we recurse only on unmarked objects). The problem is that the garbage collector is called only when memory is scarce, so there may not be enough stack-memory to implement this recursive function.
 
-Queues offer an alternative mechanism: 
+**Queues** offer an alternative mechanism: 
 
 * in step one all directly accessible objects are queued
 * repeatedly, an object is dequeued, flagged, and all its unflagged children are queued
@@ -128,8 +129,10 @@ Queues offer an alternative mechanism:
 The worse-case behavior of this implementation is also to queue all objects, but that is limited and could be implemented using one additional pointer per node, and no additional time overhead other than garbage collection. This approach is used fairly often.
 
 ### Link Inversion
-Heap traversal when memory is scarce is an area of research by itself. Over the years many approaches have been developed. One such approach uses link inversion: when one traverses a tree, two pointer keep track of one parent and one child, and the pointer in the parent to the child is inverted to point to the parent's parent. No extra memory is needed and no information is lost. An index in the parent may be needed to identify which of its child-pointers has been inverted.
+Heap traversal when memory is scarce is an area of research by itself. Over the years many approaches have been developed. One such approach uses link inversion: when one traverses a tree, two pointer keep track of one parent and one child, and the pointer in the parent to the child is inverted to point to the parent's parent (the inverted links form a stack of parents). No extra memory is needed and no information is lost. An index in the parent may be needed to identify which of its child-pointers has been inverted.
 
+### Conclusion
+No ultimate conclusion is reached: mark and sweep are somewhat intertwined so a holistic approach must be taken.
 # Sweep
 Two situations must be distinguished:
 
@@ -147,7 +150,7 @@ If nodes have different sizes, fragmentation lurks: memory consists of many diff
 {{<figure `Fragmentation` `/images/TRS/Fragmentation.png` right 60 >}}
 
 Combining adjacent unused fragments may seem simple, but if no special care is taken, it involves looping through the entire memory: a significant time overhead. Even if unused nodes are kept in a linked list, finding adjacent ones is problematic: it may involve ordering that list, which is time overhead.
-But: systems exist which employ this approach (e.g. [buddy memory allocation](https://en.wikipedia.org/wiki/Buddy_memory_allocation). Especially if sorting is only local, the overhead can be  limited.
+But: systems exist which employ this approach (e.g. [buddy memory allocation](https://en.wikipedia.org/wiki/Buddy_memory_allocation)). Especially if sorting is only local, the overhead can be  limited.
 
 Unused chunks separated by used nodes are the tougher problem. If they are not joined, a request for a big node might be unfulfillable even when enough unused memory is available (albeit fragmented). In time, performance would degrade significantly.
 
@@ -159,7 +162,7 @@ The most common solution is **compactification**: moving used nodes together to 
 
 The biggest concern of compactification is the question if used nodes can easily be moved. If a node is moved, all references to (and within) that node must be updated. This means, all global and local variables and all other places where an intermediate result might point to/in an object (e.g. some CPU register) should be updated. 
 
-In general this is impossible. In specific situations such as abstract machines this may be possible. A common solution is the use of **handles**, because then only the handle needs to be updated. But, as mentioned, this is only suitable in some situations and does require every node access to go through the handle every time. Significant overhead in general.
+In general this is all but impossible. In specific situations such as abstract machines this may be possible. A common solution is the use of **handles**, because then only the handle needs to be updated. But, as mentioned, this is only suitable in some situations and does require every node access to go through the handle every time. Significant overhead in general.
 
 # TRAM
 The Term Rewriting Abstract Machine (TRAM) implements memory management as follows.
@@ -170,7 +173,7 @@ Terms can have any arity (immediate sub-terms) and would therefore require varia
 In TRAM, a transformation is used which maps a term with `n` sub-terms to a tree with `n+1` binary nodes. Since all nodes are now binary, no compactification is needed.
 
 ## Persistence
-Term rewriting is a functional paradigm: there is no assignment. This means, when a binary node is created, both sub-tress already exist, and that node will never me changed.
+Term rewriting is a functional paradigm: there is no assignment. This means, when a binary node is created, both sub-trees already exist, and that node will never be changed.
 
 We will use this property in the mark phase, in the recursive mark step, by traversing all nodes from youngest to oldest. **If a recent node isn't marked, it can not become marked by considering older nodes!**
 
@@ -181,14 +184,14 @@ The TRAM garbage collector can be described as follows
 ```Prolog {linenos=false}
 mark stacks and registers
 for all nodes from recent to old
-	if the node is marked, 
-		mark its two children 
-		and keep the node in the 'in use' list
-	or else
-		move the node to the 'unused' list
+    if the node is marked, 
+    	mark its two children 
+    	and keep the node in the 'in use' list
+    or else
+    	move the node to the 'unused' list
 ```
 
-The TRAM garbage collector uses a single pass in which Mark and Sweep are combined.
+The TRAM garbage collector uses a single pass in which Recursive Mark and Sweep are combined.
 
 The space overhead is limited to a factor less than three:
 

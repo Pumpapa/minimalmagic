@@ -17,7 +17,7 @@ Many different sections of a CPU can and do work in parallel. We'll only discuss
 
 # Multiple Cores
 
-Today, the largest desktop CPU's offer many cores: Intel i9: 18 cores; AMD Naples: 32 cores. For typical household use including gaming, about 16 cores is sufficient.
+Today, the largest desktop CPUs offer many cores: Intel i9: 18 cores; AMD Naples: 32 cores. For typical household use including gaming, about 16 cores is sufficient.
 
 For servers, larger CPU's exist: Intel Xeon Phi: 72 cores. Ampere releases a 128-core ARM processor aimed at servers. Since designing chips becomes more and more automated and accessible, more and more companies (offering more and more jobs to System Engineers) are creating novel solutions.
 
@@ -35,7 +35,7 @@ However, the next instruction isn't always the one following. If the current ins
 
 The situation becomes more complex for conditional branches, because the branch may or may not be taken *and the condition which decides this hasn't yet been computed*. Because any improvement is better than waiting, an entire field of engineering involves **branch prediction**.
 
-Lets assume about 20% of instructions are conditional branches. An ideal 6-stage pipeline without prediction must therefore wait 20% of the time. This implies that instead of 1 cycle per instruction, it requires 0.8+0.2*6 cycles per instruction which is 2 cycles: the cpu runs at only half the best possible speed!
+Let's assume about 20% of instructions are conditional branches. An ideal 6-stage pipeline without prediction must therefore wait 20% of the time. This implies that instead of 1 cycle per instruction, it requires 0.8+0.2*6 cycles per instruction which is 2 cycles: the cpu runs at only half the best possible speed!
 
 ## Branch prediction
 
@@ -68,9 +68,9 @@ Whenever one thread needs to wait briefly, another set of registers is used to a
 
 We will look at processes and threads later on, but for the moment it is relevant to note that by definition threads always share memory, so simultaneous multithreading doesn't introduce global issues around shared resources.
 
-To introduce 'hyper-processes', many issues around shared-resource contention and security would ensue. Far too complex to solve by hardware within micro seconds.
+To introduce 'hyper-processes', many issues around shared-resource contention and security would ensue. Far too complex to solve by hardware within microseconds.
 
-But simultaneous multithreading doesn't introduce these issues. In desktop CPU's the maximum is 2 logical cores per real core, but server CPU's exist with more than that.
+But simultaneous multithreading doesn't introduce these issues. In desktop CPUs the maximum is 2 logical cores per real core, but server CPU's exist with more than that.
 
 # SIMD
 
@@ -85,4 +85,6 @@ Today, the x86 has 32 512-bit vector registers supporting many floating point an
 Browser vendors were working on SIMD.js, platform-independent JavaScript access to vector instructions, but those activities have ceased in favor of:
 
 WebAssembly: the ability to load and use assembler-like code in a browser. Supported on many different platforms. Yeah! [http://webassembly.org/demo/Tanks/](http://webassembly.org/demo/Tanks/)
+
+
 

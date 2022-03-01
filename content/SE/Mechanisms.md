@@ -15,7 +15,7 @@ tags:
 # Memory
 In principle, memory is capable of storing a large number of bytes. Every byte stored has a unique location called an **address**. If a laptop has 16GB of memory, the memory can hold 16\*1024\*1024 bytes. To address that many bytes there must be that many distinct addresses, so every address is (at least) a 24-bit number.
 
-A register is made from flip flops or latches, each of which consists of at least four transistors. Dynamic Ram is an improvement which requires only 1 transistor per bit. The downside is that every bit must be read and written frequently, or it would dagrade. DRAM chips have a circuit that refreshes all bits as long as they are powered. That is why normal RAM in your computer is emptied when you turn off the power.
+A register is made from flip flops or latches, each of which consists of at least four transistors. Dynamic Ram is an improvement which requires only 1 transistor per bit. The downside is that every bit must be read and written frequently, or it would degrade. DRAM chips have a circuit that refreshes all bits as long as they are powered. That is why normal RAM in your computer is emptied when you turn off the power.
 
 Memory has three inputs and one output. 
  
@@ -31,8 +31,8 @@ Loosely, fetch means the following:
 * the CPU computes an (integer) address
 * puts the address on the **address bus**
 * sets a **control line** to indicate if it wants to **fetch** the data or **store** it
-	* store: the CPU puts the appropriate value on the **data bus**
-	* fetch: the CPU must *wait awhile* before it can read the value from the data bus
+    * store: the CPU puts the appropriate value on the **data bus**
+    * fetch: the CPU must *wait awhile* before it can read the value from the data bus
 
 A lot of engineering concerns optimizing this naive approach. Nobody likes CPU's to just wait.
 
@@ -52,7 +52,7 @@ Although memory is fast, it is still too slow compared to the ALU and core opera
 
 There are two categories of registers: **special purpose** and **general purpose registers**. General purpose registers are used to compute and hold various results relevant to a program; special purpose registers hold specific values relevant for the CPU. For instance, the flag-register holds all status flags resulting from computations in the ALU (including Negative, Zero, Carry).
 
-{{<figure `x86 Registers` `/images/Table_of_x86_Registers_svg.svg.png` right 100 >}}
+{{<figure `x86 Registers` `/images/SE/Table_of_x86_Registers_svg.svg.png` center 100 >}}
 
 <span style="font-size:smaller;">Source: 'Immage - Own work, CC BY-SA 3.0, https://commons.wikimedia.org/w/index.php?curid=32745525'</span>
 
@@ -94,7 +94,7 @@ Software Developer’s Manual](https://www.intel.com/content/dam/www/public/us/e
 
 When an instruction is fetched, the PC is immediately incremented. This doesn't take additional time; it is done by hardware in the same machine cycle.
 
-This is an example of autoincrements, which are used frequently, for example when using **stacks**.
+This is an example of auto increment, which is used frequently, for example when using **stacks**.
 
 # Stacks
 
@@ -129,7 +129,7 @@ In modern CPU's tri-state is only needed on external ports so that your CPU does
 
 # Buses
 
-Connecting the output of one component with the input of another is simple: just put a wire or metalized path in between. Connecting multiple inputs to one output is also straightforward, using a rake-shaped path. But connecting multiple outputs to one or more inputs possess a problem. What if the outputs disagree? If different values feed into one input, essentially arbitrary values are read.
+Connecting the output of one component with the input of another is simple: just put a wire or metalized path in between. Connecting multiple inputs to one output is also straightforward, using a rake-shaped path. But connecting multiple outputs to one or more inputs poses a problem. What if the outputs disagree? If different values feed into one input, essentially arbitrary values are read.
 
 A **bus** is a 'device' which solves this. In addition to the rake-shaped path it has a gate and a control line to every output. If its control is 0, an output doesn't contribute; only the gate for which the control is 1 can output a value, which is then passed on the entire rake.
 
@@ -147,7 +147,7 @@ The tiny delays become a problem when considering stateful components such as la
 
 # Clocks
 
-A clock is a crystal-based component that gives a pulse every so many nano seconds
+A clock is a crystal-based component that gives a pulse every so many nanoseconds
 Components use the clock to know when they can use the output of other components.
 
 Circuitry is used off of a clock to create other clocks:
@@ -165,4 +165,6 @@ A ***flip-flop*** is changed when the control line is high. A ***latch*** is cha
 The ability to choose allows us, for instance, to perform a calculation when the clock is high, and to capture the result when the clock changes to low.
 
 Clocks and precise timing are outside the scope of this writeup.
+
+
 

@@ -16,11 +16,11 @@ Earlier, we saw that a term is either a variable or a tuple `<f,t1, …,tk>` (fo
 When describing terms (and term rewriting systems) **within** a term rewriting system, it is necessary to have a meta-representation of terms. In the meta-representation:
 
 * A term is represented as
-	* `trm(F,Args)` for symbol `F` and terms `Args`, or
-	* `var(N)` for variable named `N`
+    * `trm(F,Args)` for symbol `F` and terms `Args`, or
+    * `var(N)` for variable named `N`
 * Arguments `Args` are
-	* `arg(Term, Args)` for some Term
-	* `eoa` end-of-arguments, the empty list
+    * `arg(Term, Args)` for some Term
+    * `eoa` end-of-arguments, the empty list
 * For now, we ignore the inner structure of function-symbols or variables in this meta-interpreter. We merely state that a function `eq` exists which returns `ok` when applied to equal function-symbols or variables.
 
 For example, the term 
@@ -41,7 +41,7 @@ A term rewriting system (i.e. a list of rules) is represented as
 * `rl(Lhs,Rhs,Rules)` for terms `Lhs` and `Rhs`
 * `eor`  (end-of-rules) 
 
-Note that in many places the meta-representation of terms is used for rules. For instance, the Scanner / Parser produces a meta-representation of a term rewriting system:
+Note that in many places the meta-representation of terms is used for rules. For instance, the Scanner / Parser produces a meta-representation of a term rewriting system. That is `rl` and `eor` are considered (pre-) defined function symbols but have no special significance in the meta-representation of term; the meta-representation of a TRS is that of a term.
 
 ```Prolog {linenos=false}
 trm("rl",
@@ -95,9 +95,9 @@ The rules are straightforward:
 * Rule 8 checks if the corresponding function symbols are equal
 * Rule 9 attempts to match sub-terms
 * When one subterm (and sub-pattern) has been successfully matched, the list of remaining sub-terms (and sub-patterns) are considered 
-	* (10) if there are none, matching has succeeded and instantiation should take place
-	* (11) otherwise, matching continues
-* auxiliary function `matchq` either (12) continues matching (if sub-term and pattern have the same corresponding function symbol), or (13) attempts to apply the remainder list of rules if the match failed.
+    * (10) if there are none, matching has succeeded and instantiation should take place
+    * (11) otherwise, matching continues
+* Auxiliary function `matchq` either (12) continues matching (if sub-term and pattern have the same corresponding function symbol), or (13) attempts to apply the remainder list of rules if the match failed.
 ```Prolog {linenos=false}
 7 match(var(N),ST,E,As,Bs,R,T,Rs,TRS)
     = match(As,Bs,tab(N,ST,E),eoa,eoa,R,T,Rs,TRS);
@@ -108,7 +108,7 @@ The rules are straightforward:
 10 match(eoa,eoa,E,eoa,eoa,R,T,Rs,TRS) =  inst(R,E,TRS);
 11 match(eoa,eoa,E,arg(A,As),arg(B,Bs),R,T,Rs,TRS)
     = match(A,B,E,As,Bs,R,T,Rs,TRS);
-	
+    
 12 matchq(true,Fs,Gs,E,As,Bs,R,T,Rs,TRS) 
     = match(Fs,Gs,E,As,Bs,R,T,Rs,TRS);
 13 matchq(X,Fs,Gs,E,As,Bs,R,T,Rs,TRS) = toprewrRule(T,Rs,TRS);

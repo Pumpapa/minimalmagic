@@ -15,34 +15,34 @@ tags:
   - "Flip-Flop"
   - "Latch"
 ---
-{{<figure `Full Adder` `/images/SE1.full-adder-gates.png` right 40 >}}
-{{<figure `Half Adder` `/images/SE1.half-adder-gates.png` right 20 >}}
+{{<figure `Full Adder` `/images/SE/SE1.full-adder-gates.png` right 40 >}}
+{{<figure `Half Adder` `/images/SE/SE1.half-adder-gates.png` right 20 >}}
 
 # Adders
 
 A **half adder** is a component which adds the right-most bits of two numbers. It takes two inputs and produces two outputs: the sum and the carry. *Note how the component does the same as we do when we add two numbers!*
 
-{{<figure `Full Adder as Component` `/images/SE1.full-adder-gate.png` right 20 >}}
+{{<figure `Full Adder as Component` `/images/SE/SE1.full-adder-gate.png` right 20 >}}
 
 A ***full adder*** is a component which adds other bits of two numbers. It takes three inputs (two operands and the carry from additions to the left) and produces two outputs: the sum and the carry.
 
 For obvious reasons trivial components such as one bit adders are often drawn as components (not showing the gates).
 
 # Larger components
-{{<figure `N-Bit Adder` `/images/SE1.n-bit-adder.png` right 40 >}}
+{{<figure `N-Bit Adder` `/images/SE/SE1.n-bit-adder.png` right 40 >}}
 
 From these parts larger components can be created. This is an N-bit adder, made from one half-adder and (N-1) full adders. 
 
 In general, any component can be designed by breaking it down in Boolean functions, truth tables and gates.
 
 ## Decoder
-{{<figure `Decoder` `/images/SE1.3-8-bit-decoder.png` right 40 >}}
+{{<figure `Decoder` `/images/SE/SE1.3-8-bit-decoder.png` right 40 >}}
 
-A one-of-eight decoder uses three address bits to set one of eight bits on (and the rest off). For instance, `decode(1,0,0) => (0,0,0,1,0,0,0,0)`. Bits are numbered as usual from right to left starting with 0, so 100 (=4 decimal) adresses the fifth right-most bit.
+A one-of-eight decoder uses three address bits to set one of eight bits on (and the rest off). For instance, `decode(1,0,0) => (0,0,0,1,0,0,0,0)`. Bits are numbered as usual from right to left starting with 0, so 100 (=4 decimal) addresses the fifth right-most bit.
 
 Each of the output bits turns on for one specific combination of input. For instance, `o(5) = i(1) AND NOT i(2) AND i(3)`. From this observation, designing the circuit is straightforward.
 
-{{%exercise%}}
+{{%exercise `Encoder` %}}
 
 * o(2), the high-order address bit, is only set if one of the high-order input bits is set, so:  
 `o(2) = i(7) OR i(6) OR i(5) OR i(4)`
@@ -60,9 +60,9 @@ An **encoder** does the reverse: given inputs one of which is 1 (and the others 
 * Design an 8 to 3 encoder
 
 {{%exercise `Multiplexer` %}}
-```
-o = (a AND c) OR (b AND NOT c)
-```
+
+`o = (a AND c) OR (b AND NOT c)`
+
 {{%/exercise%}}
 
 A multiplexer is an important component which uses one or more controls to copy one of two or more inputs to the output.
@@ -82,7 +82,7 @@ This idea can be extended to
 *Note: a multiplexer can also be made using a decoder by AND-ing each decoder output with one input.*
 
 # Flip-Flops, Latches
-{{<figure `SR Latch` `/images/SE1.SR-latch.png` right 40 >}}
+{{<figure `SR Latch` `/images/SE/SE1.SR-latch.png` right 40 >}}
 
 Not all components are Boolean functions. ***Flip-flops*** and ***Latches*** are components which maintain an internal state (0 or 1): they are one-bit memories. CPU registers are built from flip-flops and latches.
 
@@ -94,4 +94,7 @@ Many other flip-flops and latches exist, such as a D-latch which has a control (
 
 Flip-flops and latches (we'll discuss the difference later) can store a bit which can be read or changed using control lines.
 
-Putting flip-flops or latches in a row of 8, 16, 32, 64 or more bits makes a logical component, which is called a **register** and which stores a value: an integer, a character, a float, an address.
+Putting flip-flops or latches in a row of 8, 16, 32, 64 or more bits makes a logical component, which is called a **register** and which stores a value: an integer, a character, a float, an address.
+
+
+

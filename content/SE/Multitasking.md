@@ -66,7 +66,7 @@ It depends: who writes last? Possible outcomes are 5, 8, 11 and 20
 
 And that is only true if reading/writing a value is one operation. What if values are 64 bits but there is only a 32 -bit data bus. The number of possible outcomes would be even bigger.
 
-This is the wonderful world of **Non-determinism**, in this instance in consequence of sharing a single variable.
+This is the wonderful world of **Non-determinism**, in this instance as a consequence of sharing a single variable.
 
 Note: non-determinism isn't like a bug. Each of the possible outcomes is correct. *(This makes our earlier comment about a telephone exchange with 99.9999999% uptime written in Erlang, consisting of thousands of parallel processes all the more astounding)*
 
@@ -118,4 +118,6 @@ In general, OSes try to detect deadlock by using many timers on all sorts of exp
 In some OSs deadlock might be prevented by requiring all programs to claim all resources beforehand. That way, when a program starts it is guaranteed to be able to finish.
 
 Other OSs simply kill one program if they suspect it is part of a group of programs in deadlock.
+
+
 

@@ -28,7 +28,11 @@ end
 
 function trace(n,el) 
 	write(n..'#'..st..'#'..fun..'#'..aterm..'#'..bterm..'#')
-	write(el.__type.name..'#'..dump(el))
+	if el and el.__type then 
+		write(el.__type.name..'#'..dump(el)) 
+	else 
+		write('[['..dump(el)..']]') 
+	end
 	flush()
 end
 
@@ -38,8 +42,10 @@ function mkstr(o)
 		return o
 	elseif type(o)=='table' then
 		return o.text
+	elseif type(o)=='userdata' then
+		return '<<'..dump(o)..'>>'
 	else
-		write("Error! Yet Another Type")
+		write("Error! Yet Another Type\n",type(o),"%%%[",dump(o),']\n')
 	end
 end
 
@@ -49,11 +55,12 @@ macros = {
 	figure = {
 		prepost = function (args) -- args: label file place %
 					local lbl = args[1].text
-					local path = mkstr(args[2])
+					local path = args[2].text
 					local pos = args[3]
-					local sz = (tonumber(mkstr(args[4]))/100)
+					local sz = (tonumber(args[4])/100)
 					local ltx
-					write('XXX ',dump(lbl),dump(path),dump(pos),dump(ltx))
+					--write('XYX ',dump(args),'\n')
+					--write('XXX ',dump(lbl),', ',dump(path),', ',dump(pos),', ',dump(ltx),', ',dump(args),'\n')
 					if path:find('/images',1)==1 then
 						path = path:sub(8)
 					end
@@ -65,7 +72,7 @@ macros = {
 							'\\end{figure}'
 					else
 						ltx = '\\img{'..(mkstr(pos)=='right' and 'r' or 'l')..
-							'}{'..sz..'}{'..sz..'}{-10}{'..path..
+							'}{'..sz..'}{'..sz..'}{-25}{'..path..
 							'}{fig}{'..lbl..'}'
 					end
 					fun = ''; args = {}; body = {}; 
@@ -111,7 +118,7 @@ function Inline(el)
 				fun = el.text:sub(4,#el.text-3)
 				st=2; codeblock = '';
 				bterm = '{{'..hm..'/'..fun..rev(hm)..'}}'
-															trace('2a',el)
+															--trace('2a',el)
 				return macros[fun].pre({})
 			else -- read args
 				fun = el.text:sub(4)
@@ -119,7 +126,7 @@ function Inline(el)
 				args = {}
 				aterm = rev(hm)..'}}'
 				bterm = macros[fun].post and '{{'..hm..'/'..fun..rev(hm)..'}}' or ''
-															trace('2b',el)
+															--trace('2b',el)
 				return {}
 			end
 		end		
@@ -131,7 +138,7 @@ function Inline(el)
 				--el.text=el.text:gsub('∈','\\rn{Tsveta}',1,true)
 				--return pandoc.RawInline('latex', el.text)
 			end
-															trace(0,el)
+															--trace(0,el)
 		return el
 	elseif st==1 then -- in args
 															--trace(3,el)
@@ -144,7 +151,7 @@ function Inline(el)
 					return res
 				else -- start accepting body
 					st=2; 
-															trace(6,el)
+															--trace(6,el)
 					return macros[fun].pre(args)
 				end
 			else
@@ -155,12 +162,12 @@ function Inline(el)
 	elseif st==2 then -- in body
 															--trace(8,el)
 		if el.text == bterm then -- end of body
-															trace(9,el)
+															--trace(9,el)
 			res = macros[fun].post(args); -- skip body_
 			reset()
 			return res
 		else
-															trace('A',el)
+															--trace('A',el)
 			return el
 		end
 	end
@@ -184,7 +191,7 @@ function cbreplace(s)
 end
 
 function CodeBlock(el)
-															write('CODEBLOCK '); trace('CB',el);
+															--write('CODEBLOCK '); trace('CB',el);
 	--el.text = cbreplace(el.text)
 	if el.classes[2] and el.classes[2]=='nolinos' then
 		return pandoc.RawBlock('latex',
@@ -198,7 +205,7 @@ function CodeBlock(el)
 			'\n\\end{lstlisting}')
 	else
 		return pandoc.RawBlock('latex',
-			'\\begin{lstlisting}'..
+			'\\begin{lstlisting}\n'..
 			el.text..
 			'\n\\end{lstlisting}')
 	end
@@ -216,18 +223,18 @@ function codereplace(s)
 	--s=s:gsub('≤','(*$\\leq$*)')
 	--s=s:gsub('∈','\"O$\\in$\"O')
 	--s=s:gsub('π','(*$\\pi$*)')
-	--s=s:gsub('½','(*$\text{1/2}$*)')
+	s=s:gsub('.*ð','(*$\\degree-\\eth$*)')
 	return s
 end
 
 function Code(el)
-															write('CODE '); trace('C',el)
-	--el.text = codereplace(el.text)
+															--write('CODE '); trace('C',el)
+	el.text = codereplace(el.text)
 	if st == 1 then -- in args
 		table.insert(args,el)
 		return {}
 	end
-															write('CODE '); trace('D',el)
+															--write('CODE '); trace('D',el)
 	return el
 end
 
@@ -237,13 +244,13 @@ function Block(el)
 end
 
 function SoftBreak(el)
-															write('SOFTBREAK '..dump(el)..'\n');
+															--write('SOFTBREAK '..dump(el)..'\n');
 	return el
 end
 
 function BulletList(el)
 	if st == 1 then
-															trace('B',el)
+															--trace('B',el)
 		table.insert(args, el.text)
 		return {}
 	else

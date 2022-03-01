@@ -18,18 +18,19 @@ To avoid bugs, a checker is needed which checks if this occurs in an input TRS. 
 
 Our purpose in describing `EncChecker` is not only to document that tool, but mostly to discuss a few term rewriting programming patterns.
 
-Given a TRS, function `encchk` should indicate which functions or variables are used which differ and yet are encoded the same. We do not focus on generating nice user-oriented output. Instead, `encchk` will output a list of all identifiers used in a program, and will place unequal identifiers that lead to the same value (encoding) next to eachother, preceded by `$$` (which is not a legal identifier and therefore easily recognized).
+Given a TRS, function `encchk` should indicate which functions or variables are used which differ and yet are encoded the same. We do not focus on generating nice user-oriented output. Instead, `encchk` will output a list of all identifiers used in a program, and will place unequal identifiers that lead to the same value (encoding) next to each other, preceded by `$$` (which is not a legal identifier and therefore easily recognized).
 
-That is, given a text file, the term `encchk(scan(%1))` whould produce such a list.
+That is, given a text file, the term `encchk(scan(%1))` would produce such a list.
 
 # Pattern: Initializing Local Variables
-Tram has no local variables, and yet, some functions need auxiliary data structures, which must be initialised. Inside module `EncChecker` a list of all identifiers must be maintained, which is initialised to the empty list.
+Tram has no local variables, and yet, some functions need auxiliary data structures, which must be initialized. Inside module `EncChecker` a list of all identifiers must be maintained, which is initialized to the empty list.
 
 ```Prolog
 encchk(T) = ck(T,eol);
 ```
 
 The meta-trem representation produced by `scan` generates four types:
+
 1. `trm(F,As)` for symbol `F` and argument list `As`
 1. `arg(A,As)` for argument (term) `A` and argument list `As`
 1. `eoa` the empty argument list
@@ -56,9 +57,9 @@ ck(trm(F,As),L) = ck(As,mpq(low,F,L));
 ck(var(N),L) = mpq(cap,N,L);
 ```
 
-The extra parameter pattern is used if further processing is similar, possibly diverging further along the way. We have seen this patter being used in function `sccc` in the scanner. The function name pattern is more common and is also used in function `sccc`.
+The extra parameter pattern is used if further processing is similar, possibly diverging further along the way. We have seen this pattern being used in the function `sccc` in the scanner. The function name pattern is more common and is also used in function `sccc`.
 
-The purpose of function `ck` is to visit all identifeirs in a TRS and process them into the growing list of identifiers:
+The purpose of function `ck` is to visit all identifiers in a TRS and process them into the growing list of identifiers:
 
 ```Prolog
 ck(trm(F,As),L) = ck(As,mpq(low,F,L));
@@ -67,7 +68,7 @@ ck(eoa,L) = L;
 ck(var(N),L) = mpq(cap,N,L);
 ```
 
-Function `mpq` (mnemonic: *map-query*) maps the subject identifier to the entire list of stored identifiers, querying each if it leads to the same encoding. It creates a new list if there are no further identifiers to compare, or passes the subject's character class and the character class of the first stored identifier to auxiliary function `mpqc`.
+Function `mpq` (mnemonic: *map-query*) maps the subject identifier to the entire list of stored identifiers, querying each if it leads to the same encoding. It creates a new list if there are no further identifiers to compare, or passes the subject's character class and the character class of the first stored identifier to the auxiliary function `mpqc`.
 
 ```Prolog
 mpq(Cc,Id,eol) = lst(Id,eol);
@@ -90,9 +91,11 @@ The next function, `mpqc` should distinguish two situations: the subject and the
 
 ```Prolog {linenos=false}
 mpqc(low,low,Id1,Id2,L)
-  = eqnc(five,eq(first(Id1),first(Id2)),rest(Id1),rest(Id2),low,Id1,Id2,L);
+  = eqnc(five,eq(first(Id1),first(Id2)),rest(Id1),rest(Id2),
+         low,Id1,Id2,L);
 mpqc(cap,cap,Id1,Id2,L)
-  = eqnc(four,eq(first(Id1),first(Id2)),rest(Id1),rest(Id2),cap,Id1,Id2,L);
+  = eqnc(four,eq(first(Id1),first(Id2)),rest(Id1),rest(Id2),
+         cap,Id1,Id2,L);
 mpqc(Cc1,Cc2,Id1,Id2,L) = lst(Id2,mpq(Cc1,Id1,L));
 ```
 
@@ -137,7 +140,7 @@ badfn1(Badv1,Badv2) = badfn2;
 ```
  Both functions and variables should flag an error. The output of `encchk(scan(%1))` on `EncChecker` itself:
   
- ```Prolog
+```Prolog
 lst("rl",lst("encchk",lst("T",lst("ck",lst("eol",lst("trm",
 lst("As",lst("mpq",lst("low",lst("arg",lst("eoa",lst("var",
 lst("cap",lst("Cc",lst("Id",lst("lst",lst("Id1",lst("Id2",
@@ -149,3 +152,6 @@ lst("two",lst("one",lst("$$",lst("badfn2",lst("badfn1",
 lst("$$",lst("Badv2",lst("Badv1",lst("eor",
 eol))))))))))))))))))))))))))))))))))))))))))))))))
 ```
+
+
+

@@ -14,9 +14,9 @@ Programming languages aim to balance performance and expressive power (among man
 * Performance:  
 Tram is intended to test specifications and make prototypes. As such, a practical performance is required but if great speed is important, Tram may not be the ideal platform. 
 * Expressive Power:  
-As this text illustrates, term rewriting systems are both austere and expressive: the underlying framework offers few features, but the language is highly extendable. While most languages support extension through class and function definition, term rewriting systems force one to think through the most appropriate control and data structure for a given problem. This trait is shared with other functional and logic languages. Worth mentioning are **Lisp macro's**, which allow the definition of situation-specific language constructs, thereby turning Lisp into a **domain specific language**;
+As this text illustrates, term rewriting systems are both austere and expressive: the underlying framework offers few features, but the language is highly extendable. While most languages support extension through class and function definition, term rewriting systems force one to think through the most appropriate control and data structure for a given problem. This trait is shared with other functional and logic languages. Worth mentioning are **Lisp macros**, which allow the definition of situation-specific language constructs, thereby turning Lisp into a **domain specific language**;
 * Programming model:  
-Tram's programming model is part of it's strength: terms and their equality may take some getting used to, but after that there is no room for unclarity!
+Tram's programming model is part of its strength: terms and their equality may take some getting used to, but after that there is no room for unclarity!
 
 There is an apparent contradiction between high expressive power and the simplicity of the programming model. Expressive power requires the existence of powerful primitives, but the more primitives, or the more those primitives require deep understanding, the more complex the model becomes.
 
@@ -25,7 +25,7 @@ For instance, the Python documentation (version 3.9.1) introduces the list data 
 > **Lists**  
 > Lists are mutable sequences, typically used to store collections of homogeneous items (where the precise degree of similarity will vary by application).
 
-This description leans on a significant amount of tacit knowledge or at least knowledge that is explained elsewhere. For instance, 'sequences' are a built-in type that is defined in terms of an API which uses concepts of the underlying implementation language (macro's, pointers).
+This description leans on a significant amount of tacit knowledge or at least knowledge that is explained elsewhere. For instance, 'sequences' are a built-in type that is defined in terms of an API which uses concepts of the underlying implementation language (macros, pointers).
 
 Seemingly, to fully understand Python lists, one needs to dive deep into the implementation and into other languages. In fact, this is not the case. Most programmers are highly effective using a much less refined mental model and only turn to the nitty details of the specs when they observe unexpected behavior.
 
@@ -80,7 +80,7 @@ Tram  uses the following **explicit interface** definition:
 Fewer symbols could be used. An alternative might have been to define only constants 0 and 1, and expect the implementation to process binary data. But (as discussed) that doesn't substantially 'minimize magic'; the choice to be able to process ASCII or binary files is practical and still minimal.
 
 The **implicit interface** uses numbers to encode symbols and variables. The encoding differs per version of TRAM. TRAM.1, for instance, reversibly converts human-readable identifiers to 32-bit ints.
-As long as all occurences of a symbol consistently use the same number to encode it, the semantics are sound. 
+As long as all occurrences of a symbol consistently use the same number to encode it, the semantics are sound. 
 
 # Summary
 To summarize, 
@@ -89,3 +89,6 @@ To summarize,
 * Tram uses an explicit interface of sequences of 7- or 8-bit data
 * Each TRAM version uses an appropriate encoding as its implicit interface
  
+
+
+

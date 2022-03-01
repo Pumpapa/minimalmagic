@@ -78,7 +78,7 @@ Starting from nothing, we have described mental artifacts called sets. We have g
 It is easier for us to talk about values such as `3` than to talk about sets such as `{{},{{}},{{},{{}}}}`. But we haven't presumed numbers; we just reason about named sets.
 
 ## Representation
-As it happens, computers are rather good at storing and processing numbers represented as strings of bits in a format that is called **binary**. The relation between stored numbers and the real numbers (which are also a mental construct) is by convention. The view that `101` is related to the number 5 is just as sensible (albeit more common) as the view that it might be ralated to the set `5` (which is `{{{}},{{},{{}}},{{},{{}},{{},{{}}}},` `{{{}},{{},{{}}},{{},{{}},{{},{{}}}}}}`).
+As it happens, computers are rather good at storing and processing numbers represented as strings of bits in a format that is called **binary**. The relation between stored numbers and the real numbers (which are also a mental construct) is by convention. The view that `101` is related to the number 5 is just as sensible (albeit more common) as the view that it might be related to the set `5` (which is `{{{}},{{},{{}}},{{},{{}},{{},{{}}}},` `{{{}},{{},{{}}},{{},{{}},{{},{{}}}}}}`).
 
 Conceptually we are still within the theory of sets, but values (which are sets) can be represented as bits and bytes and binary numbers and can be processed by computers.
 
@@ -93,7 +93,7 @@ If you are a programmer and unused to think about sets: a pair is somewhat like 
 Given `N` values `v1, …, vN` a tuple `<v1, …, vN>` is defined similar to a pair. A tuple is a set from which the `N` constituents can be retrieved, so it is again similar to a struct or list.
 
 ## Relation, Function
-A **relation** is a set of pairs. Example: `{<1,2>,<1,3>,<2,3>}` is a relation. Note that we are mixing notations to remain intelligable: the braces `{...}`, brackets `<...>` and numbers `1` notations. Just using braces, this example becomes:   
+A **relation** is a set of pairs. Example: `{<1,2>,<1,3>,<2,3>}` is a relation. Note that we are mixing notations to remain intelligible: the braces `{...}`, brackets `<...>` and numbers `1` notations. Just using braces, this example becomes:   
 `{{{{}},{{{}},{{},{{}}}}},{{{}},{{{}},{{},{{}},{{},{{}}}}}},`  
 `{{{},{{}}},{{{},{{}}},{{},{{}},{{},{{}}}}}}}`
 
@@ -160,15 +160,15 @@ Given a closed term such as `t=a(s(s(z)),s(z))` and an open term such as `p=a(s(
 Matching can either fail or succeed producing a substitution.
 
 ## Rules, Term Rewriting Systems
-A **rewrite rule** is a pair of terms written as `lhs→rhs` where
+A **rewrite rule** is a pair of terms written as `lhs → rhs` where
 
 * `lhs` has at least one symbol (i.e. isn't a sole variable)
 * every variable in `lhs` occurs at most once
 * every variable in `rhs` occurs also in `lhs`
 
-Given a rule `lhs→rhs`, `lhs` and `rhs` are called the **left-hand** side and the **right-hand** side respectively.
+Given a rule `lhs → rhs`, `lhs` and `rhs` are called the **left-hand** side and the **right-hand** side respectively.
 
-A term `t` can be **rewritten** to a term `u` by rule `lhs→rhs` if a substitution `S` exists such that `t=S(lhs)` and `u=S(rhs)`. Rewriting is a relation (called the **rewrite relation**), and by convention we write it as `t → u` (confusingly, the notation for rules and for the rewrite relation are the same). That is: given a rewrite rule `lhs → rhs`, '→' is the rewrite relation between terms. In a more operational context the rewrite-step relation is also called **reduction**.
+A term `t` can be **rewritten** to a term `u` by rule `lhs → rhs` if a substitution `S` exists such that `t=S(lhs)` and `u=S(rhs)`. Rewriting is a relation (called the **rewrite relation**), and by convention we write it as `t → u` (confusingly, the notation for rules and for the rewrite relation are the same). That is: given a rewrite rule `lhs → rhs`, '→' is the rewrite relation between terms. In a more operational context the rewrite-step relation is also called **reduction**.
 
 This relation can be extended in an obvious way, by rewriting sub-terms:  
 if `t → u` and if `t` is a sub-term of `v`, than `v → w` when `w` is obtained from `v` by replacing that sub-term `t` in `v` by `u`. A more precise definition follows in the last section of this page.
@@ -184,7 +184,7 @@ To summarize, a term rewriting systems defines a one-step rewrite relation (writ
 * `t` has a sub-term `p`
 * `S(p)=l`
 * `q=S(r)`
-* `u` is obtained from `t` by replacing a subterm `p` in `t` by `q`
+* `u` is obtained from `t` by replacing a sub-term `p` in `t` by `q`
 
 The one-step rewrite relation can be transitively extended:  
 `s ↠ t` if, and only if `s → t` or `s → u` and `u ↠ t`. In other words: `s ↠ t` when a chained sequence of rewrite steps  `s → u`,  `u → v`,  `v → w` …  `x → y`, `y → t`,  exist.
@@ -199,16 +199,16 @@ Using only a naive sense of sets essentially founded only on the empty set, we h
 * identified and named an unbounded number of sets, which we called values, and identified an even bigger collection of unnamed sets
 * picked two disjoint collections which we called symbols and variables
 * sketched schemas to group sets in
-	* pairs and tuples
-	* relations and functions
-	* rules and rewrite systems
+    * pairs and tuples
+    * relations and functions
+    * terms, rules and rewrite systems
 * described the rewrite relation(s) on terms
 
 This is all good and proper, but how can we implement it for practical use. 
 
 Before we do, we must make an operational choice.
 
-To paraphrase 'rewrite step': given a TRS and a term, `l → t`
+To paraphrase 'rewrite step': given a TRS and a term, `s → t`
 
 * if there is a rule `l → r` 
 * and if there is a sub-term `p` of `s`
@@ -236,7 +236,7 @@ paths. Together they guarantee that **every term has a uniqe normal form**.
 
 However, it is generally undecidable if a TRS is terminating and/or confluent and significant research exists to determine if term rewriting systems have these desirable properties, or under which (syntactical) restriction the properties can be proved.
 
-A more operational view is that confluence and termination are similar to [non-determinism](https://en.wikipedia.org/wiki/Nondeterministic_algorithm) and [infinite loops](https://en.wikipedia.org/wiki/Infinite_loop) in software: undesirable circumstances where it is up to the programmer to prevent them.
+A more operational view is that confluence and termination are similar to [non-determinism](https://en.wikipedia.org/wiki/Nondeterministic_algorithm) and [infinite loops](https://en.wikipedia.org/wiki/Infinite_loop) in software: undesirable circumstances where it is up to the programmer to avoid them.
 
 Strategies are important because they are strongly related to these important properties of confluence and termination: A term rewriting system which is not confluent and/or terminating, may be confluent and/or terminating when limited to a specific strategy. 
 
@@ -254,7 +254,7 @@ A **rewrite strategy** determines which rule and which sub-term to pick.
 ### Sub-Term Selection
 
 The *innermost* and *outermost* strategies limit the location where
-reductions are considered. An **innermost strategy** reduces a sub-term only, if all deeper sub-terms of that sub-term can not be reduced. An **outermost strategy** reduces only sub-terms of a term if itthey aren't contained in a (sub-) term which is reducible at root level.
+reductions are considered. An **innermost strategy** reduces a sub-term only, if all deeper sub-terms of that sub-term can not be reduced. An **outermost strategy** reduces only sub-terms of a term if they aren't contained in a (sub-) term which is reducible at root level.
 
 Consider this TRS:
 
@@ -307,10 +307,10 @@ than another.
 Common strategies which address this are *specificity order* and
 *textual order*. 
 
-* **textual order** always applies the first rule (in the textual representation of the TRS) that is applicable (to the sub-term under consideration).;
+* **textual order** always applies the first rule (in the textual representation of the TRS) that is applicable (to the sub-term under consideration);
 * **specificity order** always applies a rule which is at least as specific as all other applicable rules. Specificity can be defined as the total number of function symbols in the left-hand side. Specificity order makes intuitive sense because otherwise that more specific rule would never be considered! 
 
-As an example, consider a function `iszero` which tests if a number in the the *a-s-z-system* is zero.
+As an example, consider a function `iszero` which tests if a number in the the *a-s-z-system* (see also at the end of this section) is zero.
 
 ```Prolog
 iszero(N) → false
@@ -335,7 +335,7 @@ Some reduction strategies address location selection and rule selection
 in one go. *Priority* and *annotation* strategies combine selection of the
 location and of the rule being applied.
 
-A priority-strategy assigns priorities to symbols, and only allows a reduction anywhere if no higher priority symbol can be reduced. In an annotation-strategy some or all rules are annotated with information on the order of (considered) reductions.
+A priority-strategy assigns priorities to symbols, and only allows a reduction anywhere if no higher priority symbol can be reduced. Alternatively, priorities can be assigned to rules, with similar results. In an annotation-strategy some or all rules are annotated with information on the order of (considered) reductions.
 
 For example, the if-true-false system shown earlier, might indicate that for an *if*-symbol, the first argument must be normalized before the other arguments are considered.
 
@@ -364,16 +364,16 @@ iszero(z) = true;
 iszero(N) = false;
 ```
 
-The use of `=` (equlity) deserves a comment: rewrite rules and rewriting are directional, always being applied from left to right. On the other hand,they do express equality. The predicate `iszero` applied to `z` is rewritten to `true` precisely because `iszero(z)` **is (equal to)**. Rewriting is *syntactical* simplificantion within *semantical* equality.
+The use of `=` (equality) deserves a comment: rewrite rules and rewriting are directional, always being applied from left to right. On the other hand, they do express equality. The predicate `iszero` applied to `z` is rewritten to `true` precisely because `iszero(z)` **is (equal to) true**. Rewriting is *syntactical* simplification within *semantical* equality.
 
 ### Example
-Consider the following TRS:
+Consider the following TRS ('*the a-s-z-system*'; successor-zero with addition):
 ```Prolog
-a(s(X),Y) → s(a(X,Y))
-a(z,X) → X
+a(s(X),Y) = s(a(X,Y));
+a(z,X) = X;
 ```
 
-and consider the following sequence of rewrite steps ('*the a-s-z-system*'):
+and consider the following sequence of rewrite steps:
 
 ```Prolog {linenos=false}
 a(s(s(z)),s(s(z))) 

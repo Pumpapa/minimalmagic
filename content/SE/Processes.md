@@ -25,7 +25,7 @@ The OS maintains administration of many aspects including:
 
 # Resource & Process Management
 
-{{<figure `Process Table` `/images/SE1.procestab.png` right 60 >}}
+{{<figure "Process Table" "/images/SE1.procestab.png" right 60>}}
 
 * Memory tables 
 (partly discussed for VM)
@@ -61,7 +61,7 @@ OS responsibilities:
 * **Access control protection**: mechanisms are in place to allow programs to share memory (in the entire hierarchy)
 * **Automatic allocation and management**: Allocation in the hierarchy should be automatic and transparent to the programmer
 * **Process relocation**: processes may need to be relocated (e.g. for swapping)
-	* *Question: how is that possible?*
+    * *Question: how is that possible?*
 * **Modular programming support**: creation, destruction and change of program modules
 * **Persistance**: access to long term storage
 
@@ -98,17 +98,17 @@ These goals are often conflicting
 which ready process to execute next?
 
 * invoked very frequently:
-	* clock interrupts
-	* I/O interrupts
-	* OS calls (traps)
-	* Signals (e.g. semaphores)
+    * clock interrupts
+    * I/O interrupts
+    * OS calls (traps)
+    * Signals (e.g. semaphores)
 * criteria
-	* priorities
-	* responsiveness
-	* throughput
-	* qualitative criteria such as predictability
+    * priorities
+    * responsiveness
+    * throughput
+    * qualitative criteria such as predictability
 
-{{<figure `Source: Richard Stallings, Operating Systems: Internals and Design Principles` `/images/SE1.dispatch.png` right 60 >}}
+{{<figure "Source: Richard Stallings, Operating Systems: Internals and Design Principles" "/images/SE1.dispatch.png" right 60>}}
 
 <small>
 *Source: Richard Stallings, Operating Systems: Internals and Design Principles*
@@ -123,7 +123,7 @@ which ready process to execute next?
 
 ## Process State
 
-{{<figure `9 State Transition Diagram` `/images/SE1.9state.png` right 60 >}}
+{{<figure "9 State Transition Diagram" "/images/SE1.9state.png" right 60>}}
 
 Represents whether a process can run (or possibly why not). The book builds up to the seven state model, but we've added two here for run-level and preemption state.
 

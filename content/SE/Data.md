@@ -18,7 +18,7 @@ As mentioned: numbers are an abstraction. One number can be **represented** in m
 
 Earlier we have seen that binary numbers are useful because electronics can directly represent them and perform calculations upon them.
 
-For humans, large strings of one's and zero's are confusing at best. Who knows at a glance the significance of `11000000101010000000000011111111`?
+For humans, large strings of ones and zeros are confusing at best. Who knows at a glance the significance of `11000000101010000000000011111111`?
 
 For this reason humans use the decimal system with ten digits (originating from the fact that we have ten digits :-).
 
@@ -34,7 +34,7 @@ For this reason, **hexadecimal** is often used using the 16 digits **0-9** and *
 
 Now, long numbers can be written in a way which humans can copy at a glance. For instance, the IP (v6) number of Google's primary DNS server is: 2001:4860:4860::8888 (note: :: means all zeroes). Try it out in your browser: `https://[2001:4860:4860::8888]`.
 
-{{<figure `Wireshark` `/images/wireshark.png` right 50 >}}
+{{<figure `Wireshark` `/images/SE/wireshark.png` right 50 >}}
 
 Other places where hexadecimal is used extensively include **memory dumps**. Memory is usually divided in bytes (8 bits) and then records (disk) or pages (memory) of 512, 1024 or 4096 bytes each (2^9, 2^10, 2^12). Memory addresses on a modern computer are typically 64 bits.
 
@@ -42,7 +42,7 @@ This screenshot is part of a Wireshark dump of an HTTP GET message for hva.nl. M
 
 The left column consists of the offset within the package, the middle part shows the content in hexadecimal, and the right column the character interpretation (because humans read this more easily).
 
-Because memory dumps are hexadecimal, specialists specialsts using them must be able to convert hexadecimal to decimal to ascii almost on sight.
+Because memory dumps are hexadecimal, specialists using them must be able to convert hexadecimal to decimal to ascii almost on sight.
 
 ## Hexadecimal to Decimal 
 
@@ -86,7 +86,7 @@ If you are comfortable doing long division: repeated division by 16 noting down 
 50109 = 0xC3BD
 ```
 
-If not, convertion to binary is appropriate, noting down the nibble values using the table.
+If not, conversion to binary is appropriate, noting down the nibble values using the table.
 
 # Two's complement
 
@@ -94,7 +94,7 @@ One of the most effective System Engineering feats is **two's complement**: a re
 
 Naively, negative integers might be represented by using one specific bit to represent the sign. For example, 00000101 might represent 5 (in one byte), and 10000101 might represent -5. There are two problems:
 
-* now there are two zero's: 00000000 and 10000000. Since zero is probably the most-used number, having to check *which* zero we're looking at introduces significant overhead.
+* Now there are two zeros: 00000000 and 10000000. Since zero is probably the most-used number, having to check *which* zero we're looking at introduces significant overhead.
 * addition and subtraction don't work immediately 00000101+10000101=10001010 (-10) but should be 0. This means this representation requires different circuitry for addition and subtraction
 
 In two's complement a negative value is represented as the complement when subtracting it from the next larger power of two. So: for 8 bits the complement of a number n is  100000000-n (8 zero's, nine bits). E.g. -5 is 100000000-101 is 11111011 is 0xFB.
@@ -144,7 +144,7 @@ It's a trick question:, you can't know. It's just data, but without context it's
 * It might be an IPv4 address: 186.173.240.13
 * It might be a very large integer: 3131961357
 * Or a negative integer: -1163005939
-* It might be a very short text: `º-ð` followed by a newline
+* It might be a very short text: `°-ð` followed by a newline
 * Or it might be a memory pointer. Who knows what's there.
 * Further down we will see that binary numbers can also represent floating point (approximate real) numbers. This number is in fact -0.0013270393.
 
@@ -165,7 +165,7 @@ And we use only 32 bits for a number.
 
 ## Scientific Notation 
 
-Humans are bad at long strings of number. What would you rather get: €1341265142643 or €924395963572?
+Humans are bad at long strings of numbers. What would you rather get: €1341265142643 or €924395963572?
 
 Scientists have long known this and have come up with a notation which improves upon this
 
@@ -173,7 +173,7 @@ Scientists have long known this and have come up with a notation which improves 
 
 This 'scientific' notation has two advantages
 
-* looking at the power of ten offers an immediate impression of the scale of the number (in the example above, 1.3e12 vs 9.2e11; the first number is bigger).
+* Looking at the power of ten offers an immediate impression of the scale of the number (in the example above, 1.3e12 vs 9.2e11; the first number is bigger).
 * As many digits can be shown as are useful given the circumstances. 
 
 In the notation 1.34e12 the number 1.34 is called the **mantissa**, and 12 the **exponent**. In calculators the number e is often used: 1.34e12.
@@ -184,8 +184,8 @@ Note that the exponent can be either positive or negative. 10^-3 = 1/(10^3) = 0.
 
 Calculation is straightforward. 
 
-* In *multiplication* the mantissa's are multiplied while the exponents are added. 2e2 x 3e-3 = 6e-1
-* In *addition*, the exponent should first be made the same and then the mantissa's can be added: 1.2e4 + 2.2e2 =
+* In *multiplication*, the mantissas are multiplied while the exponents are added. 2e2 x 3e-3 = 6e-1
+* In *addition*, the exponent should first be made the same and then the mantissas can be added: 1.2e4 + 2.2e2 =
     * 120e2 + 2.2e2 = 122.2e2 or
     * 1.2e4 + 0.022e4 = 1.222e4 or indeed
     * 12e3 + .22e3 = 12.22e3
@@ -193,13 +193,13 @@ Calculation is straightforward.
 ---
 
 ## IEEE 754
-{{<figure `Floating Point Numbers` `/images/SE1.floats.png` right 50 >}}
+{{<figure `Floating Point Numbers` `/images/SE/SE1.floats.png` right 50 >}}
 
 The scientific notation is used as a basis in IEEE 754 with an obvious adaptation: since we are using binary numbers, the base for the exponent is 2.
 
 Note that every binary number except zero contains a one (either before or after the decimal point). This implies that every number (except 0) can be **normalized** by shifting it left or right until it is written as 1.⋯. For example, the number 0.0000101, which is 5/128 can be written as 1.01e-5
 
-Since the first digit of the normalised mantissa is always 1, it isn't stored.
+Since the first digit of the normalized mantissa is always 1, it isn't stored.
 
 The exponent can be positive or negative. We could store it as a 2's complement number, but in fact we simply offset it by 127. A typical engineering solution: this way sorting (the > operator) is the same for ints as it is for floats.
 
@@ -226,11 +226,11 @@ At their heart, computers process zeros and ones. But using positional numbers w
 
 But, for the moment skipping video and audio, there is another very important type of data we need to process: text. 
 
-The American Standard Code for Information Interchange (ASCII) is an ancient standard which plays an important role to this day. ASCII representa many common characters in numbers.
+The American Standard Code for Information Interchange (ASCII) is an ancient standard which plays an important role to this day. ASCII represents many common characters in numbers.
 
-ASCII was created around 1960, in a time when the human-computer interface consisted of a teletype (which is a combined keyboard and printer). At the time, a 7 bit code was sufficient to represent all common letters (upper and lower-case), numbers, punctuation and necessary control codes to manage the teletype. For instance, ASCII still has a code to ring a bell in the teletype to get an operators attension when a message was ended. Also, ASCII has a code for carriage return (the carriage is the small train than carries the printer head which hammers letters through an inked cloth ribbon) and for line-feed (which advances the scroll of paper to the next line). Whenever we embed a **\\n** in a text to get a newline we are inserting a line-feed symbol.
+ASCII was created around 1960, in a time when the human-computer interface consisted of a teletype (which is a combined keyboard and printer). At the time, a 7 bit code was sufficient to represent all common letters (upper and lower-case), numbers, punctuation and necessary control codes to manage the teletype. For instance, ASCII still has a code to ring a bell in the teletype to get an operator's attention when a message ends. Also, ASCII has a code for carriage return (the carriage is the small train that carries the printer head which hammers letters through an inked cloth ribbon) and for line-feed (which advances the scroll of paper to the next line). Whenever we embed a **\\n** in a text to get a newline we are inserting a line-feed symbol.
 
-Today we use Unicode to encode just about all known symbols, and we use encodings such as UTF-8 to pack unicode characters in single or double bytes. However, ISO 646 subset of UTF-8 still coincides with ASCII and ASCII is still the preferred representation when we happen to be limited to plain text in the English alphabet.
+Today we use Unicode to encode just about all known symbols, and we use encodings such as UTF-8 to pack unicode characters in single or double bytes. However, the ISO 646 subset of UTF-8 still coincides with ASCII and ASCII is still the preferred representation when we happen to be limited to plain text in the English alphabet.
 
 The well prepared programmer can somewhat read (hexa)decimal data which represents text. Look up an ASCII table and you will see that there is logic to it. In hex:
 
@@ -241,3 +241,6 @@ The well prepared programmer can somewhat read (hexa)decimal data which represen
 * 60 and onwards are backquote and lower-case letters
 
 Using this information you can decipher `49 20 41 4d 20 4E 4F 31`
+
+
+

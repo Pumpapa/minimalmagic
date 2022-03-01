@@ -20,10 +20,10 @@ But the simple parser has only a single state in which recursion is initiated (a
 burewr(trm(F,As),Rs) = toprewr(trm(F,burewr(As,Rs)),Rs);
 burewr(arg(A,As),Rs) = arg(burewr(A,Rs),burewr(As,Rs));
 ```
-In Rule 1, after `burewr`  returns a result, `toprewr` must be called. That pqttern, *after this do that,* suggests a state, which is either maintained explicitly or returned by `burewr` (in this case). In Rule 2 there are two recursive calls to `burewr`, so these are (at least) two additional states.
+In Rule 1, after `burewr`  returns a result, `toprewr` must be called. That pattern, *after this do that,* suggests a state, which is either maintained explicitly or returned by `burewr` (in this case). In Rule 2 there are two recursive calls to `burewr`, so these are (at least) two additional states.
 
 ## Nodes
-A second difference between the meta-terms and the reewrite engine has been discussed in [Section Nodes](https://www.minimalmagic.blog/trs/tram/): TRAM represents terms as nodes (structures with two fields: `car` and `cdr`) (ignoring memory management for the moment). This means 
+A second difference between the meta-terms and the rewrite engine has been discussed in [Section Nodes](https://www.minimalmagic.blog/trs/tram/): TRAM represents terms as nodes (structures with two fields: `car` and `cdr`) (ignoring memory management for the moment). This means 
 
 * there is no distinction (in TRAM) between `trm(...)` and `arg(...)`. A `trm(...)` head-node is recognized by the fact that the `car` is a symbol
 * a variable in the meta-term representation (`var(name)`) is a base value in TRAM (a 32-bit value with least significant byte binary 00000011)
@@ -72,7 +72,7 @@ ref reduce (/*tval T, ref P*/) {
     tval f, t, pat;  
     ref p, sub;  
     Push(S,asDTA(ALLDONE));    
-	for (;;) {  
+    for (;;) {  
     	if (Dbg >= DCycles) fprintf(stdout, "%s ", prstates[state - 1000]);  
     	switch (state) { // T is subject term, V is result
 ```
@@ -90,13 +90,13 @@ Rules 1-3 of the meta-interpreter define bottom-up rewriting. An imperative desc
 
 * Rules 1-2 push down `burewr` through an entire tree, such that `burewr` is applied to each node in that tree, which replaces that node with it's `burewr` image
 * Rule 3 states that an empty tree isn't changed by `burewr`
-* Rule 1 states that once a proper sub-term has been normalised, `topred` should be applied.
+* Rule 1 states that once a proper sub-term has been normalized, `topred` should be applied.
 
 Four states can be distinguished:
 
 * `BURED`, the initial state
-* `BUDONECDR`. TRAM implements the right-most innermost strategy, so the sub-term `burewr(As,Rs)` is reducede first (in rules 1 and 2). The result will be captured by the state at which the `cdr` of the `arg(...)` or `trm(...)` node has been handled (`BUDONECDR` for bottom-up, done cdr)
-* `BUDONEBOTH` is self-describing. In case of Rule 2, `burewr` has been applied to the entire tree; in case of Rule 1, the next state should now be visited:
+* `BUDONECDR`. TRAM implements the right-most innermost strategy, so the sub-term `burewr(As, Rs)` is reduced first (in rules 1 and 2). The result will be captured by the state at which the `cdr` of the `arg(...)` or `trm(...)` node has been handled (`BUDONECDR` for bottom-up, done cdr)
+* `BUDONEBOTH` is self-described. In case of Rule 2, `burewr` has been applied to the entire tree; in case of Rule 1, the next state should now be visited:
 * `TOPRED`, try to reduce a term at root level
 
 Lines
@@ -105,7 +105,7 @@ Lines
 * 7-9: Otherwise, save the `car`, push the subsequent state, and continue with the `cdr`
 * 12-15: Pop the `car`, push the normalized `cdr` and the subsequent state, and recurse
 * 18-21: If the car is a node, this is a `arg(...)` node; create the new node (as in Rule 2)
-* 24-26: Otherwise this is a normalised `trm(...)`. Apply `TOPRED`
+* 24-26: Otherwise this is a normalized `trm(...)`. Apply `TOPRED`
 
 
 ```C
@@ -160,7 +160,7 @@ Five states can be distinguished:
 * `FORRULES`, a 'for' loop over all rules
 * `MATCH`, the state in which a term is matched
 * `MATCHDONE`: matching can fail deep in the recursion. The token `MATCHDONE` is pushed to be able to clear the stack when matching fails, or it is encountered on the stack when all work-to-do has been done
-* `BUILD`. There is a significant difference between the meta-interpreter and the C implementation if matching fails. In the meta-interpreter, the term being reduced has already been built and can be passed on as-is (term T in Rule 13). In the C implementation the term hasn't yet been built and exists as separate symbol `F` and arguments `T` (See Lines 24-25 in the C code above).
+* `BUILD`. There is a significant difference between the meta-interpreter and the C implementation if matching fails. In the meta-interpreter, the term being reduced has already been built and can be passed on as-is (term T in Rule 13). In the C implementation the term hasn't yet been built and exists as a separate symbol `F` and arguments `T` (See Lines 24-25 in the C code above).
 ```C
 case TOPRED: //(f is fun,T = args)  
     if (Dbg >= DStepDump) pval(f, 1);  
@@ -198,7 +198,7 @@ The arguments in `match(X,ST,E,As,Bs,R,T,Rs,TRS)` are:
 
 * `X`: the current pattern (sub-term of the left-hand side of the rule)
 * `ST`: the current sub-term being matched
-* `E`: the substitution in the form of `tab(<variable-name>,<value>,<rest-of-substitution>)`. No check is done to see if the variable was already defined. That would constitute a non-linear TRS
+* `E`: the substitution in the form of `tab(<variable-name>, <value>, <rest-of-substitution>)`. No check is done to see if the variable was already defined. That would constitute a non-linear TRS
 * `As`, `Bs`: the sub-terms of the subject-term and pattern that still need to be matched. Note that constructor `arg(...)` is used to string together sub-terms that need to be inspected. In this sense, `As` and `Bs` could also be described as stacks of work-yet-to-be-done
 * `R`: the right-hand side of the current rule
 * `T`: the entire subject-term, to be used if matching fails
@@ -234,7 +234,7 @@ The logic is straightforward:
 Five states can be distinguished:
 
 * `MATCH`, `MATCHDONE`: as mentioned
-* `fail` is not a state but a lable to be jumped to when matching fails
+* `fail` is not a state but a label to be jumped to when matching fails
 *  `MATCHDONECAR`: the `car` has been verified; continue with the `cdr`
 *  `INST`: match succeeded; instantiate the right-hand side
 ```C
@@ -304,7 +304,7 @@ Function `inst` is trivial; no additional states ensue.
 
 * Rule 14, 18-20: for every variable, get it's associated value
 * Rules 15-17: recursively instantiate all sub-terms of the right-hand side
-* Rule 15: for every compound subterm, reduce it at top-level. Since an innermost strategy is followed, the values of variables have already been normalised
+* Rule 15: for every compound subterm, reduce it at top-level. Since an innermost strategy is followed, the values of variables have already been normalized
 
 ```C
 case INST: //(pat,sub)
@@ -347,11 +347,11 @@ case INSTDONEBOTH: // V is cdr, ToS = car
     state = PopDTA(S);
     break;
 case INSTCONT: {// V is car
-		sub = PopRef(S);
-		pat = Pop(S);
-		state = PopDTA(S);
-		break;
-	}
+    	sub = PopRef(S);
+    	pat = Pop(S);
+    	state = PopDTA(S);
+    	break;
+    }
 ```
 
 Lines
@@ -382,3 +382,6 @@ case ALLDONE:
 default: error("Bad state!");
 }
 ```
+
+
+

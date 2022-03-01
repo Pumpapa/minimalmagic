@@ -50,20 +50,20 @@ int main() {
 }
 ```
 
-{{<figure `Assembly` `/images/SE1.ASM.png` right 40 >}}
+{{<figure `Assembly` `/images/SE/SE1.ASM.png` right 40 >}}
 
 ## Assembly
 
-* labels are at the beginning of a line followed by a colon. They are used for jump-to (jmp) or jump-on-greater (jg).
-* most lines have the form  `opc oprnd` where `opc` is an opcode: the name of an ISA instruction, and `oprnd` are the zero or more operands that instruction requires.
+* Labels are at the beginning of a line followed by a colon. They are used for jump-to (jmp) or jump-on-greater (jg).
+* Most lines have the form  `opc oprnd` where `opc` is an opcode: the name of an ISA instruction, and `oprnd` are the zero or more operands that instruction requires.
 * `%rbp` is the frame pointer; local variables are indexed off that pointer
 * So `movl	$55, -8(%rbp)` is a long move of the decimal value 55 into the local variable `s` which 'lives' 8 bytes below the frame pointer (`%rbp`)
 * A macro mechanism where a set of instructions can be given a name, such that using the name will lead to those instructions being inserted.
 * `cmpl	$30, -12(%rbp)`  
 `jg	LBB0_4`
 compares `i` (located 12 bytes below the frame pointer) with 30 and jumps (i.e. exits the loop) if it is greater. 
-* note that by using labels we avoid having to count the number of instruction bytes. The assembler translates the label to an appropriate offset.
-* the C language statement `s += i;` translates to three instructions: `i` is put in the general purpose register `eax`, then `s` is added to it, and then the result is stored in `s`.
+* Note that by using labels we avoid having to count the number of instruction bytes. The assembler translates the label to an appropriate offset.
+* The C language statement `s += i;` translates to three instructions: `i` is put in the general purpose register `eax`, then `s` is added to it, and then the result is stored in `s`.
 
 ## Machine Language
 
@@ -80,13 +80,13 @@ The values at address `0f42`...`0f45` are `37 00 00 00`. `37` hex = `55` decimal
 
 1. Exercise:  if I tell you `c7 45` is `movl`, can you tell me if this machine is little endian or big endian?  
 
-{{<figure `Machinecode` `/images/SE1.machinecode.png` center 100 >}}
+{{<figure `Machinecode` `/images/SE/SE1.machinecode.png` center 100 >}}
 
 
 
 ## Lower & Higher Level Languages
 
-Assembly is called low-level because it doesn't offer any abstraction mechanisms beyond labels, opcodes and macro's. 
+Assembly is called low-level because it doesn't offer any abstraction mechanisms beyond labels, opcodes and macros. 
 
 The programming language C, regarded by some as a generic assembler, at least offers named functions, control structures and data types.
 
@@ -113,12 +113,12 @@ Mutability is a source of bugs. Consider this snippet of code
 ```
 X=<someDataStructure>; Y=X; 
 # This doesn't copy the data structure but rather Y points to the same structure
-# any change in the datastructure Y also changes X. This can lead to very subtle bugs
+# Any change in the data structure Y also changes X. This can lead to very subtle bugs
 ```
 
 In 1998 Ericsson announced the AXD301 telephone switch, 
 containing over a million lines of Erlang, and reported to achieve a high availability of nine "9"s (source: wikipedia).  
-That’s 99.9999999% uptime, less than 4 seconds per year downtime!
+That’s 99.9999999% uptime, less than 4 seconds per year of downtime!
 
 One key reason: immutability. Erlang data structures can not be changed.
 
@@ -133,7 +133,7 @@ In general, compilation is the process of translating one (computer) language in
 
 * Lexical Analysis. Combining character sequences into logical units called tokens: identifier, keyword, operator, etc.
 * Syntax Analysis. Determining the grammatical structure of token-sequences into an 'abstract syntax tree' structure which reflects the containment hierarchy
-* Semantic Analysis. Applying semantical aspects such variable-scope.
+* Semantic Analysis. Applying semantic aspects such as variable-scope.
 * Intermediate Code Generation. Generate executable code for some abstract machine such as a VM (see below).
 * Code Optimization. Apply heuristics (rules of thumb). For instance, mv $X,($A) followed by mv ($A),$X stores a value and immediately fetches it. The second instruction is superfluous.
 * Code Generation. Finally, generate actual ISA instructions.
@@ -208,7 +208,7 @@ To compute RPN we need a stack (to hold the data, operands and intermediate resu
 
 Here, below every item the content of the stack is shown **when that item is processed**
 
-{{<figure `RPN` `/images/SE1.rpn.png` right 100 >}}
+{{<figure `RPN` `/images/SE/SE1.rpn.png` right 100 >}}
 
 
 ```
@@ -256,3 +256,6 @@ Today, we also use ***dynamically linked libraries***. They are called using a s
 Compilation takes time. For some languages, linked libraries are appropriate. However in some other circumstances, another principle is used: just-in-time compilation (JIT). The library isn't compiled, and maybe not even loaded until it is actually used. More likely, the libraries are compiled to bytecode, but the second phase (ISA-compilation and linking) happens "JIT".
 
 Examples: .Net, Java, Python, V8 (JavaScript)
+
+
+

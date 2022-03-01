@@ -78,7 +78,7 @@ ref new(tval x,tval y);
 #define Pop(X) X->car; X=ref(X->cdr);  
 #define PopRef(X) ref(X->car); X=ref(X->cdr);  
 ```
-## Declaration of Memory and Mem Mngmnt Variables
+## Declaration of Memory and Memory Management Variables
 ```C
 int MEMSIZE=100000; //nodes  
 ref mem, usedNodes, freeNodes;  
@@ -269,7 +269,8 @@ tval readTerm(char *nm) {
                 num = c=='*'?1:c=='&'?2:c-'A'+3;  
                 while ((c=fgetc(in))=='.'||c>='0'&&c<='9'||c>='a'&&c<='z'||c>='A'&&c<='Z') {  
                     if (++len<=4) {  
-                        num = num << 6 | (c == '^' ? 1 : c - (c <= '9' ? '0'-2 : (c <= 'Z' ? 'A'-12 : 'a'-38)));  
+                        num = num << 6 | 
+            (c == '^' ? 1 : c - (c <= '9' ? '0'-2 : (c <= 'Z' ? 'A'-12 : 'a'-38)));  
                     }  
                 }  
                 sgn = len>4?1<<31:0;  
@@ -287,7 +288,8 @@ tval readTerm(char *nm) {
                 num = c=='@'?1:c=='$'?2:c-'a'+3;  
                 while ((c=fgetc(in))=='.'||c>='0'&&c<='9'||c>='a'&&c<='z'||c>='A'&&c<='Z') {  
                     if (++len<=5) {  
-                        num = num << 6 | (c == '^' ? 1 : c - (c <= '9' ? '0'-2 : (c <= 'Z' ? 'A'-12 : 'a'-38)));  
+                        num = num << 6 | 
+            (c == '^' ? 1 : c - (c <= '9' ? '0'-2 : (c <= 'Z' ? 'A'-12 : 'a'-38)));  
                     }  
                 }  
                 sgn = len>5?4:0;  
@@ -354,7 +356,7 @@ const char * prstates[] = {"BURED", "BUDONECDR", "BUDONEBOTH", "TOPRED", "FORRUL
 #define PopDTA(X) (X->car-1)>>2; X=ref(X->cdr);  
 ```
 ## Function Symbol Constants
-These constants are used by the CLI-interpreter in conversion from string to term representation. These aren't [magic constants](https://en.wikipedia.org/wiki/Magic_number_(programming), but rather pre-encoded symbols `eos`, `str`, `lst` and `eol`.
+These constants are used by the CLI-interpreter in conversion from string to term representation. These aren't [magic constants](https://en.wikipedia.org/wiki/Magic_number_(programming)), but rather pre-encoded symbols `eos`, `str`, `lst` and `eol`.
 ```C
 #define FSYMeos 0xD380003B  
 #define FSYMstr 0xE77000AB  
@@ -465,7 +467,7 @@ void pprg(ref p) {
 } 
 ```
 # Rewrite Engine
-Discussed in [Section # Converting Rewrite Engine from Tram to C](https://www.minimalmagic.blog/trs/convertingtramtoc/)
+Discussed in [Section Converting Rewrite Engine from Tram to C](https://www.minimalmagic.blog/trs/convertingtramtoc/)
 ```C
 ref reduce (/*tval T, ref P*/) {  
     S = nil;  
@@ -732,3 +734,6 @@ int main(int argc, char *argv[]) {
     }  
 }
 ```
+
+
+

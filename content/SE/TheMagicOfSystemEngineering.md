@@ -12,7 +12,7 @@ tags:
   - "Numbers"
   - "Components"
 ---
-{{<figure `Logarithmic Barrel Shifter` `/images/LogarithmicBarrelShifter.png` right 40 >}}
+{{<figure `Logarithmic Barrel Shifter` `/images/SE/LogarithmicBarrelShifter.png` right 40 >}}
 
 Starting with a functionally trivial 
 component, the transistor, we can 

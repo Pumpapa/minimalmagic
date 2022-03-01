@@ -11,7 +11,7 @@ tags:
   - "Page"
   - "Frame"
 ---
-In the early days of computing, memory was expensive and small. Programmers had to write small programs that used as little memory as possible. Larger programs were decomposed in **overlays**. For instance, each phase in a compiler wrote its results to file, after which the next phase could be loaded (overlaying the previous) in memory.
+In the early days of computing, memory was expensive and small. Programmers had to write small programs that used as little memory as possible. Larger programs were decomposed in **overlays**. For instance, each phase in a compiler wrote its results to a file, after which the next phase could be loaded (overlaying the previous) in memory.
 
 As memory grew, the demands also grew, so programmers were spending significant time on this manual memory management. A model was engineered which solved this: **Virtual Memory**.
 
@@ -19,11 +19,11 @@ Conceptually, virtual memory means a program can use a lot more memory than is (
 
 # Paging
 
-{{<figure `Virtual Memory` `/images/SE1.virtmem.png` right 100 >}}
+{{<figure `Virtual Memory` `/images/SE/SE1.virtmem.png` right 100 >}}
 
 The heart of virtual memory is **paging**. The entire memory a program uses is divided in **pages**. Whenever the program accesses a page which isn't currently stored in physical memory (this is called a **page fault**), that page is loaded into a section of memory of equal size, called a **frame**. When no unused frame is available (memory is full), the OS looks for a frame it can recycle, for instance a frame which hasn't been used for some time (the OS remembers last access times for all frames). If that frame is dirty it is first written back to disk. Then the page the program wanted to access is loaded into the now unused frame, and memory access can finally take place. 
 
-Alarm bells might ring: for **every** memory acces we access a table, which is also stored in memory. Won't This Fail?
+Alarm bells might ring: for **every** memory access we access a table, which is also stored in memory. Won't This Fail?
 
 Good question. We already know part of the answer: page tables are accessed so frequently that they are usually cached.
 
@@ -52,7 +52,7 @@ If the virtual address points outside virtual memory, or if R/O or access rights
 
 # Segmentation
 
-Segmentation stems from the time of overlays: instead of using a single continuous memory space, a program divides its memory in separate segments, each holding code or data belonging to different aspects of the program. Segmentation is used for virtual memory, where segments are loaded and stored as the need arises, but it is also used as a programming structuring mechanism. 
+Segmentation stems from the time of overlays: instead of using a single contiguous memory space, a program divides its memory in separate segments, each holding code or data belonging to different aspects of the program. Segmentation is used for virtual memory, where segments are loaded and stored as the need arises, but it is also used as a programming structuring mechanism. 
 
 The main difference between paging and segmentation is that paging is automatic but segmentation is under program control. Note that segmentation and paging can be used together.
 
@@ -64,7 +64,7 @@ There is no ideal page size: too small and the administration overhead becomes n
 
 The ARM MMU (included in all modern ARM processors) offers four sizes: 4k / 64k for two-level paging suitable for computers and phones (we'll discuss multi-level paging in a moment), or 1M / 16M for one-level paging more suitable for embedded multi-media systems.
 
-The x86-64 MMU usualy sticks to 4k pages, but does support larger 'hugepages'.
+The x86-64 MMU usually sticks to 4k pages, but does support larger 'hugepages'.
 
 # x86-64 Paging
 
@@ -76,10 +76,13 @@ This mode uses 57 bit addresses =>
 
 # x86-64 Five-level Paging
 
-{{<figure `5 Level Paging` `/images/SE1.5level.png` right 100 >}}
+{{<figure `5 Level Paging` `/images/SE/SE1.5level.png` right 100 >}}
 
 * lower 12 bits are the offset in the physical page (2^12=4k)
 * other layers use 9 bits = 512 entries (2^9=512) of 64 bits. A 40-bit base pointer and control various bits
 * the base of the page-table tree is pointed to by register CR3
 * each process has its own CR3 register which cannot simply be changed, thus every process is limited to its own memory
 * in a virtualisation environment the higher levels are owned by the guest, but the lower levels are owned by the host. This way, guest memory management is as fast as host memory management 
+
+
+

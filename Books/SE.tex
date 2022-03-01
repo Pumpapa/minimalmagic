@@ -24,9 +24,15 @@
 	\defutfmathch@r{03C0}{\pi} %π
 	\defutfmathch@r{00A7}{\para} %§
 	\defutfmathch@r{00BD}{\text{1/2}}
-	\defutfmathch@r{00BD}{\text{1/2}}
 	\defutfmathch@r{2190}{\rightarrow}
 	\defutfmathch@r{21A0}{\twoheadrightarrow}
+	\defutfmathch@r{2299}{\odot}%⊙
+	\defutfmathch@r{21D2}{\implies}%⇒
+	\defutfmathch@r{2298}{\oslash}%⊘
+	\defutfmathch@r{00B0}{\degree}%º
+	\defutfmathch@r{00F0}{\eth}%ð
+	\defutfmathch@r{22EF}{\times}%x
+	\defutfmathch@r{03BC}{\mu}%μ
 	%\defutfmathch@r{FF20}{＠}
 	%%\defutfmathch@r{219E}{\to}%↞
 	%%\defutfmathch@r{21D8}{\to}%⇘
@@ -188,23 +194,22 @@
 
 
 
-	\draw (current page.center) node [fill=ocre!30!white,fill opacity=0.6,text opacity=1,inner sep=1cm]{\Huge\centering\bfseries\sffamily\parbox[c][][t]{\paperwidth}{\centering Term Rewriting Systems\\[15pt] % Book title
+	\draw (current page.center) node [fill=ocre!30!white,fill opacity=0.6,text opacity=1,inner sep=1cm]%
+		{\Huge\centering\bfseries\sffamily\parbox[c][][t]{\paperwidth}{\centering System Engineering\\[15pt] % Book title
 	{\Large with Minimal Magic}\\[20pt] % Subtitle
 	{\huge Pum Walters}}}; % Author name
 
 \input{src/BeginCopyright.tex}
 
-	\noindent Copyright \copyright\ 2022 Pum Walters\\ % Copyright notice
+	\noindent Copyright \copyright\ 2021 Pum Walters\\ % Copyright notice
 
-	\noindent \textsc{Published with} \href{https://leanpub.com//}{Leanpub}\\ % Publisher
+	\noindent \textsc{Published by Publisher}\\ % Publisher
 
-	\noindent \href{https://www.minimalmagic.blog/trs/termrewriting/}{Minimal Magic blog (Term Rewriting)}\\ % URL
+	\noindent \textsc{book-website.com}\\ % URL
 
-	\noindent \href{https://leanpub.com/minimalmagicTRS}{leanpub.com/minimalmagicTRS}\\ % URL
+	\noindent Licensed under the Creative Commons Attribution-NonCommercial 3.0 Unported License (the ``License''). You may not use this file except in compliance with the License. You may obtain a copy of the License at \url{http://creativecommons.org/licenses/by-nc/3.0}. Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an \textsc{``as is'' basis, without warranties or conditions of any kind}, either express or implied. See the License for the specific language governing permissions and limitations under the License.\\ % License information, replace this with your own license (if any)
 
-	\noindent Licensed under the Creative Commons Attribution-NonCommercial 3.0 Unported License (the ``License''). You may not use this file except in compliance with the License. You may obtain a copy of the License at \url{http://creativecommons.org/licenses/by-nc/3.0}. Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an ``as is'' basis, without warranties or conditions of any kind, either express or implied. See the License for the specific language governing permissions and limitations under the License.\\ % License information, replace this with your own license (if any)
-
-	\noindent \textit{First Published, Januari 2022} % Printing/edition date
+	\noindent \textit{First printing, December 2021} % Printing/edition date
 
 \input{src/ToC.tex} % Begin toc
 
@@ -214,7 +219,7 @@
 
 % begin text proper
 
-\chapterimage{images/Chapters/pexels-fiona-art-3631430} % Chapter heading image
+\chapterimage{images/Chapters/pexels-will-mu-3802667.jpg} % Chapter heading image
 \chapter{Minimal Magic}
 \input{texs/MinimalMagicIntro.tex}
 
@@ -222,94 +227,126 @@
 \chapter{Pum Walters}
 \input{texs/PumWalters.tex}
 
-{\it (Image: beautiful Iceland; that's not me)}
-
-\chapterimage{images/Chapters/pexels-james-wheeler-1486974} % Chapter heading image
+\chapterimage{images/Chapters/pexels-toa-heftiba-şinca-1194420.jpg} % Chapter heading image
 \chapter{About this Book}
 
-This book is a direct (automatic) rendition of the blog
-\href{https://www.minimalmagic.blog/}{Minimal Magic} with \emph{only} changes that affect 
+This book is a direct (automatic) rendition of the blog Minimal Magic 
+\href{https://www.minimalmagic.blog/}() with \emph{only} changes that affect 
 the graphic design and leave further content as-is. Currently, internal links 
 in the book refer to the blog.
 
-All photo's are taken (with permission) from the wonderful site \href{https://www.pexels.com}{Pexels} 
+All photo's are taken (with permission) from the wonderful site [Pexels](https://www.pexels.com) 
 or elsewhere when explicitly mentioned.
 
-All other images are (C) by Pum Walters.
+All other images are by Pum Walters.
 
 
-\part{Term Rewriting (with Minimal Magic)}
-
-\chapterimage{images/Chapters/pexels-simon-berger-1323550.jpg} % Chapter heading image
-\chapter{Minimal Magic}
-\input{texs/MinimalMagic.tex}
 
 
-\chapterimage{images/Chapters/pexels-fiona-art-5022849.jpg} % Chapter heading image
-\chapter{Term Rewriting}
-\input{texs/TermRewriting.tex}
+\part{Part One}
 
-
-\chapterimage{images/Chapters/pexels-andy-vu-3244513.jpg} % Chapter heading image
-\chapter{Meta-Terms and Meta-Interpreter}
-\input{texs/MetaInterpreter.tex}
-
-\part{Implementation}
-
-
-\chapterimage{images/Chapters/pexels-toa-heftiba-şinca-1194420.jpg} % Chapter heading image
-\chapter{Tram: Term Rewriting Abstract Machine}
-\input{texs/Tram.tex}
-
-
-\chapterimage{images/Chapters/pexels-victor-dompablo-8280100.jpg} % Chapter heading image
-\chapter{Memory Management}
-\input{texs/MemoryManagement.tex}
-
-
-\chapterimage{images/Chapters/pexels-scott-webb-430207.jpg} % Chapter heading image
-\chapter{Binary Numbers}
-\input{texs/BinaryNumbers.tex}
-
-
-\chapterimage{images/Chapters/pexels-scott-webb-430202.jpg} % Chapter heading image
-\chapter{TRAM.1}
-\input{texs/TRAM.1.tex}
-
-
-\chapterimage{images/Chapters/pexels-steve-johnson-1621793.jpg} % Chapter heading image
-\chapter{Annotated TRAM.1}
-\input{texs/Annotated-TRAM.1.tex}
-
-
-\part{How to Write TRS's}
-
-
-\chapterimage{images/Chapters/pexels-fiona-art-4765691.jpg} % Chapter heading image
-\chapter{Converting C to Tram}
-\input{texs/ConvertingCtoTram.tex}
+\chapterimage{images/Chapters/pexels-jakob-rosen-9737563.jpg} % Chapter heading image
+\chapter{Some Computing History}
+\input{texs/SomeComputingHistory.tex}
 
 
 \chapterimage{images/Chapters/pexels-harrison-candlin-2441454.jpg} % Chapter heading image
-\chapter{Converting Tram To C}
-\input{texs/ConvertingTramToC.tex}
+\chapter{System Engineering - Introduction}
+\input{texs/SE-Intro.tex}
 
 
-\chapterimage{images/Chapters/pexels-santiago-pagnotta-1702624.jpg} % Chapter heading image
-\chapter{Patterns: Encoding-Checker from Scratch}
-\input{texs/Patterns-TramFromScratch.tex}
+
+\chapterimage{images/Chapters/pexels-luis-del-río-15286.jpg} % Chapter heading image
+\chapter{Transistors \& Gates}
+\input{texs/Transistors-Gates.tex}
+
+
+\part{Part Two}
+
+
+\chapterimage{images/Chapters/pexels-silvia-772650.jpg} % Chapter heading image
+\chapter{Boolean Arithmetic - Numbers}
+\input{texs/BooleanArithmeticNumbers.tex}
+
+
+
+\chapterimage{images/Chapters/pexels-aarti-vijay-2693529.jpg} % Chapter heading image
+\chapter{Components}
+\input{texs/Components.tex}
+
+
+
+\chapterimage{images/Chapters/pexels-evi-10058566.jpg} % Chapter heading image
+\chapter{Data}
+\input{texs/Data.tex}
+
+
+
+\chapterimage{images/Chapters/pexels-aaron-burden-10324751.jpg} % Chapter heading image
+\chapter{Mechanisms}
+\input{texs/Mechanisms.tex}
+
+
+
+\part{Part Three}
+
+
+\chapterimage{images/Chapters/pexels-giovanni-figueroa-9661740.jpg} % Chapter heading image
+\chapter{Bigger Things}
+\input{texs/BiggerThings.tex}
+
+
+
+\chapterimage{images/Chapters/pexels-longxiang-qian-1718337.jpg} % Chapter heading image
+\chapter{ISA and µArchitecture}
+\input{texs/ISA-µArchitecture.tex}
+
+
+
+\chapterimage{images/Chapters/pexels-sofía-rabassa-10305718.jpg} % Chapter heading image
+\chapter{Data Types}
+\input{texs/DataTypes.tex}
+
+
+
+\chapterimage{images/Chapters/pexels-björn-austmar-þórsson-7267852.jpg} % Chapter heading image
+\chapter{Language Processing}
+\input{texs/LanguageProcessing.tex}
+
+
+
+\chapterimage{images/Chapters/pexels-björn-austmar-þórsson-7267852.jpg} % Chapter heading image
+\chapter{Parallelism}
+\input{texs/Parallellism.tex}
+
+
+
+\chapterimage{images/Chapters/pexels-björn-austmar-þórsson-7267852.jpg} % Chapter heading image
+\chapter{Virtual Memory}
+\input{texs/VirtualMemory.tex}
+
+
+
+\chapterimage{images/Chapters/pexels-björn-austmar-þórsson-7267852.jpg} % Chapter heading image
+\chapter{Multitasking}
+\input{texs/Multitasking.tex}
+
+
+
+\chapterimage{images/Chapters/pexels-björn-austmar-þórsson-7267852.jpg} % Chapter heading image
+\chapter{Processes}
+\input{texs/Processes.tex}
+
+
+
+\chapterimage{images/Chapters/pexels-björn-austmar-þórsson-7267852.jpg} % Chapter heading image
+\chapter{Supporting Structures}
+\input{texs/SupportingStructures.tex}
 
 
 \part*{References}
-\chapterimage{images/Chapters/pexels-roberto-nickson-2647973.jpg} % Chapter heading image
-\chapter{Acknowledgements}
+
 \input{texs/Acknowledgements.tex}
-
-\chapterimage{images/Chapters/pexels-francesco-ungaro-2325446.jpg} % Chapter heading image
-
-\chapter{References}
-
-\input{texs/References.tex}
 
 
 %------------------------------------------------

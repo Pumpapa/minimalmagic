@@ -12,7 +12,7 @@ tags:
   - "Components"
 ---
 A current phone has more sensors (15+) and substantially more computing power (8+ 64-bit cores)  than NASA had  in the 60s to land on the moon.
-It can video a year of your life, non-stop, easy. It weighs about 150 grams.
+It can video a year of your life, non-stop, easily. It weighs about 150 grams.
 
 How is that possible? It is a cutting edge of System Engineering.
 
@@ -28,13 +28,13 @@ A candle-snuffer is a small pair of scissors with a tiny box attached, used to c
 One thread in a modern wick is pulled taut when the candle is made, resulting in the wick curling when it is released from the wax. The curling wick sticks out of the flame, where it burns entirely, preventing it from becoming too long and resulting in incomplete combustion of wax. Pulling one wire taut is an engineering solution.  
 
 &odot;**Example**  
-An inventor created 'bad glue' which did not work well on paper, and not at all on other materials. For six years, it was considered useless. *Today PostIt is a multi-bilion product and is used around the world!*.
+An inventor created 'bad glue' which did not work well on paper, and not at all on other materials. For six years, it was considered useless. *Today PostIt is a multi-billion product and is used around the world!*.
 
 &odot;**Example**  
 Analog computers use voltage to represent values.
 But voltages can change based upon temperature, humidity, earth magnetism.
 Imagine that your salary depends on the weather.
-Engineers solved this problem by *understanding that precise voltages change, but the absense or presence of voltage within bounds does not*.  
+Engineers solved this problem by *understanding that precise voltages change, but the absence or presence of voltage within bounds does not*.  
 
 Today a phone has > 1.000.000.000 transistors switching (determining the presence or absence of voltage) > 1.000.000.000 times per second.
 
@@ -60,6 +60,8 @@ How is it possible that the same software (such as a web browser) runs on differ
 It follows that a level must exist below ISA. This is called the microarchitecture.
 * Digital Logic Level  
 The lowest level consists of: transistors and other primitive electronic parts. Transistors are used to build larger components. For instance, two transistors are used to create one AND-gate: a component which computes the Boolean function AND. Hence the name **Digital Logic**.
+
+
 
 
 
