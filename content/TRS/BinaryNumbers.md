@@ -21,7 +21,7 @@ This TRS isn't suitable in practice. Imagine a system which needs to handle 32-b
 
 The common solution to this is a [positional numbering system](https://en.wikipedia.org/wiki/Positional_notation) as used in computers and in our daily lives. A positional numbering system uses a fixed set of digits (humans use ten, 0-9, and computers use two, 0-1). A number is then represented by a string of digits, where the position of each digit, usually from right to left, signifies its magnitude (each order of magnitude coincides with the number of digits). For instance, in `123` the magnitude of `2` is ten times that of `3` and a tenth of that of `1`. 
 
-The same principle can be used in Tram, for instance to define binary numbers. We can use two constants `#0` and `#1` to represent binary digits, and we can use the function `bin` to represent strings of bits. Now, a number such as 163 (binary: 10100011) can be represented as `bin(#1, bin(#0, bin(#1, bin(#0, bin(#0, bin(#0, bin(#1, #1)))))))`. 
+The same principle can be used in Tram, for instance to define binary numbers. We can use two constants `#0` and `#1` to represent binary digits, and we can use the function `bin` to represent strings of bits. Now, a number such as 163 (decimal, which is binary 10100011) can be represented as `bin(#1, bin(#0, bin(#1, bin(#0, bin(#0, bin(#0, bin(#1, #1)))))))`. 
 
 This may still seem like a significant overhead, but the size of a term representing a number is the same order [(Big-O)](https://en.wikipedia.org/wiki/Big_O_notation) as the number of bits. There exists no representation that improves upon this!
 

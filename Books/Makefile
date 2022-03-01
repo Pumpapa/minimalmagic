@@ -13,7 +13,7 @@ TRS:
 	done
 	for i in \
 		Annotated-TRAM.1 BinaryNumbers ConvertingCtoTram ConvertingTramToC MemoryManagement  \
-		MetaInterpreter MinimalMagic Patterns-TramFromScratch TermRewriting TRAM.1 Tram; \
+		MetaInterpreter MinimalMagic Patterns-TramFromScratch TermRewriting TRAM.1 Tram Conclusion; \
 	do \
 		sed 's/^```\([[:alpha:]][[:alpha:]]*\) {linenos=false}/``` {.\1 .nolinos}/g' ../content/$@/$$i.md | \
 		pandoc --lua-filter pandoc.filter.lua --listings -f markdown-raw_html -t latex -o texs/$$i.tex;  \

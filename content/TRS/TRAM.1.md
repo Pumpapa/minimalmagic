@@ -116,9 +116,13 @@ Some states are:
 The argument processor is straightforward.
 
 * Program (TRS's) and terms each can be read in one go (one file) or in chunks.
-* flag `-P` reads the TRS at once, while repeated `-p` reads program fragments (\= set of rules), after which `-C` joins the fragments. This allows programs to be maintained as a set of modules.
-* flag `-T` reads a term at once, while repeated `-t` reads sub-terms , after which `-M` reads a meta-term. This is a term which may contain meta-variables `%n`, where `n` is the index of the n-th read sub-term. This way (for instance) a function can be applied to an input term
-* in addition to terms, TRAM.1 can also read text files, which will be represented as a `str(...eos)`-term.
+* flag `-P` (upper-case) reads the TRS at once, while repeated `-p` (lower-case) reads program fragments (\= set of rules), after which `-C` joins the fragments. This allows programs to be maintained as a set of modules.
+* flag `-T` (upper-case) reads a term at once, while repeated `-t` (lower-case) reads sub-terms , after which `-M` reads a meta-term. This is a term which may contain meta-variables `%n`, where `n` is the index of the n-th read sub-term. This way (for instance) a function can be applied to an input term
+* in addition to terms, TRAM.1 can also read text files. Flag `-s` reads a text file and produces its term-representation (`str(...eos)`).
+* flag `-I` prints the program (TRS) read
+* flag -i print the subject term read
+* flag `-r` reduces the term read using the program read
+* flag `-O` prints the result after reduction. Note that debug settings influence how that term is represented (i.e. flattened or not)
 
 # User Manual
 ## Tram.1 Syntax
@@ -202,6 +206,4 @@ The Makefile handles three commands:
 Requirements: `gcc`, `sh`
 
 Execute: `make test`
-
-
 
