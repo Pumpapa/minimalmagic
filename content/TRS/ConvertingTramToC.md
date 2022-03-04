@@ -12,7 +12,7 @@ tags:
 Section [Tram -- A Meta-Interpreter](https://www.minimalmagic.blog/trs/termrewriting/) describes a rewrite engine on meta-terms. That specification is used as the basis for the C implementation in TRAM.1.
 
 ## States
-A big difference between term rewriting and the C programmers' model is the limited availability of recursion in C. [Section Converting a Scanner from C to Tram](https://www.minimalmagic.blog/trs/convertingctotram/) uses an explicit  stack to avoid recursion in C, in a way transforming a recursive descent parser to a push-down automaton.
+A big difference between term rewriting and the C programmers' model is the limited availability of recursion in C. [Section Converting a Scanner from C to Tram](https://www.minimalmagic.blog/trs/convertingctotram/) uses an explicit stack to avoid recursion in C, in a way transforming a recursive descent parser to a push-down automaton.
 
 But the simple parser has only a single state in which recursion is initiated (after reading a `(`), and only a single state after which it is returned from (after `)`). In the rewrite engine, more states exist. Consider the first two rules in the meta-interpreter:
 
@@ -20,7 +20,7 @@ But the simple parser has only a single state in which recursion is initiated (a
 burewr(trm(F,As),Rs) = toprewr(trm(F,burewr(As,Rs)),Rs);
 burewr(arg(A,As),Rs) = arg(burewr(A,Rs),burewr(As,Rs));
 ```
-In Rule 1, after `burewr`  returns a result, `toprewr` must be called. That pattern, *after this do that,* suggests a state, which is either maintained explicitly or returned by `burewr` (in this case). In Rule 2 there are two recursive calls to `burewr`, so these are (at least) two additional states.
+In Rule 1, after `burewr`  returns a result, `toprewr` must be called. That pattern, *after this do that,* suggests a state, which is either maintained explicitly or returned by `burewr` (in this case). In Rule 2, there are two recursive calls to `burewr`, so these are (at least) two additional states.
 
 ## Nodes
 A second difference between the meta-terms and the rewrite engine has been discussed in [Section Nodes](https://www.minimalmagic.blog/trs/tram/): TRAM represents terms as nodes (structures with two fields: `car` and `cdr`) (ignoring memory management for the moment). This means 
@@ -84,19 +84,19 @@ ref reduce (/*tval T, ref P*/) {
  3   burewr(eoa,Rs) = eoa;
 ```
 
-Note that in TRAM there is no structural distinction between `trm(...)` and `arg(...)`.
+Note that in TRAM, there is no structural distinction between `trm(...)` and `arg(...)`.
 
 Rules 1-3 of the meta-interpreter define bottom-up rewriting. An imperative description of rules 1-3 is:
 
-* Rules 1-2 push down `burewr` through an entire tree, such that `burewr` is applied to each node in that tree, which replaces that node with it's `burewr` image
-* Rule 3 states that an empty tree isn't changed by `burewr`
+* Rules 1-2 push down `burewr` through an entire tree, such that `burewr` is applied to each node in that tree, which replaces that node with its `burewr` image
+* Rule 3 states that an empty tree isn't changed by `burewr`;
 * Rule 1 states that once a proper sub-term has been normalized, `topred` should be applied.
 
 Four states can be distinguished:
 
 * `BURED`, the initial state
 * `BUDONECDR`. TRAM implements the right-most innermost strategy, so the sub-term `burewr(As, Rs)` is reduced first (in rules 1 and 2). The result will be captured by the state at which the `cdr` of the `arg(...)` or `trm(...)` node has been handled (`BUDONECDR` for bottom-up, done cdr)
-* `BUDONEBOTH` is self-described. In case of Rule 2, `burewr` has been applied to the entire tree; in case of Rule 1, the next state should now be visited:
+* `BUDONEBOTH` is self-described. In the case of Rule 2, `burewr` has been applied to the entire tree; in the case of Rule 1, the next state should now be visited:
 * `TOPRED`, try to reduce a term at root level
 
 Lines
@@ -104,8 +104,8 @@ Lines
 * 2-4: A base value or the null pointer is irreducible (as in Rule 3). Pop the next state
 * 7-9: Otherwise, save the `car`, push the subsequent state, and continue with the `cdr`
 * 12-15: Pop the `car`, push the normalized `cdr` and the subsequent state, and recurse
-* 18-21: If the car is a node, this is a `arg(...)` node; create the new node (as in Rule 2)
-* 24-26: Otherwise this is a normalized `trm(...)`. Apply `TOPRED`
+* 18-21: If the car is a node, this is an `arg(...)` node; create the new node (as in Rule 2)
+* 24-26: Otherwise, this is a normalized `trm(...)`. Apply `TOPRED`
 
 
 ```C
@@ -152,7 +152,7 @@ case BUDONEBOTH: //(V is car), tos is cdr
 ```
 
 
-Function `toprewr` sets up for `toprewrRule` to attempteach rule in the program/TRS in function `match` . If this succeeds, the right-hand side is instantiated (Rule 10); if it fails, function `match` should attempt the next alternative (Rule 13).
+Function `toprewr` sets up for `toprewrRule` to attempt each rule in the program/TRS in function `match` . If this succeeds, the right-hand side is instantiated (Rule 10); if it fails, function `match` should attempt the next alternative (Rule 13).
 
 Five states can be distinguished:
 
@@ -189,7 +189,7 @@ case MATCH: //(t,pat,sub,p, T, P)
 Lines
 
 * 3-5: set up loop
-* 9-10: no match, build the term
+* 9-10: no match; build the term
 * 14-15: the outermost function symbol of the subject term and that of the left-hand side of the rule **differ**; the next rule is attempted
 * 18-21: the outermost function symbol of the subject term and that of the left-hand side of the rule **are the same**; matching is set up with an as-yet empty substitution
 
@@ -199,7 +199,7 @@ The arguments in `match(X,ST,E,As,Bs,R,T,Rs,TRS)` are:
 * `X`: the current pattern (sub-term of the left-hand side of the rule)
 * `ST`: the current sub-term being matched
 * `E`: the substitution in the form of `tab(<variable-name>, <value>, <rest-of-substitution>)`. No check is done to see if the variable was already defined. That would constitute a non-linear TRS
-* `As`, `Bs`: the sub-terms of the subject-term and pattern that still need to be matched. Note that constructor `arg(...)` is used to string together sub-terms that need to be inspected. In this sense, `As` and `Bs` could also be described as stacks of work-yet-to-be-done
+* `As`, `Bs`: the sub-terms of the subject term and pattern that still need to be matched. Note that constructor `arg(...)` is used to string together sub-terms that need to be inspected. In this sense, `As` and `Bs` could also be described as stacks of work-yet-to-be-done
 * `R`: the right-hand side of the current rule
 * `T`: the entire subject-term, to be used if matching fails
 * `Rs`: the remaining rules, to be used if matching fails
@@ -224,10 +224,10 @@ The logic is straightforward:
 
 * Rule 7-11 match different forms of a pattern
 * Rule 7 matches a variable, which always succeeds, and which results in substitution being extended
-* Rules 8-9 match term-trees. Note that matching a `trm(...)`  against an `arg(...)`would signify a syntactical error in the subject term or TRS
+* Rules 8-9 match term-trees. Note that matching a `trm(...)`  against an `arg(...)` would signify a syntactical error in the subject term or TRS
 * Rule 8: if the sub-term and pattern have the shape of a symbol applied to arguments, compare the symbols
 * Rule 9: continue matching in the first sub-term, and push the remainder to be done
-* Rule 10:If the sub-term has been checked and if the work yet to be done is exhausted, all matches have succeeded, and the rule can be applied
+* Rule 10:If the sub-term has been checked, and if the work yet to be done is exhausted, all matches have succeeded, and the rule can be applied
 * Rule 11: otherwise, the next sub-term to be done is matched against
 * Rules 12-13: auxiliary function `matchq` proceeds or fails, according to (in) equality of symbols
 
@@ -302,9 +302,9 @@ Function `inst` is trivial; no additional states ensue.
 20  getq(X,N,T,E) = get(N,E);
 ```
 
-* Rule 14, 18-20: for every variable, get it's associated value
+* Rule 14, 18-20: for every variable, get its associated value
 * Rules 15-17: recursively instantiate all sub-terms of the right-hand side
-* Rule 15: for every compound subterm, reduce it at top-level. Since an innermost strategy is followed, the values of variables have already been normalized
+* Rule 15: for every compound subterm, reduce it at the top level. Since an innermost strategy is followed, the values of variables have already been normalized
 
 ```C
 case INST: //(pat,sub)
@@ -361,7 +361,7 @@ Lines
 * 17-18: done; continue
 * 21-24: save the `car`, continue with the `cdr`
 * 27-28: is this a `trm(...)` node or an `arg(...)` node?
-* 29-34: topreduce entire `trm(...)`. Note that the current state of instantiation is saved in lines 31-33. Executing `TOPRED` is deep recursion which may require many reqrite steps
+* 29-34: topreduce entire `trm(...)`. Note that the current state of instantiation is saved in lines 31-33. Executing `TOPRED` is deep recursion that may require many rewrite steps
 * 37-38: otherwise, build the `arg(...)` node and continue
 * 41-43: a saved instantiation is continued after intermediate `TOPRED` of proper sub-term of the right-hand side
 

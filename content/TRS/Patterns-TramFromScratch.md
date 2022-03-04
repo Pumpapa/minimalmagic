@@ -12,24 +12,24 @@ tags:
 ---
 In Tram.1, only the first five characters in a function name are significant (plus the fact whether they are longer or not; four in variables). But TRAM.1 doesn't check this: if two distinct function names are used, the first five characters of which are equal, then they are encoded to the same value.
 
-To avoid bugs, a checker is needed which checks if this occurs in an input TRS. Program `EncChecker` checks all variables and functions and warns if unequal identifiers will be encoded the same.
+To avoid bugs, a checker is needed, which checks if this occurs in an input TRS. Program `EncChecker` checks all variables and functions and warns if unequal identifiers will be encoded the same.
 
-`EncChecker` uses the scanner / parser we have described in [Section Converting from C to Tram (Scanner/Parser)](/trs/convertingctotram/) and auxiliary modules `Strings`, `Lists`. All code can be found in the [TRAM.1 Github repository](https://github.com/BabelfishNL/Tram.git).
+`EncChecker` uses the scanner/parser we have described in [Section Converting from C to Tram (Scanner/Parser)](/trs/convertingctotram/) and auxiliary modules `Strings`, `Lists`. All code can be found in the [TRAM.1 Github repository](https://github.com/BabelfishNL/Tram.git).
 
-Our purpose in describing `EncChecker` is not only to document that tool, but mostly to discuss a few term rewriting programming patterns.
+Our purpose in describing `EncChecker` is not only to document that tool but mostly to discuss a few term rewriting programming patterns.
 
-Given a TRS, function `encchk` should indicate which functions or variables are used which differ and yet are encoded the same. We do not focus on generating nice user-oriented output. Instead, `encchk` will output a list of all identifiers used in a program, and will place unequal identifiers that lead to the same value (encoding) next to each other, preceded by `$$` (which is not a legal identifier and therefore easily recognized).
+Given a TRS, function `encchk` should indicate which functions or variables are used which differ and yet are encoded the same. We do not focus on generating nice user-oriented output. Instead, `encchk` will output a list of all identifiers used in a program and will place unequal identifiers that lead to the same value (encoding) next to each other, preceded by `$$` (which is not a legal identifier and therefore easily recognized).
 
 That is, given a text file, the term `encchk(scan(%1))` would produce such a list.
 
 # Pattern: Initializing Local Variables
-Tram has no local variables, and yet, some functions need auxiliary data structures, which must be initialized. Inside module `EncChecker` a list of all identifiers must be maintained, which is initialized to the empty list.
+Tram has no local variables, and yet, some functions need auxiliary data structures, which must be initialized. Inside module `EncChecker`, a list of all identifiers must be maintained, which is initialized to the empty list.
 
 ```Prolog
 encchk(T) = ck(T,eol);
 ```
 
-The meta-trem representation produced by `scan` generates four types:
+The meta-term representation produced by `scan` generates four types:
 
 1. `trm(F,As)` for symbol `F` and argument list `As`
 1. `arg(A,As)` for argument (term) `A` and argument list `As`
@@ -37,7 +37,7 @@ The meta-trem representation produced by `scan` generates four types:
 1. `var(N)` variable with name `N`
 
 # Pattern: Function Name or Extra Parameter
-The checker could maintain two lists: one for functions and one for variables, but for simplicity, a single list is used. However, encoding rules for functions and variables differ, so processing `F` in Case 1 above, and `N` in Case 4 must be distinguished. 
+The checker could maintain two lists: one for functions and one for variables, but for simplicity, a single list is used. However, encoding rules for functions and variables differ, so processing `F` in Case 1 above and `N` in Case 4 must be distinguished. 
 
 The **function name pattern** might distinguish these cases as follows:
 
@@ -68,14 +68,14 @@ ck(eoa,L) = L;
 ck(var(N),L) = mpq(cap,N,L);
 ```
 
-Function `mpq` (mnemonic: *map-query*) maps the subject identifier to the entire list of stored identifiers, querying each if it leads to the same encoding. It creates a new list if there are no further identifiers to compare, or passes the subject's character class and the character class of the first stored identifier to the auxiliary function `mpqc`.
+Function `mpq` (mnemonic: *map-query*) maps the subject identifier to the entire list of stored identifiers, querying each if it leads to the same encoding. It creates a new list if there are no further identifiers to compare or passes the subject's character class and the character class of the first stored identifier to the auxiliary function `mpqc`.
 
 ```Prolog
 mpq(Cc,Id,eol) = lst(Id,eol);
 mpq(Cc,Id1,lst(Id2,L)) = mpqc(Cc,cc(first(Id2)),Id1,Id2,L);
 ```
 
-# Pattern: Have your Cake
+# Pattern: Have Your Cake
 Ordinarily, sub-terms of arguments are accessed by matching the argument against a pattern. Function `mpq` could have been defined by
 
 ```Prolog
@@ -83,11 +83,11 @@ mpq(Cc,Id,eol) = lst(Id,eol);
 mpq(Cc,Id1,lst(str(C,S),L)) = mpqc(Cc,cc(C),Id1,str(C,S),L);
 ```
 
-Where the earlier definition passes `Id2`, the latter definition passes `str(C,S)` which is indeed the same argument. But in an implementation a new term will then be built, which happens to be an equal term. This might be a small concern, but the earlier definition (to me) seems clearer.
+Where the earlier definition passes `Id2`, the latter definition passes `str(C, S)`, which is indeed the same argument. But in an implementation, a new term will then be built, which happens to be an equal term. This might be a small concern, but the earlier definition (to me) seems clearer.
 
-The pattern leaves an argument as-is and uses an accessor (`first`, in this case) to access a sub-term. The pattern might be called *'have your cake and eat it'*. Note that there is an implementational disadvantage here as well: an additional reduction to reduce `first`. In most cases clarity should prevail.
+The pattern leaves an argument as-is and uses an accessor (`first`, in this case) to access a sub-term. The pattern might be called *'have your cake and eat it'*. Note that there is an implementational disadvantage here as well: an additional reduction to reduce `first`. In most cases, clarity should prevail.
 
-The next function, `mpqc` should distinguish two situations: the subject and the first identifier in the list have the same type, or not. If they are the same type, `four` and `five` are used to identify the number of characters that should coincide. We could also use values `#4` and `#5`, but since no built-in operators exist for data values, they offer little added value.
+The next function, `mpqc`, should distinguish two situations: the subject and the first identifier in the list have the same type or not. If they are the same type, `four` and `five` are used to identify the number of characters that should coincide. We could also use values `#4` and `#5`, but since no built-in operators exist for data values, they offer little added value.
 
 ```Prolog {linenos=false}
 mpqc(low,low,Id1,Id2,L)

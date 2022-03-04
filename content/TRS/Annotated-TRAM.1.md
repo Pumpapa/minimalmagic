@@ -20,7 +20,7 @@ tags:
   - "Engine"
   - "TRAM.1"
 ---
-In this section the full source of TRAM.1 (version of Oct 2021) is annotated.
+This section annotates the full source of TRAM.1 (version of Oct 2021).
 
 # Basics
 ## Standard libraries

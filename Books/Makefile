@@ -25,6 +25,10 @@ TRS:
 	pdflatex $@
 	pdflatex $@
 	pdflatex $@
+	
+	mv $@.pdf $@.tmp.pdf
+	ps2pdf -dPDFSETTINGS=/ebook $@.tmp.pdf $@.pdf
+	rm $@.tmp.pdf
 
 SE:
 	cp src/main.bbl ./TRS.bbl
@@ -52,6 +56,10 @@ SE:
 	pdflatex $@
 	pdflatex $@
 	pdflatex $@
+	
+	mv $@.pdf $@.tmp.pdf
+	ps2pdf -dPDFSETTINGS=/ebook $@.tmp.pdf $@.pdf
+	rm $@.tmp.pdf
 
 TRS.epub: TRS.pdf
 	rm $@; echo "" | k2pdfopt -c -fc- -dpi 150 -o $@ -x  $(basename $@).pdf; mv $@.pdf $@
