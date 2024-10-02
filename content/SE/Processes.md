@@ -25,7 +25,7 @@ The OS maintains administration of many aspects including:
 
 # Resource & Process Management
 
-{{<figure "Process Table" "/images/SE1.procestab.png" right 60>}}
+{{<figure `Process Table` `/images/SE/SE1.procestab.png` right 100 >}}
 
 * Memory tables 
 (partly discussed for VM)
@@ -108,7 +108,7 @@ which ready process to execute next?
     * throughput
     * qualitative criteria such as predictability
 
-{{<figure "Source: Richard Stallings, Operating Systems: Internals and Design Principles" "/images/SE1.dispatch.png" right 60>}}
+{{<figure `Source: Richard Stallings, Operating Systems: Internals and Design Principles` `/images/SE/SE1.dispatch.png` right 100 >}}
 
 <small>
 *Source: Richard Stallings, Operating Systems: Internals and Design Principles*
@@ -123,7 +123,7 @@ which ready process to execute next?
 
 ## Process State
 
-{{<figure "9 State Transition Diagram" "/images/SE1.9state.png" right 60>}}
+{{<figure `9 State Transition Diagram` `/images/SE/SE1.9state.png` right 100 >}}
 
 Represents whether a process can run (or possibly why not). The book builds up to the seven state model, but we've added two here for run-level and preemption state.
 

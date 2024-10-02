@@ -40,13 +40,13 @@ Other places where hexadecimal is used extensively include **memory dumps**. Mem
 
 This screenshot is part of a Wireshark dump of an HTTP GET message for hva.nl. Most memory dumps look similar.
 
-The left column consists of the offset within the package, the middle part shows the content in hexadecimal, and the right column the character interpretation (because humans read this more easily).
+The left column consists of the offset within the package, the middle part shows the content in hexadecimal, and the right column the character interpretation (because humans read this more easily when it represents text).
 
 Because memory dumps are hexadecimal, specialists using them must be able to convert hexadecimal to decimal to ascii almost on sight.
 
 ## Hexadecimal to Decimal 
 
-One nibble: digits 0-9 are themselves; digits A-Z or a-z => 10-15
+One nibble: digits 0-9 are themselves; digits A-F or a-f => 10-15
 
 One byte: 16 times the first nibble plus the second. E.g. f9 => 15*16+9=249
 
@@ -86,7 +86,7 @@ If you are comfortable doing long division: repeated division by 16 noting down 
 50109 = 0xC3BD
 ```
 
-If not, conversion to binary is appropriate, noting down the nibble values using the table.
+If not, conversion to binary is easiest, noting down the nibble values using the table.
 
 # Two's complement
 
@@ -144,7 +144,7 @@ It's a trick question:, you can't know. It's just data, but without context it's
 * It might be an IPv4 address: 186.173.240.13
 * It might be a very large integer: 3131961357
 * Or a negative integer: -1163005939
-* It might be a very short text: `°-ð` followed by a newline
+* It might be a very short text: `°-ð` (degree symbol, minus sign, greek eth if it is marked up wrong) followed by a newline
 * Or it might be a memory pointer. Who knows what's there.
 * Further down we will see that binary numbers can also represent floating point (approximate real) numbers. This number is in fact -0.0013270393.
 

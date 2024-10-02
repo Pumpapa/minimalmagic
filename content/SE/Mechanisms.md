@@ -52,7 +52,7 @@ Although memory is fast, it is still too slow compared to the ALU and core opera
 
 There are two categories of registers: **special purpose** and **general purpose registers**. General purpose registers are used to compute and hold various results relevant to a program; special purpose registers hold specific values relevant for the CPU. For instance, the flag-register holds all status flags resulting from computations in the ALU (including Negative, Zero, Carry).
 
-{{<figure `x86 Registers` `/images/SE/Table_of_x86_Registers_svg.svg.png` center 100 >}}
+{{<figure `x86-Registers` `/images/SE/Table_of_x86_Registers_svg.svg.png` right 100 >}}
 
 <span style="font-size:smaller;">Source: 'Immage - Own work, CC BY-SA 3.0, https://commons.wikimedia.org/w/index.php?curid=32745525'</span>
 

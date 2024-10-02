@@ -63,7 +63,7 @@ Exercise:
 * Create an inverter (that is a NOT operator) using only NAND gates.
 * Create an OR gate using only NAND gates
 
-{{<figure `Gates` `/images/SE/SE1.usingNAND.png` right 40 >}}
+{{<figure `Inverter + OR using AND` `/images/SE/SE1.usingNAND.png` right 40 >}}
 
 
 

@@ -1,6 +1,6 @@
 Legrand Orange Book Template, licensed under [**CC BY-NC-SA 4.0**](https://creativecommons.org/licenses/by-nc-sa/4.0/).
 
-Special thanks to by friend Jamie for reviewing and sharing.
+Special thanks to my friend Jamie for reviewing and sharing.
 
 Photos from Pexels:
 

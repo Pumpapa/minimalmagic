@@ -1,4 +1,4 @@
-baseurl = "https://minimalmagic.blog"
+baseurl = "https://minimal-magic.online"
 title = "Minimal Magic"
 languageCode = "en-us"
 paginate = "99" # Number of posts per page

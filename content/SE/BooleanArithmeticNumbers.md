@@ -111,15 +111,17 @@ For instance: convert 91
 
 Binary: `1011011` (check: 1+2+8+16+64=91)
 
+Exercises:
+
+1. Convert the binary number 101 to decimal
+2. Convert the decimal number 101 to binary
+
 {{%exercise%}}
 
 1. 1+4 = 5
 2. (101) 1 (50) 0 (25) 1 (12) 0 (6) 0 (3) 1 (1) 1 (0) => 1100101
 
 {{%/exercise%}}
-
-1. Convert the binary number 101 to decimal
-2. Convert the decimal number 101 to binary
 
 # Binary Arithmetic
 

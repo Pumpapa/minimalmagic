@@ -15,12 +15,17 @@ tags:
   - "Flip-Flop"
   - "Latch"
 ---
-{{<figure `Full Adder` `/images/SE/SE1.full-adder-gates.png` right 40 >}}
-{{<figure `Half Adder` `/images/SE/SE1.half-adder-gates.png` right 20 >}}
 
 # Adders
 
+
+{{<figure `Half Adder` `/images/SE/SE1.half-adder-gates.png` right 20 >}}
+
 A **half adder** is a component which adds the right-most bits of two numbers. It takes two inputs and produces two outputs: the sum and the carry. *Note how the component does the same as we do when we add two numbers!*
+<br>
+
+{{<figure `Full Adder` `/images/SE/SE1.full-adder-gates.png` right 100 >}}
+<br>
 
 {{<figure `Full Adder as Component` `/images/SE/SE1.full-adder-gate.png` right 20 >}}
 
@@ -29,16 +34,17 @@ A ***full adder*** is a component which adds other bits of two numbers. It takes
 For obvious reasons trivial components such as one bit adders are often drawn as components (not showing the gates).
 
 # Larger components
-{{<figure `N-Bit Adder` `/images/SE/SE1.n-bit-adder.png` right 40 >}}
 
 From these parts larger components can be created. This is an N-bit adder, made from one half-adder and (N-1) full adders. 
+
+{{<figure `N-Bit Adder` `/images/SE/SE1.n-bit-adder.png` right 100 >}}
 
 In general, any component can be designed by breaking it down in Boolean functions, truth tables and gates.
 
 ## Decoder
-{{<figure `Decoder` `/images/SE/SE1.3-8-bit-decoder.png` right 40 >}}
+{{<figure `Decoder` `/images/SE/SE1.3-8-bit-decoder.png` right 100 >}}
 
-A one-of-eight decoder uses three address bits to set one of eight bits on (and the rest off). For instance, `decode(1,0,0) => (0,0,0,1,0,0,0,0)`. Bits are numbered as usual from right to left starting with 0, so 100 (=4 decimal) addresses the fifth right-most bit.
+A one-of-eight decoder uses three address bits to set one of eight bits on (and the rest off). For instance, `decode(1,0,0) => (0,0,0,1,0,0,0,0)`. Bits are numbered as usual from right to left starting with 0, so 100 (= 4 decimal) addresses the fifth right-most bit.
 
 Each of the output bits turns on for one specific combination of input. For instance, `o(5) = i(1) AND NOT i(2) AND i(3)`. From this observation, designing the circuit is straightforward.
 
@@ -59,7 +65,7 @@ An **encoder** does the reverse: given inputs one of which is 1 (and the others 
 
 * Design an 8 to 3 encoder
 
-{{%exercise `Multiplexer` %}}
+{{%exercise `Encoder` %}}
 
 `o = (a AND c) OR (b AND NOT c)`
 

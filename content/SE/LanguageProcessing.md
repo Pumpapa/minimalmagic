@@ -33,6 +33,7 @@ We could look into manuals and tutorials to study assembly, but there is a much 
 
 ## The GNU C compiler
 
+
 Every Linux machine, VM or Mac either has `gcc` installed, or it's easy to do so.
 Gcc compiles C to executable, but can also produce assembly language code.
 
@@ -50,10 +51,11 @@ int main() {
 }
 ```
 
-{{<figure `Assembly` `/images/SE/SE1.ASM.png` right 40 >}}
-
 ## Assembly
 
+
+
+{{<figure `Assembly` `/images/SE/SE1.ASM.png` right 40 >}}
 * Labels are at the beginning of a line followed by a colon. They are used for jump-to (jmp) or jump-on-greater (jg).
 * Most lines have the form  `opc oprnd` where `opc` is an opcode: the name of an ISA instruction, and `oprnd` are the zero or more operands that instruction requires.
 * `%rbp` is the frame pointer; local variables are indexed off that pointer
@@ -67,21 +69,23 @@ compares `i` (located 12 bytes below the frame pointer) with 30 and jumps (i.e. 
 
 ## Machine Language
 
-Below is a snippet of the machine code taken from the executable of this program. The use of numbers such as 55, allows us to quickly determine the location of this snippet.
+
+Below is a snippet of the machine code taken from the executable of this program. The use of numbers such as 55, allows us to quickly determine the location of this snippet.<br>
+
+{{<figure `Machinecode` `/images/SE/SE1.machinecode.png` right 100 >}}
 
 Using the knowledge we now have, we can already interpret this snippet to some degree.
 
+
+Exercise:  
+
+if I tell you `c7 45` is `movl`, can you tell me if this machine is little endian or big endian?  
 
 {{%exercise%}}
 
 The values at address `0f42`...`0f45` are `37 00 00 00`. `37` hex = `55` decimal, so the least significant byte occurs first, so this machine is little-endian.
 
 {{%/exercise%}}
-
-1. Exercise:  if I tell you `c7 45` is `movl`, can you tell me if this machine is little endian or big endian?  
-
-{{<figure `Machinecode` `/images/SE/SE1.machinecode.png` center 100 >}}
-
 
 
 ## Lower & Higher Level Languages
