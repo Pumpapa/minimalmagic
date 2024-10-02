@@ -1,2 +1,4 @@
 
 content/.sync.ffs_db
+.hugo_build.lock
+public/
