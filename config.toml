@@ -34,6 +34,13 @@ googleAnalytics = "G-GHZFNCLSZN" # Enable Google Analytics by entering your trac
   highlightColor = "" # Deprecated in favor of .Site.Params.style.vars.highlightColor
   customCSS = ["css/custom.css","css/syntax.css"] # Include custom CSS files
   customJS = ["js/custom.js"] # Include custom JS files
+  google_fonts = [
+    ["Fira Code", "400, 700"],
+    ["Open Sans", "400, 400i, 700, 700i"]
+  ]
+
+  heading_font = "Fira Code"
+  body_font = "Open Sans"
 
 [markup.goldmark.renderer]
   unsafe= true
