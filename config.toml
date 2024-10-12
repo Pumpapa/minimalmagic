@@ -1,15 +1,17 @@
 baseurl = "https://minimal-magic.online"
 title = "Minimal Magic"
 languageCode = "en-us"
-paginate = "99" # Number of posts per page
+#paginate = "99" # Number of posts per page
 theme = "mainroad"
 disqusShortname = "" # Enable Disqus comments by entering your Disqus shortname
 googleAnalytics = "G-GHZFNCLSZN" # Enable Google Analytics by entering your tracking id
+pagination.pagerSize = "99"
 
-[Author] # Used in authorbox
-  name = "Pum Walters"
-  bio = "Pum Walters writes about Computer Science, Education and more."
-  avatar = "img/avatar.png"
+#[Author] # Used in authorbox
+#  name = "Pum Walters"
+#  bio = "Pum Walters writes about Computer Science, Education and more."
+#  avatar = "img/avatar.png"
+
 
 [Params]
   subtitle = "" # Deprecated in favor of .Site.Params.logo.subtitle
@@ -20,8 +22,8 @@ googleAnalytics = "G-GHZFNCLSZN" # Enable Google Analytics by entering your trac
   opengraph = true # Enable OpenGraph if true
   schema = true # Enable Schema
   #twitter_cards = true # Enable Twitter Cards if true
-  readmore = false # Show "Read more" button in list if true
-  authorbox = true # Show authorbox at bottom of pages if true
+  readmore = true # Show "Read more" button in list if true
+  authorbox = false # Show authorbox at bottom of pages if true
   toc = true # Enable Table of Contents
   pager = true # Show pager navigation (prev/next links) at the bottom of pages if true
   post_meta = ["date", "categories", "translations"] # Order of post meta information
@@ -30,22 +32,37 @@ googleAnalytics = "G-GHZFNCLSZN" # Enable Google Analytics by entering your trac
   mathjax = true # Enable MathJax
   mathjaxPath = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js" # Specify MathJax path
   mathjaxConfig = "TeX-AMS-MML_HTMLorMML" # Specify MathJax config
-  # googleFontsLink = "https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700" # Load Google Fonts
-  highlightColor = "" # Deprecated in favor of .Site.Params.style.vars.highlightColor
-  customCSS = ["css/custom.css","css/syntax.css"] # Include custom CSS files
+  googleFontsLink = false
+  customCSS = ["css/custom.css","css/syntax.css","css/fonts.css"] # Include custom CSS files
   customJS = ["js/custom.js"] # Include custom JS files
-  google_fonts = [
-    ["Fira Code", "400, 700"],
-    ["Open Sans", "400, 400i, 700, 700i"]
-  ]
+  #sectionPagesMenu = 'main'
 
-  heading_font = "Fira Code"
-  body_font = "Open Sans"
+
+
+[menus]
+  [[menus.main]]
+    name = 'Info'
+    pageRef = '/categories/General/'
+    weight = 15
+  [[menus.main]]
+    name = 'SE'
+    pageRef = '/categories/se/'
+    weight = 20
+  [[menus.main]]
+    name = 'TRS'
+    pageRef = '/categories/TRS/'
+    weight = 30
+
+
+
+
+[Params.style.vars]
+  highlightColor = "#e36f00" # Override highlight color#e22d30
+  fontFamilyPrimary = "Roboto, Helvetica, Arial, sans-serif"
+  fontFamilySecondary = "'Open Sans', Monaco, 'Courier New', monospace" # for pre, code, etc
 
 [markup.goldmark.renderer]
   unsafe= true
-  
-
 
 [markup]
   [markup.highlight]
@@ -60,16 +77,7 @@ googleAnalytics = "G-GHZFNCLSZN" # Enable Google Analytics by entering your trac
     noClasses = true
     style = 'igor'
     tabWidth = 2
-
-
-[Params.style.vars]
-  highlightColor = "#e22d30" # Override highlight color
-
-  # Override font-family sets. Secondary font-family set responsible for pre, code, kbd, and samp tags font
-  # Take care of different quotes OR escaping symbols in these params if necessary
-  fontFamilyPrimary = "'Open Sans', Helvetica, Arial, sans-serif"
-  fontFamilySecondary = "SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace"
-
+  
 [Params.logo]
   image = "images/480px-Tree_of_life_SVG.svg.png" # Logo image. Path relative to "static"
   title = "Minimal Magic" # Logo title, otherwise will use site title

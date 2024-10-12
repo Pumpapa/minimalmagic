@@ -1,6 +1,6 @@
 ---
 title: "Minimal Magic"
-date: 2021-10-1
+date: 2021-10-01
 draft: false
 weight: 99
 categories:

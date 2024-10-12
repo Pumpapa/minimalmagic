@@ -1,7 +1,7 @@
 ---
 title: "Minimal Magic"
 subtitle: "Ex Principiis Omnia"
-date: 2021-10-1
+date: 2021-10-01
 hero_classes: text-dark title-h1h2 overlay-light hero-large parallax
 hero_image: pexels-toa-heftiba-şinca-1194420.jpg
 blog_url: /trs
