@@ -1,0 +1,19 @@
+{{ $structure := .Site.Data.structure }}
+{{ $book := index .Params.categories 0 | default "TRS" }}
+{{ $targetBook := index $structure.books $book }}
+<section class="widget categories">
+  <h3>Content of {{ $book | title }}</h3>
+  <ul>
+    {{ range $part, $data := $targetBook.parts }}
+      {{ $partNoDashes := replace $part "-" "" }}  <!-- For URL -->
+      {{ $partDisplay := replace $part "-" " " }}  <!-- For display, correct order -->
+      <li>{{ $partDisplay }}</li>
+      <ul>
+        {{ range sort $data.chapters "weight" }}
+          {{ $fileBase := replace .file ".md" "" }}  <!-- Remove .md extension -->
+          <li><a href="{{ $book | lower }}/{{ $partNoDashes | lower }}/{{ $fileBase | urlize }}">{{ $fileBase }}</a></li>
+        {{ end }}
+      </ul>
+    {{ end }}
+  </ul>
+</section>

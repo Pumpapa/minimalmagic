@@ -1,0 +1,16 @@
+<!--/* {{ $structure := .Site.Data.structure }}
+{{ $book := index .Params.categories 0 | default "TRS" }}
+{{ $targetBook := index $structure.books $book }}
+<ul class="book-toc">
+  {{ range $part, $data := $targetBook.parts }}
+    {{ $partNoDashes := replace $part "-" "" }}
+    {{ $partDisplay := replace $part "-" " " }}
+    <li>{{ $partDisplay }}</li>
+    <ul class="chapter-toc">
+      {{ range sort $data.chapters "weight" }}
+        {{ $fileBase := replace .file ".md" "" }}
+        <li><a href="{{ $book | lower }}/{{ $partNoDashes | lower }}/{{ $fileBase | urlize }}">{{ $fileBase }}</a></li>
+      {{ end }}
+    </ul>
+  {{ end }}
+</ul> */-->

@@ -1,0 +1,82 @@
+books:
+  TRS:
+    title: "Term Rewriting Systems"
+    parts:
+      0-preamble:
+        chapters:
+          - file: MinimalMagicIntro.md
+            weight: 1
+          - file: PumWalters.md
+            weight: 2
+          - file: Acknowledgements.md
+            weight: 3
+        weight: 1
+      1-foundation:
+        chapters:
+          - file: 01.MinimalMagic.md
+            weight: 1
+          - file: 02.TermRewriting.md
+            weight: 2
+          - file: 03.MetaInterpreterAndTram.md
+            weight: 3
+        weight: 2
+      2-implementation:
+        chapters:
+          - file: 04.TRAM-TermRewritingAbstracMachine.md
+            weight: 1
+          - file: 05.TRAM.1.md
+            weight: 2
+          - file: 06.AnnotatedTRAM.1.md
+            weight: 3
+          - file: 07.MemoryManagement.md
+            weight: 4
+          - file: 08.BinaryNumbers.md
+            weight: 5
+        weight: 3
+      3-application:
+        chapters:
+          - file: 09.ConvertingCtoTram.md
+            weight: 1
+          - file: 10.ConvertingTramC.md
+            weight: 2
+          - file: 11.Patterns.md
+            weight: 3
+          - file: 12.Conclusions.md
+            weight: 4
+        weight: 4
+      4-postamble:
+        chapters:
+          - file: References.md
+            weight: 1
+          - file: Imprint.md
+            weight: 2
+          - file: ThisSite.md
+            weight: 3
+        weight: 5
+  SE:
+    title: "System Engineering"
+    parts:
+      Intro:
+        chapters:
+          - file: SomeComputingHistory.md
+            weight: 1
+          - file: SE-Intro.md
+            weight: 2
+        weight: 1
+      Basics:
+        chapters:
+          - file: Transistors-Gates.md
+            weight: 1
+          - file: BooleanArithmeticNumbers.md
+            weight: 2
+          - file: Components.md
+            weight: 3
+        weight: 2
+      # Add more parts...
+  # Add blogs/articles as sections
+blogs:
+  - file: 240923006.md
+    weight: 1
+articles:
+  - file: Delegates.md
+    weight: 1

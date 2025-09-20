@@ -1,0 +1,224 @@
+baseurl = "/"
+#baseurl = "https://minimal-magic.online"
+title = "Minimal Magic"
+languageCode = "en-us"
+theme = "mainroad"
+#googleAnalytics = "G-GHZFNCLSZN" # Enable Google Analytics by entering your tracking id
+pagination.pagerSize = "10"
+canonifyURLs = true
+ignoreFiles = ["Blog", "HILO", "InfoMesh", "Stranded"]
+
+summaryLength = 30
+[Params]
+  author = "Pum Walters"
+  copyright = "© Pum Walters. Licensed under CC BY-NC-SA 4.0."
+  SEOTitle = "Minimal Magic"
+  keyword = "Pum Walters, System Engineering, Rewriting, Term Rewriting, Software Engineering, Fiction, Non Fiction"
+  description = "Pum's blog about Computer Science and more"
+  opengraph = true
+  schema = true
+  readmore = true
+  authorbox = false
+  toc = true
+  pager = true
+  post_meta = ["categories", "tags", "translations", "date"] # Order of post meta information
+  mainSections = ["trs", "se", "hilo", "date", "post", "blog", "news", "items"] 
+  dateformat = "2006-01-02"
+  mathjax = true
+  mathjaxPath = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js"
+  mathjaxConfig = "TeX-AMS-MML_HTMLorMML"
+  googleFontsLink = false
+  customCSS = ["css/custom.css","css/syntax.css","css/fonts.css"]
+  customJS = ["js/custom.js"]
+  comments = false
+  tocAlphabetical = false
+
+[permalinks]
+  trs = "/trs/:slug/"
+  se = "/se/:slug/"
+  
+#[menusx]
+#  [[menus.main]]
+#    name = 'Info'
+#    url = '/categories/General/'
+#    weight = 15
+#  [[menus.main]]
+#    name = 'Blog'
+#    url = '/blog/'  # Or remove if ignoring Blog
+#  [[menus.main]]
+#    name = 'SE'
+#    url = '/se/'
+#  [[menus.main]]
+#    name = 'TRS'
+#    url = '/trs/'
+
+[Params.style.vars]
+  highlightColor = "#e36f00"
+  fontFamilyPrimary = "Roboto, Helvetica, Arial, sans-serif"
+  fontFamilySecondary = "'Open Sans', Monaco, 'Courier New', monospace"
+
+[markup.goldmark.renderer]
+  unsafe = true
+
+[markup]
+  [markup.highlight]
+    anchorLineNos = false
+    codeFences = true
+    guessSyntax = false
+    hl_Lines = ''
+    lineAnchors = ''
+    lineNoStart = 1
+    lineNos = true
+    lineNumbersInTable = true
+    noClasses = true
+    style = 'igor'
+    tabWidth = 2
+
+[Params.logo]
+  image = "images/480px-Tree_of_life_SVG.svg.png" # Logo image. Path relative to "static"
+  title = "Minimal Magic" # Logo title, otherwise will use site title
+  subtitle = "A Blog about Computer Science and more" # Logo subtitle
+
+[Params.sidebar]
+  home = "right" # Configure layout for home page
+  list = "right"  # Configure layout for list pages
+  single = "right" # Configure layout for single pages
+  # Enable widgets in given order
+  widgets = ["search", "toc", "taglist", "recent", "social",]
+  # alternatively "ddg-search" can be used, to search via DuckDuckGo
+  # widgets = ["ddg-search", "recent", "categories", "taglist", "social", "languages"]
+
+[Params.widgets]
+  recent_num = 5
+  categories_counter = false
+  tags_counter = false
+
+[Params.widgets.social]
+  # Enable parts of social widget
+  #facebook = "username"
+  twitter = "PumWalters"
+  #instagram = "username"
+  #linkedin = "PumWalters"
+  telegram = "@pumwaltersru"
+  #github = "Pumpapa"
+  #gitlab = "Pumpapa"
+  #bitbucket = "Pumpapa"
+  email = "pum@babelfish.nl"
+  
+# 
+###
+##### Hugo Deploy stuff
+###
+#
+
+[deployment]
+
+# By default, files are uploaded in an arbitrary order.
+# If you specify an `order` list, files that match regular expressions 
+# in this list will be uploaded first, in the specified order.
+order = [".jpg$", ".gif$"]
+
+[[deployment.targets]]
+# Define one or more targets, e.g., staging and production.
+# Each target gets its own [[deployment.targets]] section.
+
+# An arbitrary name for this target.
+name = "minimalmagic"
+# The Go Cloud Development Kit URL to deploy to. Examples:
+#URL = "https://minimal-magic.online/"
+
+# GCS; see https://gocloud.dev/howto/blob/#gcs
+URL = "gs://minimal-magic"
+
+# S3; see https://gocloud.dev/howto/blob/#s3
+# For S3-compatible endpoints, see https://gocloud.dev/howto/blob/#s3-compatible
+#URL = "s3://<Bucket Name>?region=<AWS region>"
+
+# Azure Blob Storage; see https://gocloud.dev/howto/blob/#azure
+#URL = "azblob://$web"
+
+# You can use a "prefix=" query parameter to target a subfolder of the bucket:
+#URL = "gs://<Bucket Name>?prefix=a/subfolder/"
+
+# If you are using a CloudFront CDN, deploy will invalidate the cache as needed.
+#cloudFrontDistributionID = "<FILL ME IN>"
+
+# Include or exclude specific files when deploying to this target:
+# If exclude is non-empty, and a local or remote file's path matches it, that file is not synced.
+# If include is non-empty, and a local or remote file's path does not match it, that file is not synced.
+# Note: local files that don't pass the include/exclude filters are not uploaded to remote,
+# and remote files that don't pass the include/exclude filters are not deleted.
+# 
+# The pattern syntax is documented here: https://godoc.org/github.com/gobwas/glob#Glob
+# Patterns should be written with forward slashes as separator.
+# 
+#include = "**.html" # would only include files with ".html" suffix
+#exclude = "**.{jpg, png}" # would exclude files with ".jpg" or ".png" suffix
+
+# Map any file named "<dir>/index.html" to the remote file "<dir>/". This does
+# not affect the root "index.html" file, and it does not affect matchers below.
+# This works when deploying to key-value cloud storage systems, such as Amazon
+# S3 (general purpose buckets, not directory buckets), Google Cloud Storage, and
+# Azure Blob Storage. This makes it so the canonical URL will match the object
+# key in cloud storage, except for the root index.html file.
+#
+#stripIndexHTML = true
+
+
+#######################
+[[deployment.matchers]] 
+# Matchers enable special caching, content type and compression behavior for
+# specified file types. You can include any number of matcher blocks; the first one
+# matching a given file pattern will be used.
+
+# See https://golang.org/pkg/regexp/syntax/ for pattern syntax.
+# Pattern searching is stopped on first match.
+# This is not affected by stripIndexHTML, above.
+pattern = "<FILL ME IN>"
+
+# If true, Hugo will gzip the file before uploading it to the bucket.
+# With many storage services, this will save on storage and bandwidth costs
+# for uncompressed file types.
+#gzip = false 
+
+# If true, Hugo always re-uploads this file even if size and md5 match.
+# This is useful if Hugo isn't reliably able to determine whether to re-upload
+# the file on its own.
+#force = false
+
+# Content-type header to configure for this file when served.
+# By default this can be determined from the file extension.
+#contentType = ""
+
+# Cache-control header to configure for this file when served.
+# The default is the empty string.
+#cacheControl = ""
+
+# Content-encoding header to configure for this file when served.
+# By default, if gzip is True, this will be filled with "gzip".
+#contentEncoding = ""
+
+
+# Samples:
+
+[[deployment.matchers]]
+# Cache static assets for 1 year.
+pattern = "^.+\\.(js|css|svg|ttf)$"
+cacheControl = "max-age=31536000, no-transform, public"
+gzip = true
+
+[[deployment.matchers]]
+pattern = "^.+\\.(png|jpg)$"
+cacheControl = "max-age=31536000, no-transform, public"
+gzip = false
+
+[[deployment.matchers]]
+# Set custom content type for /sitemap.xml
+pattern = "^sitemap\\.xml$"
+contentType = "application/xml"
+gzip = true
+
+[[deployment.matchers]]
+pattern = "^.+\\.(html|xml|json)$"
+gzip = true
+

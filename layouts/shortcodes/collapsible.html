@@ -1,0 +1,5 @@
+
+<details class="collapsible">
+  <summary>{{ if .Get 0 }}{{ .Get 0 | safeHTML }}{{ else }}Details{{ end }}</summary>
+  <div class="content">{{ .Inner | markdownify }}</div>
+</details>

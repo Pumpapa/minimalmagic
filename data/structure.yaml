@@ -1,0 +1,119 @@
+books:
+  TRS:
+    title: "Term Rewriting Systems"
+    parts:
+      0-preamble:
+        title: "Preamble"
+        chapters:
+          - file: imprint.md
+            weight: 1
+          - file: minimalmagicintro.md
+            weight: 2
+          - file: pumwalters.md
+            weight: 3
+        weight: 1
+      1-foundation:
+        title: "Foundation"
+        chapters:
+          - file: 01.minimalmagic.md
+            weight: 1
+          - file: 02.termrewriting.md
+            weight: 2
+          - file: 03.metainterpreterandtram.md
+            weight: 3
+        weight: 2
+      2-implementation:
+        title: "Implementation"
+        chapters:
+          - file: 04.tramtermrewritingabstractmachine.md
+            weight: 1
+          - file: 05.memorymanagement.md
+            weight: 2
+          - file: 06.binary-numbers.md
+            weight: 3
+          - file: 07.tram1.md
+            weight: 4
+          - file: 08.annotated-tram.md
+            weight: 5
+        weight: 3
+      3-application:
+        title: "Application"
+        chapters:
+          - file: 09.convertingctotram.md
+            weight: 1
+          - file: 10.convertingtramc.md
+            weight: 2
+          - file: 11.patterns.md
+            weight: 3
+          - file: 12.conclusions.md
+            weight: 4
+        weight: 4
+      4-postamble:
+        title: "Postamble"
+        chapters:
+          - file: acknowledgements.md
+            weight: 1
+          - file: references.md
+            weight: 2
+        weight: 5
+  SE:
+    title: "System Engineering"
+    parts:
+      1-preamble:
+        title: "Preamble"
+        chapters:
+          - file: imprint.md
+            weight: 1
+          - file: minimalmagicintro.md
+            weight: 2
+          - file: pumwalters.md
+            weight: 4
+          - file: thisbook.md
+            weight: 5
+        weight: 1
+      2-basics:
+        title: "Basics"
+        chapters:
+          - file: TheMagicOfSystemEngineering.md
+            weight: 1
+          - file: SE-Intro.md
+            weight: 2
+          - file: SomeComputingHistory.md
+            weight: 3
+          - file: Transistors-Gates.md
+            weight: 4
+          - file: BooleanArithmeticNumbers.md
+            weight: 5
+        weight: 2
+      3-components:
+        title: "Components"
+        chapters:
+          - file: Components.md
+            weight: 1
+          - file: Mechanisms.md
+            weight: 2
+          - file: BiggerThings.md
+            weight: 3
+          - file: ISA-µArchitecture.md
+            weight: 4
+          - file: SupportingStructures.md
+            weight: 5
+        weight: 3
+      4-processes:
+        title: "Processes"
+        chapters:
+          - file: Data.md
+            weight: 1
+          - file: DataTypes.md
+            weight: 2
+          - file: LanguageProcessing.md
+            weight: 3
+          - file: Parallellism.md
+            weight: 4
+          - file: VirtualMemory.md
+            weight: 5
+          - file: Multitasking.md
+            weight: 6
+          - file: Processes.md
+            weight: 7
+        weight: 4

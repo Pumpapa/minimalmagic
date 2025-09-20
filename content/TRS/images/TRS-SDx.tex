@@ -1,0 +1,2562 @@
+% !TEX encoding = UTF-8 Unicode
+% !TeX spellcheck = en_US 
+\documentclass[11pt,twoside]{memoir}
+%paper size
+\usepackage{geometry}
+	\geometry{a4paper}
+	
+%key-value interface for \includegraphics
+\usepackage{graphicx}
+
+% hyphenation
+\usepackage{soul}
+
+%colored listings
+\usepackage[many]{tcolorbox}
+\usepackage[utf8]{inputenc}
+\usepackage{listings}
+
+\newcounter{lstcntr}
+
+%execute commands after this page is output
+\usepackage{afterpage}
+
+%colors
+\usepackage{xcolor}
+
+%sectioning commands
+\usepackage{titlesec}
+
+% improves float interface
+\usepackage{float}
+
+% wrapped text around figures
+\usepackage{wrapfig}
+	\restylefloat{figure}
+
+
+% control over itemize
+\usepackage{enumitem}
+
+% nested simple itemize
+\usepackage{linguex}
+
+
+%\usepackage{natbib}
+
+\usepackage[backend=biber]{biblatex}
+\addbibresource{TRS-SD.bib}
+
+% math
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{dutchcal}
+
+
+% multiple indexes
+\usepackage{imakeidx}
+
+% extended \newcommand
+\usepackage{xargs}
+
+\usepackage{todonotes}
+
+% hypertext links
+\usepackage[
+    colorlinks=true,
+    urlcolor=blue,
+    linkcolor=blue,
+    citecolor=blue,
+    filecolor=blue,
+]{hyperref}
+
+% fixes old hyperref issue
+% \usepackage{memhfixc}
+
+% cross-referencing
+\usepackage{cleveref}
+
+
+
+
+
+
+
+\newcommand{\nopart}[1]{%
+	%\refstepcounter{section}%
+	%\addcontentsline{toc}{p}{\protect\numberline{\thesection}#1}%
+	\markright{#1}}
+
+
+
+
+\DeclareTextFontCommand{\defn}{\bfseries\em}
+
+
+\newcommand{\D}[1]{\index{#1}\defn{#1}}
+%\def\D{\defn} % introduction important term
+\def\E{\emph} % general emphasis
+\def\I{\textit} % italic (e.g. side note)
+\def\T{\texttt}
+\def\B{\textbf}
+\def\U{\underline}
+
+\newcommand*{\C}[1]{\CC#1{}{}{}\stophere}
+\newcommand*{\CC}{} % make sure we don't overwrite an existing macro
+\def\CC#1\stophere{%
+	$\mathbcal{#1}$}
+
+% code listing
+%\makeatletter
+%\newcommand\codex{\begingroup
+%                  \obeylines
+%                  \let\do\@makeother\dospecials
+%                  \catcode`\{ 1 \catcode`\} 2
+%                  \@codex}%
+%\newcommand\@codex[3]{\endgroup\newlinechar`\^^M
+%  \scantokens{\begin{lstlisting}[caption={#2},captionpos=b,label={#1}]%
+%#3}% notice that #1 incorporates an initial and final EOL
+%\end{lstlisting}%
+%\newlinechar`^^J }% back to LaTeX's default
+%\makeatother
+
+\tcbuselibrary{listings,theorems,breakable}
+
+% define earth for background code listing
+\definecolor{earth}{RGB}{255, 237, 219}
+\definecolor{sea}{RGB}{219, 255, 249}
+\definecolor{grape}{RGB}{255, 219, 239}
+\definecolor{lemon}{RGB}{250, 255, 219}
+
+\makeatletter
+\newcommand\codex{\begingroup
+                  \obeylines
+                  \let\do\@makeother\dospecials
+                  \catcode`\{ 1 \catcode`\} 2
+                  \@codex}%
+\newcommand\@codex[4][earth]{\endgroup\newlinechar`\^^M
+\lstset{backgroundcolor =\color{#1%
+}}
+\scantokens{\begin{lstlisting}[caption={#3},captionpos=b,label={#2},escapeinside={[}{]}]%
+#4}% notice that #1 incorporates an initial and final EOL
+\end{lstlisting}%
+\newlinechar`^^J }% back to LaTeX's default
+\makeatother
+
+
+% [grape]{code:pa}{Peano Addition}{
+% \img{r}{0.25}{0.17}{-10}{fig-nrt.png}{fig-nrt}{N-ary term represented using binary nodes}
+
+
+%\newcommand{\coddo}[3]{
+%	% l(eft)/r(right) width(%page) scale(%img) botfil filename label caption
+%	\label{#1}
+%	\begin{tcblisting}{colback=orange!5!white,colframe=red!60!orange!80,listing only,title=#2, fonttitle=\bfseries,listing options={language=Haskell, columns=fullflexible, keywordstyle=\color{blue}}}
+%		{#3}
+%	\end{tcblisting}
+%	\vspace{7pt}
+%}
+%
+%\newtcblisting{coddi}{%
+%	listing only,
+%	enhanced, breakable, colback=orange!5!white,colframe=red!60!orange!80,
+%	size=fbox,
+%	arc=0mm, outer arc=0mm, coltitle=primary,
+%	fonttitle=\bfseries\large, boxsep=5mm,
+%	left=0mm, right=0mm,
+%	borderline west={1mm}{0pt}{primary},
+%	before={\noindent},
+%	segmentation style={solid, primary!0},
+%	listing options={language=Bash}
+%}
+
+
+
+\newtcblisting[use counter=lstcntr]{introcode}[2]{%
+	listing options={mathescape,basicstyle=\ttfamily\footnotesize,basewidth = {.5em,0.5em}},
+	colback=orange!5!white,colframe=red!60!orange!80,
+	fonttitle=\bfseries,listing only,listing remove caption=false, before
+	skip=7pt plus 2pt,
+	title=Listing 1.\thetcbcounter: #2,label={#1}}
+
+\newtcblisting[use counter=lstcntr,number within=chapter]{code}[2]{%
+	listing options={mathescape,basicstyle=\ttfamily\footnotesize,basewidth = {.5em,0.5em}},
+	listing only,listing remove caption=false, colback=orange!5!white,colframe=red!60!orange!80,
+	fonttitle=\bfseries, before	skip=7pt plus 2pt,
+	title=Listing \thetcbcounter: #2, label={#1}}
+
+%@@@
+
+\newtcbinputlisting[use counter=lstcntr,number within=chapter]{\filecode}[3][]{%
+	listing options={mathescape,basicstyle=\ttfamily\footnotesize,basewidth = {.5em,0.5em}},
+	listing only,listing remove caption=false,breakable, colback=orange!5!white,colframe=red!60!orange!80,
+	fonttitle=\bfseries, before skip=7pt plus 2pt,
+	title=Listing \thetcbcounter: #2, label={#1},
+	title after break=Listing \thetcbcounter: #2 (cont'd.),
+	listing file={#3}}
+
+
+
+
+%https://tex.stackexchange.com/questions/33020/shrinking-monospace-style-for-listings-package
+%https://tex.stackexchange.com/questions/480607/lstlisting-and-bold-keywords
+
+\newtcbtheorem[auto counter,number within=chapter]{trs}{Listing}%
+{colback=green!5,colframe=green!35!black,fonttitle=\bfseries,before
+	skip=7pt plus 2pt}{code}
+% usage of `\nameref' needs `nameref' or `hyperref' to be loaded
+
+
+%\def\realspaces{\catcode`\ =\active}
+%{\realspaces\global\let =\ }
+%\def\litt{\begingroup\medskip\obeylines\parskip=0pt\small\T\noindent\realspaces}
+%\def\fin{\medskip\endgroup\noindent}
+
+
+% warning icon left of para
+\newcommand{\warn}[1][Note]{
+\begin{wrapfigure}{l}{0.09\textwidth}
+  \vspace{-20pt}
+  \begin{center}
+    \includegraphics[width=0.07\textwidth]{images/#1.png}
+  \end{center}
+  \vspace{-20pt}
+\end{wrapfigure}
+\noindent\hspace{-0.5em}
+}
+
+\newcommand{\tbox}[3]{
+% l(eft)/r(right) width(%page) text
+\begin{wrapfigure}{#1}{#2\textwidth}
+	\vspace{-10pt}
+	\begin{minipage}{#2\textwidth}
+		\newtcolorbox{mybox}{colback=red!5!white,colframe=red!75!black}
+		\begin{mybox}
+			#3
+		\end{mybox}
+	\end{minipage} 
+	\vspace{-10pt}
+\end{wrapfigure}
+}
+
+% image
+\newcommand{\img}[7]{
+% l(eft)/r(right) width(%page) scale(%img) botfil filename label caption
+\begin{wrapfigure}{#1}{#2\textwidth}
+  \vspace{-20pt}
+  \begin{center}
+    \includegraphics[width=#3\textwidth]{images/#5}
+	\caption{#7}
+	\label{#6}
+  \end{center}
+  \vspace{#4pt}
+\end{wrapfigure}
+\vspace{7pt}
+}
+
+
+
+\def\rhs{\newline\noindent\phantom{x}\hspace{5ex}}
+
+
+% dunno
+\setlist[1]{parsep=0pt}
+\setlist[1]{itemsep=0pt}
+\setlist[2]{parsep=0pt}
+\setlist[2]{topsep=0pt}
+
+
+%\usepackage[symbol]{footmisc}
+%\renewcommand{\thefootnote}{\fnsymbol{footnote}}
+
+% dunno
+\makeatletter
+\let\@fnsymbol\@arabic
+\makeatother
+
+
+\makeindex
+
+
+% CriticMarkup Support
+% See document notes in the inspector for compile setting adjustments.
+% Credit goes to Fletcher Penney, of MultiMarkdown, for these methods.
+
+\newcommandx{\cmnote}[2][1=]{\linespread{1.0}\todo[linecolor=red,backgroundcolor=red!25,bordercolor=red,#1]{#2}}
+
+% Use \ul instead of \underline since we are using soul
+\let\underline\ul
+
+% Use a wider margin for notes
+% Use entire page
+\settrimmedsize{\stockheight}{\stockwidth}{*}
+\settrims{0pt}{0pt}
+
+\setlrmarginsandblock{2.5cm}{5.5cm}{*}
+\setulmarginsandblock{3.5cm}{3.5cm}{*}
+\checkandfixthelayout
+
+%\newcounter{ExAl}
+%\setcounter{ExAl}{5} 
+%\newenvironment{Alist}{%
+%\let\ExAl\ExNo
+%\setcounter{ExNo}{0}
+%\renewcommand{\ExLBr}{}
+%\renewcommand{\ExRBr}{) }
+%\let\oldarabic\arabic
+%\let\arabic\Alph}{%
+%\let\arabic\oldarabic
+%\let\ExNo\ExAl}
+
+\SetLabelAlign{myparleft}{\parbox[t]\textwidth{#1\par\mbox{}}}
+
+
+
+\pagenumbering{gobble}
+
+
+\begin{document}
+
+%\lstset{basicstyle=\ttfamily,backgroundcolor =\color{earth},numbers=left, numberstyle=\small, numbersep=8pt}
+\lstset{basicstyle=\ttfamily,escapechar=\%,escapeinside{{[*}{*]}},numbers=left, numberstyle=\tiny, numbersep=5pt}
+
+
+
+\title{Term Rewriting \& \\ Software Development \\
+\large Practical Patterns}
+\date{2021}
+\author{
+Pum Walters
+\footnote{dr H.R. (Pum) Walters RI, \\ 
+Utrecht University of Applied Sciences, \\
+email: \href{mailto:pum@babelfish.nl}{pum@babelfish.nl}}}
+\maketitle
+\thispagestyle{empty}
+\clearpage
+
+
+
+
+
+
+\begin{KeepFromToc}
+  \tableofcontents
+  \pagenumbering{gobble}
+\end{KeepFromToc}
+
+% \listoffigures
+% \listoftables
+
+\clearpage
+\pagestyle{plain}
+
+
+
+\mainmatter
+\setcounter{page}{1}
+\pagenumbering{roman}
+
+\nopart{Part Zero: Introduction}
+%\label{part:i}
+
+
+\chapter*{Introduction}
+\addcontentsline{toc}{chapter}{Introduction}
+%\label{ch:i}
+This is a book on software development, software engineering  and term rewriting systems. As we will see, term rewriting systems are also software, but that's not the point. We aim to use term rewriting systems to look at aspects of software development and software engineering in a precise manner, showing that term rewriting systems not only offer tools for rapid prototyping, theorem proving and program transformation, but can also be instrumental in language definition and software documentation.
+
+Many books on term rewriting exist in which the theory of term rewriting is discussed in detail, and many papers exist in which implementations and implementational aspects of term rewriting systems are discussed. Therefore, this book merely discusses theory and implementational aspects to the degree necessary in order to be self-contained.
+
+This book does describe the implementation we use in examples. The code of that implementation is made available on \E{GitHub}.
+
+
+
+
+\todo{trs is assembler of ...}
+
+
+
+\section*{Uhm}
+Term rewriting is relevant from two perspectives:
+
+\begin{itemize}
+\item Term rewriting is a foundational theory of computing 
+\item Term rewriting is a simplified model of computation 
+\end{itemize}
+
+Abstract Rewriting Systems, Lambda Calculus, Combinatory Logic, Horn Clause Logic and other rewriting systems aim to model the fundamental mathematical theory and properties of computation. 
+
+On the other hand, term rewriting is a frugal, expressive Turing Complete language. Just as Lambda Calculus or Horn Clause Logic, Term Rewriting can be used as a programming language without  preconceptions. 
+
+\section*{Uhm2:Term Rewriting}
+Term rewriting is relevant because it offers a minimalistic unopinionated powerful framework for the design, specification and implementation of software. 
+
+\begin{itemize}
+\item bf{Powerful} \\
+In the context of programming languages, care must be taken when using the term `*expressive power*'. Most languages are Turing-complete and therefore have equivalent expressive power: anything that can be expressed in one can be expressed in another (disregarding the use of resources in an implementation). Another meaning of that term is the ease with which an averagely experienced programmer can learn a language and can express their thoughts in a language. Again, care must be taken. Learning (for instance) C\# for an averagely experienced Java programmer is easy: the languages are based on nearly the same paradigms, whereas an averagely experienced Lisp programmer may not have much benefit thereof in learning Forth. We accept that this view is subjective and contextual. \\
+
+Yet another meaning of that term is the ease with which common programming mechanisms can be (easily) expressed in the language (i.e., defined and used).
+
+\item bf{Unopinionated} \\
+
+
+\item bf{Minimalistic} \\
+Term rewriting is by no means the most minimalistic formalism. Lambda Calculus, SKI Combinators, Iota and Jot all are extremely frugal while remaining Turing complete. 
+\end{itemize}
+
+should be used to define semantics just as BNF is used to define syntax
+
+
+
+\section*{Term Rewriting}
+%\label{sect:tr}
+\addcontentsline{toc}{section}{Term Rewriting}
+%\markboth{Introduction}{Term Rewriting}
+
+Goede boeken bestaan over de theorie; maar dit is meer practisch
+
+Eerst de basis in verzamelingentheorie
+
+\tbox{1}{0.5}{
+	Very loosely, \D{term rewriting} replaces subterms by other terms which are \E{equal or equivalent} on one hand, and \E{less complex or more basic} on the other hand.
+	\I{For example, reducing \T{p and (q or not q)} to \T{p and true}, assuming \T{q or not q} is always true, renders the expression equivalent and less complex.}
+}
+
+In mathematics and computer science,  \D{rewriting} (or \D{reduction}) concerns methodically replacing substructures of structures with other structures in order to arrive at desirable goals. Rewriting is applied in many areas such as theorem proving or program transformation. Several flavours are being studied, including: 
+\E{Abstract rewriting systems} which consider sets and relations on abstract values; 
+\E{String rewriting systems} which consider strings over some alphabet, with applications in algebra; 
+\E{Graph rewriting systems} which are used in software engineering and algorithmic graph layout; 
+\E{Trace rewriting systems} which consider traces of concurrently executing processes; 
+and \E{Term rewriting systems} which are used in software engineering, theorem proving and program transformation
+
+Term rewriting certainly isn't of purely theoretical interest. Term rewriting systems offer general computational capabilities, so term rewriting systems can be at the heart of general programming languages. Term rewriting languages are very often used in software transformation applications such as compilers, analysers, etcetera.
+
+Briefly put, research on term rewriting systems focuses on
+
+\begin{itemize}
+\item the theory of term rewriting
+\item properties of term rewriting systems and classification of term rewriting systems with 
+\begin{itemize}
+\item desirable theoretical implications
+\item predictable and efficient implementational implications 
+\end{itemize}
+\item implementation of classes of term rewriting systems
+\item algorithmic complexity of term rewriting implementations
+\end{itemize}
+
+Many good books on term rewriting systems exist, such as (Baader \& Nipkow, 2009) and (Ohlebusch, 2002). The focus of most books on term rewriting is the theoretical context in which term rewriting systems are relevant (although many books also discuss an implementation for the purpose of prototyping). 
+
+A vast number of very good articles exist on theoretical and implementational aspects of term rewriting. As illustration, we mention a few focusing on implementational aspects, without suggesting that these are in any way better or more relevant than other papers might be.
+
+This book considers term rewriting systems as the basis for general programming with practical application in mind. We offer an implementation which is reasonably efficient in a sense to be explained, and we discuss one application, the compiler for the language itself, to substantiate our claims. But the focus of this book is the relation between term rewriting and software engineering
+
+
+\section*{Software Development: Patterns}
+%\label{sect:sdp}\addcontentsline{toc}{section}{Software Development: Patterns}
+%\markboth{Introduction}{Software Development: Patterns}
+
+Research in software engineering and software development is very broad; this book  considers \I{patterns}, design patterns and development patterns, as a suitable abstraction of software engineering and programming practices. This book contributes by discussing many
+
+\begin{itemize}
+\item software development patterns independently of any specific programming language
+\item software engineering patterns in the context of term rewriting systems as a programming language
+\item term rewriting patterns as a practical guide to programming in a term rewriting system
+\end{itemize}
+
+\todo{Specification vs programming:}
+Specification and programming are closely related. In the end, a program is a specification of desired behavior. The term `specification' is broader than `programming'. The dimensions of a queen-sized bed might be called specification, but not really programming. 
+
+\section*{Example Term Rewriting System}
+%\label{sect:etrs}
+\addcontentsline{toc}{section}{Example Term Rewriting System}
+%\markboth{Introduction}{A Term Rewriting System}
+
+\tbox{r}{0.4}{
+If you have knowledge of term rewriting, feel free to skip this section. 
+}
+
+Before further discussion, let's dive into an example. But before we do: there is obviously a difference between the theory of term rewriting and the specific programming language that we use to write term rewriting systems in. The language developed in this book is \E{Tram}, and all syntactical aspects we describe pertain to Tram (rather than term rewriting systems in abstracto). A brief introduction to the theory of term rewriting systems can be found in Section \ref{ch:bittr}
+
+Imagine a programming language almost without any built-in features; in particular the language has no built in integers.
+
+\begin{introcode}{code:pa}{Peano Addition}
+a(z,X) = X;
+a(s(X),Y) = s(a(X,Y));
+\end{introcode}
+
+These two equations define addition for (a special kind of) non-negative integers. Let's start with some basics.
+
+
+\begin{itemize}
+\item An identifier starting with a lower-case letter signifies a symbol
+\item An identifier starting with an upper-case letter signifies a variable
+\item A term consists of a symbol followed by zero or more sub-terms separated by commas and surrounded by parentheses
+\item If a term has zero sub-terms, the parentheses are omitted
+\end{itemize}
+
+Symbols don't have any pre-defined meaning; it's up to us to give them meaning. Since we don't have numbers, we use z to signify 0, the number zero. It would be possible to associate every positive number with a symbol, but that wouldn't help at all. Instead, we observe that every positive integer can be characterised as being the successor of the previous number (which is either a positive integer or zero). In this way, the number one can be characterised as being the successor of zero. We use the symbol \T{s} to signify `successor', so 1 (one) is represented as \T{s(z)}, 2 (two) as \T{s(s(z))}, etcetera. Using only the symbols \T{z} and \T{s} and the concept of terms, we are able to represent all non-negative integers (this notation is known as \E{Peano Numbers})
+
+A common operation on integers is addition. We could represent addition with the symbol \T{a}, but we would also like to express that addition `\E{adds}' numbers in a specific way. In primary school humans learn addition by heart (at first). Two plus two is four, etcetera. But as a matter of fact Rules 1.\ref{code:pa} define addition for \E{all} Peano numbers.
+
+That this is the case can be quickly ascertained:
+
+\begin{itemize}
+\item First, observe that the rules are correct: adding zero to a number yields that number, and adding the successor of a number X to a number Y is the same as adding X to Y and then taking the successor thereof
+\item For instance, if one only applies Rule 1.\ref{code:pa}.1 once, and Rule 1.\ref{code:pa}.2 twice, one can compute that \T{2+2 = a(s(s(z)),s(s(z))) = s(a(s(z),s(s(z)))) = s(s(a(z,s(s(z))))) = s(s(s(s(z)))) = 4}. 
+\item Since every non-negative integer is either zero or the successor of another non-negative integer, it follows that the two rules describe addition of all possible pairs of numbers
+\end{itemize}
+
+The rules are correct and complete. And we have done what we promised not do: go into mathematical theory by sketching a proof of correctness and completeness. We just wished to show how term rewriting allows formal reasoning about programs. But there's also a software development interest.
+
+Most programming languages have the concept of a \E{function}. A function is a program fragment with a specific scope, which is used by supplying arguments and calling it, at which time control passes to the body of the function in order to compute a result. This description is slightly more appropriate for imperative languages such as C or Python, but is also valid for many functional languages such as Lisp.
+
+In term rewriting systems one could also say that a function \T{a} on non-negative integers has been defined by Rules 1.\ref{code:pa}, but there is no concept of a function body and its  scope, calling and return. However, one might say that arguments are passed to \T{a} and that a result is computed and returned. In this sense, symbols do represent functions and are often also referred to as \E{function symbols}.
+
+Perhaps the most important difference with functions can be seen when considering what happens when \T{a} is applied to something other than two Peano Numbers. For instance, what is \T{a(s(z),p(z))}? Since no rule is applicable \T{a(s(z),p(z))} is just a value, a term. Not a function call or anything like that, but also not an error. Other than syntactical errors, such as in the string \T{a),((z(,)}, terms can be \E{an error} in the sense of \E{an unintended value} without leading to a system crashing or throwing an error or anything like that. This is both an advantage and a disadvantage: applications are less likely to crash, but bugs may remain subtly hidden.
+
+Now we wish to define negative integers as well as non-negative integers. It is reasonable to use the symbol \T{p} to represent the predecessor-function. Using it, all negative numbers can now also be represented. But what about terms such as \T{s(p(z))}? It is clear what this \E{should be}, but we need to add rules to implement this intuition.
+
+\begin{introcode}{code:ppn}{Peano Positive Negative}
+p(s(X)) = X;
+s(p(X)) = X;
+\end{introcode}
+
+Weird numbers such as \T{s(p(z))} have now been taken care of, but addition still needs to be extended. Notice that addition of a non-negative number to a negative number happens to work automatically. The term \T{a(s(z),p(z))} reduces to \T{z} by applying Rules 1.\ref{code:pa}.2, 1.\ref{code:pa}.1 and 1.\ref{code:ppn}.2, but the term \T{a(p(z),s(z))}
+is irreducible.
+
+\begin{introcode}{code:pna}{Peano Negative Addition}
+a(p(X),Y) = p(a(X,Y));
+\end{introcode}
+
+Peano Numbers are easily defined but are unwieldy in use. Even small number such as \T{9} are difficult to interpret at a glance \T{s(s(s(s(s(s(s(s(s(z)))))))))}). Even though Tram does not have built-in numbers we will see more practical specifications than Peano.
+
+A more interesting observation that not only is there no concept of single function body, but there is also no a-priori notion of module. Rules `defining' a function could be strewn throughout a program. This is both a benefit and a concern. It is a benefit because functions can be extended as new `datatypes' are added, just as we extended the function \T{a} simply by adding a rule. This is possible as long as no conflicts are introduced; but more on this in later sections. Strewing rules throughout a program is a concern because unintended effects could be introduced. Tram is permissive, so special care must be taken. For instance, using single-letter function names such as \T{a}, \T{s} and \T{p} is asking for trouble in all but the tiniest of programs.
+
+
+Ergens in de intro waarom we minimalisties zijn en waarom we toch characters en string moeten pre-definen.
+
+Ergens dat je per datatype eerst bedenkt wat de normaalvormen zijn en dat elke functie volledig moet zijn op alle normaalvormen
+
+Ergen dat chars built-in \& why: context must convert textual input of e.g. a compiler to term repr. Ctxt of TRS is not TRS, so they must agree on this interface
+
+Somewhere
+rule order
+confluent so choice doesn't mean divergent
+
+https://medium.com/sketch-app-sources/using-sketch-and-asciidoc-to-generate-a-professional-tech-book-ef5b5d8dd410
+
+\section*{Overview}
+%\label{sect:o}
+\addcontentsline{toc}{section}{Overview}
+%\markboth{Introduction}{Overview}
+
+Term rewriting systems offer a specification and programming framework suitable for the study of software engineering / software development. Term rewriting systems are relevant to computer science theorists because they offer a mathematical model of computation which allows for reasoning about software attributes such as terminition and determinism. But term rewriting systems are relevant to software engineers because they offer a powerful minimalistic extensible unopinionated specification and programming framework.
+
+\tbox{r}{0.4}{
+	If you have knowledge of term rewriting or no interest in any theory, feel free to skip this section or only to read the segments marked as important (which look like this paragraph). 
+}
+
+Section \ref{ch:bittr} introduces the theory and nomenclature of term rewriting. There are excellent books and papers which do this already, and our aim is not to copy or improve upon that work. But a number of terms and concepts are useful in further understanding this book, and in order to be self-contained they are discussed here. 
+
+Section \ref{ch:traapl} \ref{ch:traapl} introduces
+
+\section*{Detailed Overview}
+%\label{sect:do}
+\addcontentsline{toc}{section}{Detailed Overview}
+%\markboth{Introduction}{Overview}
+
+This book consists of three main parts.
+
+\begin{description}[style=nextline]
+	\item[Part One] discusses term rewriting systems as a specification language and as a programming language. Implementations of term rewriting systems are discussed in general terms, and the term rewriting specification / programming language \D{Tram} is introduced.
+	\item[Part Two] discusses the use of term rewriting systems in the context of software engineering (focusing on specification) and software development. 
+	\item[Part Three] is dedicated to the specification / programming language Tram, its implementation on the Term Rewriting Abstract Machine TRAM and its compiler. Several language extensions are discussed.
+\end{description}
+
+\subsection{Part One: Term Rewriting}
+This Part consists of these chapters:
+
+\begin{description}[style=nextline]
+	\item[Chapter \ref{ch:bittr}: Brief Introduction to Term Rewriting] 
+	Term rewriting is an area of mathematics based on set theory. In order for this book to be somewhat self contained, Chapter \ref{ch:bittr} sketches this theory.
+	\item[Chapter \ref{ch:traasl}: Term Rewriting as a Specification Language] 
+	Because term rewriting is both very simple (as Section \ref{ch:bittr} will show) and very powerful (as this book shows), it is suitable as a specification language.
+	\item[Chapter \ref{ch:traapl}: Term Rewriting as a Programming Language] 
+	hihihi
+	\item[Chapter \ref{ch:itrs}: Implementing Term Rewriting Systems] 
+	hihihi
+	\item[Chapter \ref{ch:ttram}: TRAM: Term Rewriting Abstract Machine] 
+	hihihi
+\end{description}
+
+
+\subsection{Part Two: Patterns in Software Development}
+\subsection{Part Three: TRAM}
+
+
+
+
+
+
+\thispagestyle{empty}
+
+\part*{Part One: Term Rewriting}
+\label{part:tr}
+\addcontentsline{toc}{part}{Part One: Term Rewriting}
+
+\chapter{Brief Introduction to Term Rewriting}
+\label{ch:bittr}
+\setcounter{page}{1}
+\pagenumbering{arabic}
+
+\todo{this}
+\tbox{r}{0.4}{
+	Important concepts defined in this chapter:
+	\begin{itemize}
+		\item 
+		
+	\end{itemize}
+}
+
+This chapter offers an informal introduction of the theory of term rewriting systems. We will present some nomenclature and discuss several relevant properties of term rewriting systems. If you have knowledge of term rewriting or no interest in any theory, feel free to skip this chapter. 
+
+\section{Axiomatic Set Theory}
+The remainder of this book talks about `sets of symbols' and functions and relations on such sets. In order to be self-contained, this chapter sketches the foundation of those concepts in set theory. The brilliance of set theory is that no assumptions are needed up front: elements of sets can also be sets, so the substance of set theory does not require much else. Other theories such as Number Theory can be expressed solely using set theory.
+
+Zermelo–Fraenkel set theory is based on eight axioms, which can be loosely formulated as follows:
+\begin{itemize}
+	\item sets are equal when they have the same elements
+	\item every set has an element with which it is disjoint (so a set can't be an element of itself)
+	\item given a set and a property, the subset of all elements which have that property is also a set (comprehension)
+	\item given two sets, the set of pairs and the union are also sets
+	\item given a set and a function $f$, the $f$-image of that set is also a set
+	\item for every set its power-set (the set of all its subsets) is also a set
+	\item there is an infinite set. One such set is the von Neumann Ordinal $\omega$, where $0$ is $\{\}$, the empty set, and each $i$ is the power-set of $i-1$. 
+\end{itemize}
+
+The use of the word `function' should be explained. A \D{relation} is a set of pairs, and a \D{function} is a relation in which each first element of these pairs is unique. That is, functions and relations are simple concepts within set theory.
+
+Based on set theory using mechanisms such as the von Neumann ordinals, it is possible to define natural numbers, rational numbers, strings, and more abstract symbols.
+
+
+
+\section{Abstract Reduction Systems}
+An \D{abstract reduction system} considers a set of objects $A$ and a binary relation $R$ on $A$, where $<a,b> \in R$ is written as $a \to b$. 
+Note that the elements of $A$ are abstractions which are often called `values' or `objects', and could also be called `things' (this use of the word \I{`object'} is unrelated to \I{object oriented programming}). 
+
+\tbox{r}{0.4}{
+	An object which can not be reduced is called a \D{normal form} (i.e. $n$ is a normal form if no $m$ exists such that $n \to m$).
+}
+The reflexive transitive  closure $\twoheadrightarrow$ of $\to$ is a relation which codifies whether one object can be derived from another object by repeatedly applying $\to$. 
+
+
+If $x \twoheadrightarrow n$ for normal form $n$ then $n$ is \E{a} normal form of $x$; if it is unique then it is \E{the} normal form of $x$.
+
+Two important properties of abstract reduction systems are:
+
+\begin{itemize}
+\item \D{Confluence}: if for any $w$, $x$, $y$ such that $w\twoheadrightarrow x$ and $w\twoheadrightarrow y$, then a $z$ exists such that $x\twoheadrightarrow z$  and  $y\twoheadrightarrow z$
+\item \D{Termination}: there are no infinite reduction chains $x_{1} \to x_{2} \to x_{3} \to ...$
+\end{itemize}
+
+These properties are important because confluence guarantees that even when different reductions are possible, the same normal forms can always be reached and termination guarantees there are no unending computations. 
+
+In a confluent terminating abstract reduction system every object has a unique normal form which is reached by repeated reduction.
+
+\section{Term Rewriting Systems}
+\label{ch:trs}
+A \D{term rewriting system} is an abstract reduction system in which the set of values $A$ is a set of terms, and the relation $\to$ is defined in a specific way, as described shortly.
+
+Let $S$ be a set of symbols and $V$ be a (disjoint) set of variables. The set of terms is the smallest set $T$ such that:
+
+\begin{itemize}
+\item $V \subset T$
+\item $f \in S \implies f \in T$
+\item $s_{1}...s_{N} \in T, f \in S \implies f(s_{1},...,s_{N}) \in T$
+\end{itemize}
+
+The notation $f(s_{1},...,s_{N})$ is called `$f$ applied to $s_{1}...s_{N}$'. When $f$ is applied to zero arguments, no parentheses are commonly shown ($f$ rather than $f()$). This is the reason for the second clause, above.
+
+
+$S$ and $V$ are sets of symbols and variables, respectively. Every variable is a term, as is every symbol applied to zero or more terms.
+
+
+The \D{sub-term} or \E{containment} relation $\in$ on terms is defined trivially:
+
+\begin{itemize}
+\item $s_i \in f(s_{1},...,s_{N})$
+\item $u \in s \in t \implies u \in t$
+\end{itemize}
+
+%\newtcbtheorem[number within=section]{mytheo}{My Theorem}%{colback=green!5,colframe=green!35!black,fonttitle=\bfseries}{th}
+
+%\begin{mytheo}{This is my title}{theoexample}
+%	This is the text of the theorem. The counter is automatically assigned and,in this example, prefixed with the section number. This theorem is numbered with\ref{th:theoexample}, it is given on page~\pageref{th:theoexample},and it is titled xxx.
+%\end{mytheo}
+
+Notes: 
+\begin{itemize}
+\item if $f(s_1,...,s_N)$ is a term, then $f$ is its \D{outermost function symbol} and $s_i$ are its \E{immediate sub-terms}. A \D{sub-term} of a term is an immediate sub-term or a sub-term thereof.
+\item a term which contains one or more variables is called \D{open} or a \I{pattern}; otherwise it is \D{closed}.
+\item in $f(s_1,...,s_{N})$, $N$ is called the \D{arity} of $f$. In implementations it is desirable that the arity of every occurrence of the same symbol $f$ is identical. This can be used to improve performance, but also it allows for a minimal degree of type checking. Formally, this requirement is unnecessary, but this book assumes every symbol has the same arity in every term under consideration. 
+\item A symbol with arity 0 is called a \D{constant}. A symbol with arity 1 is called \D{unary}, and with arity 2 \D{binary}.
+\item A term is also referred to as a \D{tree} because the graphical representation has a root, branches and leaves
+\item An open term is called \D{linear} if no variable occurs more than once. 
+\end{itemize}
+
+
+
+\tbox{r}{0.4}{
+	For a set of variables, a substitution maps variables to terms .Matching a term with a pattern tries to find a substitution which, when applied to the pattern yields that term. Matching either fails or results in a pattern
+}
+
+A \D{substitution} is a map of variables to terms, or put differently, a set of pairs $<v,t>$ for $v \in V$ and $t \in T$. 
+
+Given an open term $t$ and a substitution $s$, \D{instantiating} $t$ with $s$ (written as t/s) means replacing every variable $v$ contained in $t$ with the $s$-value of $v$.
+
+Given a closed term $t$ and an open term $p$, \D{matching} is the process of finding a substitution $s$ for which $t=p/s$.
+
+
+\subsubsection*{Examples}
+
+\begin{itemize}
+\item matching a term $a(s(s(z)),s(z))$ with pattern $a(s(X),Y)$, for $S={a,s,z}$ and $V={X,Y}$ yields $\{<X,s(z)>,<Y,s(z)>\}$.
+\item matching term $a(s(s(z)),s(z))$ with pattern $a(p(X),Y)$, for $S={a,s,p,z}$ and $V={X,Y}$ fails.
+\end{itemize}
+
+We have described matching at top level, but matching and instantiation can also occur at nested levels: given a closed term $t$ and a sub-term $u$ in t and an open term $p$, \E{matching} is the process of finding a substitution $s$ for which $u=p/s$. \E{Instantiation} then replaces $u$ in $t$ with $p/s$.
+
+A rewrite rule is a pair of terms $l\to r$ as follows (using $\to$ to signify both the rewrite relation and the rewrite rules is by convention, albeit mildly confusing).
+
+\begin{itemize}
+\item The left-hand side $l$ must contain at least one function symbol 
+\item Every variable in $l$ occurs at most once in $l$ (but may occur multiple times in $r$)
+\item Every variable contained in $r$ must also be contained in $l$.
+\end{itemize}
+
+Now, a rule $l \to r$ can be applied to some closed term $t$ if a sub-term $u \in t$ and a substitution $s$ can be found, such that $l/s = u$.
+In this case $t$ can be \E{rewritten} to $v$ by replacing $u$ (in $t$) by $r/s$.
+
+For example, $s(a(s(s(z)),s(z)))$ can be rewritten to $s(s(a(s(z),s(z))))$ using rule $a(s(X),Y) \to s(a(X,Y))$ and substitution ${<X,s(z)>,<Y,s(z)>}$.
+
+Rewrite rules in which every variable occurs at most once in the left-hand side are called \D{left-linear}. Allowing variable to occur more than once in the left-hand side means that matching can only succeed, and a rule is only applicable, if each sub-term corresponding to an instance of that variable is identical or, more broadly, equivalent in some way. The former (identical instances) leads to the area of \E{conditional term rewriting systems}. In this book another approach is adressed in Section <<Conditional Term Rewriting Systems>>. The latter (matching instances) leads to approaches based on unification and Horn Clause Logic, such as used in languages like Prolog. They are beyond the scope of this book.
+
+The process of matching and instantiation on a term given a set of rewrite rules defines the rewrite relation $\to$.
+
+\tbox{l}{0.5}{The rewrite relation induced by a set of rewrite rules is the relation defined by $t\to v$ if (and only if) a rule $l\to r$, a sub-term $u\in t$ and a substitution $s$ exist, such that $u=l/s$ and $v$ is derived from $t$ by replacing $u$ with $r/s$.}
+
+In a given term multiple rules might be applicable at the same time, and even one rule might be applicable in multiple locations. Again, different views exits. Applying multiple rules at once may lead to inconsistencies and could have performance draw-backs. This can still be of theoretical interest, but is beyond the scope of this book. Sequentially applying multiple rules and seeing which leads to the best result again leads to approaches based on back-tracking and Horn Clause Logic, such as used in languages like Prolog. This is beyond the scope of this book.
+
+The properties of \E{confluence} and \E{termination} are relevant here, because together they guarantee that no `wrong turn' can be made; whichever possible reduction is taken, the same normal form can still be reached.
+
+Ideally, every term rewriting system we write should be confluent and terminating, and in many cases they are. But proving a term rewriting system is confluent and terminating, or establishing that fact automatically, is difficult if not impossible. In practice confluent and terminating term rewriting systems are like bug-free software: we strive but don't always succeed. Just as an unambiguous master data model helps greatly in creating reliable software, so does an unambiguous model of normal forms help to create trivially confluent and terminating term rewriting systems.
+
+\section{Rewrite Strategies}
+\label{sect:rs}
+
+\todo{referenties}
+
+Given a  term rewriting system and a subject term $t$, more than one rule may be applicable to more than one sub-term of $t$. A \D{strategy} is a mechanism which limits which rule is applied to which sub-term.
+
+Strategies are important because they are strongly related to the important properties of confluence and termination. A term rewriting system which is not confluent and/or terminating, may be confluent and/or terminating when limited to a specific strategy. For example, the term rewriting system below is not terminating, but if one rigorously applies the third rule before any other rule, every reduction sequence terminates.
+
+\begin{trs}{Nontermination}{}
+	$f(a) \to f(b)$\label{code:n}\\
+	$f(b) \to f(a)$\\
+	$a \to c$
+\end{trs}
+
+
+Reduction strategies exist which limit the choice of location where a reduction is considered; which rule is considered; or a combination thereof.
+
+
+\subsection{Location}
+
+The \E{outermost} and \E{innermost} strategies limit the location where a reduction is considered. In an \D{outermost strategy} a sub-term is reducible only if it isn't contained in a reducible (sub-) term of the entire subject term. In an \D{innermost strategy} a subject term or sub-term thereof is only reducible if it doesn't contain a reducible sub-term.
+
+Term rewriting System 1.1 is terminating under an innermost strategy but not under an outermost strategy.
+
+Now consider a function \I{if} for which two rules are given: 
+
+\begin{trs}{If}{}
+	$\I{if}(\I{true},X,Y) \to X$\label{code:if}\\
+	$\I{if}(\I{false},X,Y) \to Y$
+\end{trs}
+
+
+Consider a term $\I{if}(B,T,E)$ where $B$, $T$ and $E$ are given values for a boolean expression, the `then' part and the `else' part. Clearly any reduction in the \I{then} or \I{else} parts may prove to be irrelevant until the Boolean expression is reduced to normal form. 
+
+If $B$ proves to be \I{true}, any reductions in the \I{else} part were pointless (when one considers an implementation, superfluous reductions represent wasted time) and potentially \E{harmful} if the \I{else} part leads to infinite reduction sequences.
+
+A safer and more optimal strategy normalizes the Boolean and only then reduces \I{if}. 
+
+For instance, the left-most outermost reduction strategy reduces the Boolean before considering the \I{then} or \I{else} parts.
+
+\tbox{r}{0.5}{
+	The implementation described in this book implements the (rightmost-) innermost reduction strategy.
+}
+
+Speaking generally, outermost strategies are `better behaved' with respect to termination, but innermost strategies can be implemented more efficiently. While it is true that innermost strategies can lead to non-termination, it is generally straightforward to write a term rewriting systems such, that non-termination is avoided in the same way that infinite loops should and can be avoided in general programming languages.
+
+
+\subsection{Rule Selection}
+
+A second aspect the strategy must address is: if more than one rule is applicable at the same location, which is chosen? If the term rewriting system is confluent it doesn't matter in a sense. But it may be unknown if the term rewriting system is in fact confluent, if non-termination lurks, or, in an implementation, if one choice might be more efficient than another.
+
+Common strategies which address this are \E{specificity order} and \E{textual order}. In \D{textual order}, the rules are considered in the textual order they appear in in the term rewriting system. In \D{specificity order} the more specific rule is tried before the more general one. This makes intuitive sense because otherwise that more specific rule would never be considered!
+
+As an example, consider a function \I{iszero} which tests if an integer as defined in the Introduction is zero.
+
+\begin{trs}{Is Zero}{}
+	$\I{iszero}(N) \to \I{false}$\label{code:iz}\\
+	$\I{iszero}(z) \to \I{true}$
+\end{trs}
+
+
+Using textual order this term rewriting system always returns false, but using specificity order the results are more sensibel, and $\I{iszero}(z)$ is \I{true}.
+
+\tbox{r}{0.4}{
+	The implementation described in this book implements specificity order followed by textual order.
+}
+
+Note that System 1.3 is unnecessarily confusing, especially for a programmer who is used to read code from top to bottom. \I{By convention, the order of rules is always given such, that textual order and specificity order coincide.}
+
+\subsection{Hybrid Strategies}
+
+Some reduction strategies address location selection and rule selection in one go.
+Priority and annotation strategies combine selection of the location and of the rule being applied.
+
+A \D{priority strategy} assigns priorities to symbols, and only allows a reduction anywhere if no higher priority symbol can be reduced. In an \D{annotation strategy} all rules are annotated with information on the order of (considered) reductions. 
+
+For example, System 1.2 might indicate that for an \I{if}-symbol, the first argument must be normalized before the other arguments are considered.
+
+\chapter{Term Rewriting in Practice}
+
+Programming languages aim to balance performance and expressive power (among many other attributes) in the context of a consistent, intuitive programming model. Although these aims are no different for Tram, the focus differs from general programming languages:
+\begin{itemize}
+	\item Performance:
+	
+	Tram is intended to test specifications and make prototypes. As such, a practical performance is required but if great speed is important, Tram may not be the ideal platform. 
+	
+	\item Expressive Power:
+	
+	As this book illustrates, term rewriting systems are both austere and expressive: the underlying framework offers few features, but the language is highly extendable. 	
+	
+	\item Programming model:
+	
+	Tram's programming model is part of it's strength: terms and their equality may take some getting used to, but after that there is no room for unclarity!
+\end{itemize}
+
+There is an apparent contradiction between high expressive power and the simplicity of the programming model. Expressive power requires the existence of powerful primitives, but the more primitives, or the more those primitives require deep understanding, the more complex the model becomes.
+
+For instance, the Python documentation (version 3.9.1) introduces the list data type as follows:
+\begin{quote}
+	Lists
+	
+	Lists are mutable sequences, typically used to store collections of homogeneous items (where the precise degree of similarity will vary by application).
+\end{quote}
+
+This description leans on a significant amount of tacit knowledge or at least knowledge that is  explained elsewhere. For instance, 'sequences' are a built-in type that is defined in terms of an API which uses concepts of the underlying implementation language (macro's, pointers).
+
+Seemingly, to fully understand Python lists one needs to dive deep into the implementation and into other languages. In fact, this is not the case. Most programmers are highly effective using a much less refined mental model and only turn to the nitty details of the specs when they observe unexpected behavior.
+
+This has been the situation for almost all programming languages and it is the way of the world.
+
+By choice in Tram, the strength and simplicity outweigh other concerns, which is formulated in the adage: `minimal magic'.
+
+\section{Minimal Magic}
+`Magic' refers to built-in concepts that do not follow from the underlying theoretical framework, and `minimal magic' refers to the desire to minimize the level of concepts thus introduced.
+
+Tram is based on set theory and therefore has the concepts of symbols, variables, terms, rules and rewrite systems. Common prerequisites of programming languages such as data types, operations , data structures, control structures, modularity, etcetera, are absent, or at least must be added as needed.
+
+Unfortunately, one further bit of magic is inescapable, and in light of the above it is fitting to characterize why.
+
+Imagine a black box which implements a term rewriting system. In order to be of any practical or theoretical use, a user must have the ability to `introduce' a term in the unit and `extract' the normal form after it has been normalized. In addition, assuming the unit has finite memory, status information must be exchanged, such as `out of memory', when that is the case.
+
+How could this take place?
+
+As we have seen, symbols are really sets of sets and relations (functions, terms) are also sets of sets. How is a term outside the black box to be related to a set of sets in the black box? Without going into implementational details, one might state that a map and mechanism must exist between the external representation of terms and their internal representation. 
+
+At the very least, this necessitates the ability to identify at least two constants and a structuring element.
+
+\begin{itemize}
+	\item Information theory considers sequences of bits (0 and 1). This means that at least two constant and one structuring mechanism must be defined;
+	\item The Turing complete minimalistic language \D{Iota} considers sequences of two symbols: \D{i} and *;
+	\item The Turing complete language \D{Jot}, closely related to Iota, considers possibly empty sequences of 0 and 1.
+\end{itemize}
+
+Note that in all cases two constants suffice and one structuring element. A structuring element is at least one function symbol (in the case of a binary operator).
+
+Iota and Jot are full-fledged albeit minimal languages.
+ddd
+
+
+
+\chapter{Term Rewriting as a Specification Language}
+\label{ch:traasl}
+
+A specification language describes mechanism or systems abstractly, in order to aid analysis or design. 
+
+hierspec lans html, archimate (proc+...) 
+
+formal language in computer science used during systems analysis, requirements analysis, and systems design to describe a system at a much higher level than a programming language, which is used to produce the executable code for a system.
+
+
+\chapter{Term Rewriting as a Programming Language}
+\label{ch:traapl}
+
+
+
+The previous chapter sketches term rewriting systems as a theoretical model.  The goal this chapter is to develop a programming language which implements term rewriting systems. There are already many practical programming languages in realms closely related to term rewriting. To name a few:
+Haskel ..., Prolog ..., Lisp ...., Erlang ...
+
+Form follows function; the general mechanics of this language follows its purpose. 
+
+
+Minimal
+
+Purpose: 
+
+
+
+
+
+In this chapter, term rewriting is introduced as a programming language. This language is called \D{Tram} (for reasons that will become clear in later chapters).
+
+
+
+\todo{Tram is bedoeld simpel.} Ergo, geen features. Dus ook geen eq, char of ascii
+* Many conceivable extensions might make Tram more practical, such as integers, external functions, etcetera. But Tram is implemented from the tenet that TRS's offer an expressive general purpose framework that, with the exception of high-speed or memory-intensive applications, is truly sufficient. Accordingly, Tram is created with a low degree of magic.
+
+
+
+
+
+\todo{Uhm}
+Term rewriting is relevant because it offers a minimalistic unopinionated powerful framework for the design, specification and implementation of software. 
+
+* **Powerful** +
+In the context of programming languages, care must be taken when using the term `*expressive power*'. Most languages are Turing-complete and therefore have equivalent expressive power: anything that can be expressed in one can be expressed in another (disregarding the use of resources in an implementation). Another meaning of that term is the ease with which an averagely experienced programmer can learn a language and can express their thoughts in a language. Again, care must be taken. Learning (for instance) C\# for an averagely experienced Java programmer is easy: the languages are based on nearly the same paradigms, whereas an averagely experienced Lisp programmer may not have much benefit thereof in learning Forth. We accept that this view is subjective and contextual. +
+
+Yet another meaning of that term is the ease with which common programming mechanisms can be (easily) expressed in the language (i.e., defined and used).
+
+* **Unopinionated** +
+
+
+* **Minimalistic** +
+Term rewriting is by no means the most minimalistic formalism. Lambda Calculus, SKI Combinators, Iota and Jot all are extremely frugal while remaining Turing complete. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Symbols, Variables, Terms}
+
+A \D{symbol} is represented by an identifier which starts with a lower-case letter. Two symbols are equal if and only if their identifiers are equal and symbols are atomic without further structure. A \D{variable} is represented by an identifier which starts with an upper-case letter.
+
+A \D{term} is a variable, or a symbol followed by zero or more sub-terms, separated by comma's and surrounded by parentheses. If a term has no sub-terms, the parentheses are omitted. If a term contains no variables, it is called \D{open}; otherwise it's called \D{closed}. A term without sub-terms is called a \D{constant}. Note that any closed term is mathematically speaking a constant, but in this book and in term rewriting parlance a constant is a term without sub-terms.
+
+If a symbol \T{f} appears with \T{N} sub-terms it is said to have \D{arity} \T{N}. If \T{N}=1, \T{f} is called \D{unary}; if \T{N}=2 \T{f} is called \D{binary}.
+
+\codex{code:et1}{Example Terms 1}{
+X        ! a variable, which is also an open term
+c        ! a symbol (with arity 0) which is also a closed term and a constant
+f(X,Y)   ! an open term containing a binary function and two variables
+f(x,y)   ! a closed term containing a binary function and two constants
+}
+
+\section{Rules, Term Rewriting Systems}
+
+A \D{rule} is represented as \T{s = t} where \T{s} and \T{t} are terms, where every variable in \T{s} occurs at most once, and where every variable in \T{t} also occurs in \T{s}.
+
+A term rewriting system is a sequence of rules separated by \T{;} (semi-colons) and terminated by the constant \T{eor} followed by \T{.} (colon).
+
+An executable Tram program is called a job. Here s, s1, t1, ..., sN, tN are terms; \T{eor} is that constant.
+
+\codex{code:et2}{Example Terms 2}{
+job(s,
+     s1 = t1;
+     ...
+     sN = tN;
+     eor.
+   )
+}
+The execution of this program is the following cycle:
+
+\warn
+Given a subject term \T{s} a sub-term \T{u} of \T{s} and a rule number \T{k} is sought, such that \T{u} matches \T{s$_\T{k}$}, the left-hand side of rule \T{k}. Then, \T{u} is replaced the corresponding instantiated \T{t$_\T{k}$}, the right-hand side of rule \T{k}.
+Starting at the deepest rightmost sub-term of s rules are matched, from most specific to least specific and otherwise in textual order, until a match is found, say in rule \T{k}. In this case rule \T{k} is applied to that sub-term of \T{s} by replacing it to yield a new subject term, and the cycle repeats. If no match is found, the term is in normal form.
+
+Perhaps surprisingly this is (a sketch) of the entire Tram language. 
+
+\section{Strategies}
+
+
+\todo{Also, next section (recursive implementation) defines the semantics}
+
+
+\section{Semantics, Termination}
+
+\section{ASCII}
+An important design aim of Tram is a Spartan frugality, for instance visible in the fact that Tram lacks many built-in niceties such as integers, floating point numbers, arrays and strings. Characters however, are required.
+Imagine a term rewriting system which implements a language processor such as a compiler for language X. The input of that program are terms representing programs in language X. But the (human) users of that compiler write programs in textual form (written in language X). 
+At some point a mapping must occur from that textual representation of an X-program to a term-representation. But: file systems aren't terms and X-programs don't have some canonical, necessary representation s terms. Indeed, to assume such a canonical representation would mean to ignore the important first compiler phases of scanning and parsing. Assuming such a mapping for any possible input language would be magic of a high order!
+Instead, Tram is minimalistic: only strings of ascii characters are presumed.
+A choice is made: is a character a predefined term or a predefined symbol.
+\begin{itemize}
+\item The set of terms is inductively defined: a term is a variable or a symbol applied to zero or more terms. Adding \E{ad-hoc} terms is possible but complicates all reasoning and otherwise processing of terms.
+\item The set of symbols is an unstructured set with an equality-relation. Adding \E{ad-hoc} symbols doesn't significantly change reasoning or otherwise processing of terms.
+\end{itemize}
+
+Another choice is: which characters. At least, ASCII characters must be processed in order to represent Tram programs. As the need arises, Unicode characters will be added.
+All printable 7-bit ASCII characters are represented as \T{\^{}c} for ASCII character `c'. All non-printable 7-bit ASCII characters are represented as \T{\#hh} for the character with hexadecimal ASCII code `hh'. For instance, \T{\^{}a} represents lowercase `a', and \T{\#20} represents a space character.
+In addition, the two function symbols \T{str} and \T{eos} are assumed to exist. Symbol \T{str} is the binary operator joining a character to a string; symbol \T{eos} represents the empty (`end of') string. For example, string ``ad hoc'' is represented as \T{str(\^{}a,str(\^{}d,str(\#20,str(\^{}h,str(\^{}o,str(\^{}c,eos))))))}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Extended Example}
+\label{ch:ee}
+
+\section{Extensions}
+\label{ch:e}
+
+\subsection{???}
+
+\chapter{Implementing Term Rewriting Systems}
+\label{ch:itrs}
+In this section we will sketch a number of implementations.
+\section{Recursive Implementation}
+Given a term and a term rewriting system, an implementation attempts to find a normal form of the term by repeatedly applying rules from the rewrite system. If the term rewriting system is confluent and terminating, this process is guaranteed to end with a unique normal form; otherwise \E{a} normal form will be found or the process will never terminate.
+
+This book focuses on an innermost strategy, so this implementation can be characterised by the following pseudo code.  We assume a term is represented with an object where \T{s.ofs} is the outermost function symbol of term \T{s} and \T{s[[i]]} is the \T{i}-th sub-term. The arity is given by \T{s.arity}.
+
+Function \T{burewr} rewrites a term given a program (term rewriting system) in a bottom-up fashion.
+
+\codex[earth]{code:burpc}{Bottom-Up Rewrite Pseudo Code}{
+function burewr(s,P) {
+    for (var i=s.arity; i>0; i---) {
+        s[[i]] = burewr(s[[i]],P);
+    }
+    return toprewr(s,P);
+}
+}
+
+Function \T{toprewr} rewrites a term, assuming its immediate sub-terms are normalised. It assumes the program is a single term \T{f(r1,...,rN)} where each \T{ri} is a rule. Rules are assumed to have two fields: \T{r.lhs} and \T{r.rhs}.
+
+\codex[earth]{code:tlrpc}{Top-level Rewrite Pseudo Code}{
+function toprewr(s,P) {
+    forever() {
+        for (var i=1; i<=P.arity; i++) {
+            var rule = P[[i]],
+                sub = match(s,rule.lhs,{});
+            if (e!==fail) {
+                var s = instantiate(rule.rhs,sub,P);
+                continue forever;
+            }
+        }
+        return s;
+    }
+}
+}
+
+Function \T{match} accepts a term, a pattern and an empty substitution, and returns \T{fail} or the substitution for which \T{s/sub=rule.lhs}. Note: this function checks if the outermost function symbols are equal \E{and also if the erities are equal}. We have been assuming all function symbols to have the same arity, but since there is no type-checker which checks this, it is prudent to do so. Not that in a production implementation this check may be dropped.
+
+\codex[earth]{code:mpc}{Match Pseudo Code}{
+function match(s,p,e) {
+    if (typeof(p) == 'string' && UpperCase(p)) {
+        e[[p]]=s;
+        return e;
+    }
+    if (s.arity!==p.arity || s.ofs!==p.ofs) {
+        return fail;
+    }
+    for (var i=1; i<=p.arity; i++) {
+        e = match(s [[i]],p[[i]],e)
+        if (e===fail) return fail;
+    }
+    return e;
+}
+}
+
+Finally, the function \T{instantiate} is straightforward
+
+\codex[earth]{code:ipc}{Instantiate Pseudo Code}{
+function instantiate(p,e,P) {
+    if (e[[p]] exists) {
+        return e[[p]];
+    }
+    var s;
+    s.ofs = p.ofs;
+    for (var i=1; i<=arity; i++) {
+        s[[i]] = instantiate(p[[i]],e,P);
+    }
+    return toprewr(s,P);
+}
+}
+
+This code derives from an earlier version of a tool used in the development of Tram and the Tram compiler. The tool is written in JavaScript, so there is ample support for debugging etcetera. The tool isn't very efficient, but in this early development phase that isn't a problem.
+
+One shortcoming is that this implementation uses textual ordering and no specificity ordering. In practice, this is not an issue but can lead to difficult to identify bugs and ad hoc workarounds.
+
+The biggest shortcoming, and the reason this approach was dropped the toolset, is that this implementation uses recursive function, and most JavaScript implementations limit stack depth, typically to 50.000 or so. Enough for testing small to medium examples, but not enough to self-compile a compiler.
+
+A later version of this tool uses a push-down automaton. It is more complex, but uses lists to store the context. List in browsers can usually contain many millions of items. We will not show pseudo code for that implementation since the only difference with the code above is the transformation of recursive code to iterative code, which is independent of term rewriting. 
+
+In the development phase the iterative version is quite sufficient; the compiler self-compiles using about 2 milion reductions in about 30 seconds. In a production setting higher speeds should be achieved.
+
+\section{Automata}
+Term rewriting is very similar to scanning and parsing. Given a text and a grammar, a scanner/parser must check if the text is instance of the grammar, by relating sub-patterns to sub-texts.
+
+The comparison is useful: techniques from the area of scanning and parsing can be adapted to term rewriting. Most notably, a scanner attempts to recognise a text as an instance of a (set of) regular expressions by using an automaton. In principle, an automaton visits every character in the subject term at most once while recognising instances of regular expressions. 
+
+This approach can be used to greatly improve the implementation of \T{toprewr} and \T{match}. Currently, \T{toprewr} tries one rule after another and uses \T{match} to see if the rule is applicable. Instead, an automaton can look at the current function symbol and transit to a state related to only those rules that match at that point. In the next chapter we will discuss how this automaton works, and is created for Tram.
+
+An `automaton' is an abstraction; it can be implemented in any language. The next section discusses how such an abstraction can be conveniently implemented.
+
+\section{Abstract Machines}
+Loosely speaking there are two ways to implement a language: compilation and interpretation. A \D{compiler} takes a program in the source language and translates it to a program in a target language which exhibits the same behavior as the source program. An \D{interpreter} analyses a program in the source language and exhibits the behavior described in that source program. 
+
+Compilation introduces an additional step in the chain: translation from the target language to the underlying machine language. But: compilation allows us to approach the underlying hardware and benefit from the greatest possible execution speeds. Interpretation offers the greatest portability but invariably adds inefficiency by mapping abstract `ideal' models to concrete, hardware-oriented models.
+
+Most language implementations attempt to engineer optimal middle ground by defining an ideal abstract layer which on one hand is implemented in a systems programming language such as C, but on the other hand offers abstractions which are precisely suitable as a target for the source language.  The front-end is then a compiler (usually written in that source language) which maps the source language to that abstract layer.
+
+Most languages use this approach. To mention a few: Python Bytecode, the Java Virtual Machine, .Net Intermediate Language, Erlang BEAM, and Prolog's Warren Abstract Machine.
+
+The next chapter describes TRAM (Tram's abstract machine) in some detail; the remainder of this section sketches an abstract layer for term rewriting.
+
+\section{Term Rewriting Abstract Machines}
+A term rewriting abstract machine will have 
+\subsection{Data Structures}
+\begin{itemize}
+\item A heap, in which built terms are stored. The distinction `built' vs `not-yet-built' terms is relevant in the context of innermost rewriting. A term such as \T{a(s(z),s(z))} (using Peano Addition \cite{code:pa} as an example) doesn't have to be built. First, \T{s(z)} is built (twice), but then \T{a} is evaluated and reduces to something else. Building the term may be a waste of effort;
+\item Stacks in which to-be-evaluated symbols are kept (such as \T{a} above), and in which control flow information will be kept;
+\item Associative memory to store substitutions while matching takes place;
+\item Code store, in which instructions for the abstract machine are kept.
+\end{itemize}
+
+\subsection{Functionality}
+\begin{itemize}
+\item A memory manager and garbage collector to manage the heap;
+\item The ability to access heap elements and follow the rewriting process in a meaningful manner, for debugging purposes;
+\item The ability to read input and write output. Pure term rewriting doesn't have I/O, but the initial input and final output have to be communicated with the outside world and debugging information must also be communicated; 
+\item The actual rewrite engine.
+\end{itemize}
+
+\subsection{Registers}
+Most data structures and functionality mentioned above will maintain their own registers. 
+\begin{itemize}
+\item Stacks, heap and associative memory will maintain pointers to used and unused memory; 
+\item The rewrite engine will maintain an instruction pointer into the code store and possibly auxiliary registers.
+\end{itemize}
+
+\subsection{Instructions}
+Loosely speaking there are three types of instructions: 
+\begin{itemize}
+\item Instructions that set up one rewrite cycle. In particular, as described, an instruction that fetches the outermost function symbol of the current term, of which the immediate sub-terms have been normalised (and built). And also one or more instructions that use that function to branch to the code for all rules that match that symbol (this instruction corresponds to the transition in the automaton).
+\item Instructions that implement actual matching. These include comparison and further automaton transitions, tree traversal management (e.g., finding the next point of interest in subject terms), and substitution management;
+\item Instructions that implement reductions, either after failed matching (build instructions) or after successful matching (stack operations).
+\end{itemize}
+
+
+
+\chapter{TRAM: Term Rewriting Abstract Machine}
+\label{ch:ttram}
+In this chapter we will define Tram's abstract machine: TRAM (Term Rewriting Abstract Machine). In the introduction we will touch on relevant concepts. In the remainder of the chapter we will discuss the design and the reasoning behind design decisions. A more detailed technical specification is in Appendix \ref{app:tts}.
+
+\section{Introduction}
+In this section we will use this rewrite system for Peano numbers with addition and multiplication as a running example.
+
+\codex[earth]{code:paam}{Peano Addition and Multiplication}{
+a(z,X) = X;
+a(s(X),Y) = s(a(X,Y));
+m(z,X) = z;
+m(s(X),Y) = a(m(X,Y),Y);
+}
+
+
+\img{r}{0.25}{0.17}{-10}{fig-nrt.png}{fig-nrt}{N-ary term represented using binary nodes}
+
+TRAM processes terms. Terms are represented with nodes. Terms may have different numbers of sub-terms, which would suggest that nodes have different sizes. But memory management for variable-sized chunks of memory is unnecessarily complicated and inefficient.
+
+In TRAM, \E{all nodes have two data fields}. In honor of venerable Lisp we will call the fields \D{car} and \D{cdr}. A term is represented by a node with the term's outermost function symbol in the \E{car}-field, and a reference to the arguments in the \E{cdr}-field. Each argument is stored in a node with a reference to the sub-term in the car, and a reference to the remaining arguments in the cdr, except the last argument, which has \T{null} in the cdr. See Figure \ref{fig:nrt}. In this chapter we will use the notation \T{<a,d>} to signify a node with \T{a} in its car-field, and \T{d} in its cdr field.
+
+At the heart of rewriting is matching. To match a term against a pattern, a human might act as follows. Given a tree representations of the term and the pattern, and using one index finger on the term and one on the pattern, act as follows: 
+
+\a.[A.] if the function symbols pointed to are equal, both fingers move to the left-most child, or if the pattern-finger is in a leaf, to the next sibling on the right.
+\b.[B.] if at any point the function symbols pointed to differ, there is no match
+\b.[C.] if the sub-pattern pointed to is a variable, a note is made of the current sub-term and both fingers are moved to the next sibling on the right (note that the corresponding sub-term isn't scanned at all).
+\b.[D.] if there is no further sibling on the right, there is a match, and the note contains the substitution
+
+\img{r}{0.35}{0.35}{-10}{fig-mtap.png}{fig-mtap}{Matching Term and Pattern}
+
+Starting from this simplistic view, we discuss several complexities and choices. 
+
+\renewcommand{\theenumi}{\Alph{enumi}}
+
+Given a subject term, a naive implementation might try to find a match using the left-hand side of the first rule and failing that the second rule and so forth. This obviously wastes time: given the outermost function symbol of the subject term, only those rules need to be considered for which the outermost function symbol is that symbol. \E{In a subject term every function symbol needs to be looked at at most once.} The value found is used to limit potential patterns to a ever dwindling subset. This behavior is referred to as an automaton in the previous chapter.
+
+For instance, consider term \T{m(s(s(z),s(s(z)))} in rewrite system \ref{code:paam}. The term has outermost function symbol \T{m}, so rules 1 and 2 are inapplicable (Action B); only 3 and 4 are possible (Action A). Action A moves the locus of interest to the first argument of \T{m}, where the outermost function symbol is \T{s}. Now rule 3 is discarded and only rule 4 remains. Action A brings the locus to the second argument of \T{m}. Here Action C applies, and after that Action D.
+
+The previous paragraph glances over something profound: the first action seems to be B for Rules 1 and 2, and A for Rules 3 and 4. It is, as if the engine considers all rules in parallel, and that is a reasonable view when considering an automaton. Another view is that of an ever dwindling set of potentially applicable rules. Both views are helpful at times.
+
+A concern related to this is the following. Different rules which lead to Actions A and B at the same point in the subject term lead to the set of possible rules to be reduced, or in the other view, the set of running matches to be reduced. But what if two rules lead to Action A and Action C at the same time. An example of this is in Listing \ref{code:iz}: one rule looks for \T{isZero(z)} and the other rule look for \T{isZero(N)}. Here, specificity order must be applied: Action C must be postponed while Action A is tried. If Action A leads to to a succesful match, that rule must be applied; if it fails the rule which led to Action C must still be considered. The term `postponed' is misleading: matching on both rules continues, but: if the rule which is most specific in a left-most position matches, then it must be taken. It is up to the compiler to generate code for this.
+
+There's another snag: for humans with a picture of the term and pattern it's easy to move around. But an abstract machine does not have a helicopter view. Action A mentions two movements: the left-most child and the next right sibling. The first child is easy: it's in the \E{car} field of a node. But the next right sibling is an concern. Imagine matching \T{b} after having matched \T{a} in a pattern \T{f(g(g(a)),b)}. The locus must be moved \E{up} three places before it can get to the second argument of \T{f}. But nodes don't have an `\E{up}' pointer. Adding an additional pointer to all nodes would be expensive.
+
+TRAM's solution is to maintain a stack while it is matching. Whenever Action A is applied to visit the car of a node, the cdr is pushed for subsequent inspection.
+
+Having sketched nodes and naive automaton-based matching, it is time to look at the context. Remember that an innermost strategy is followed. This implies that \E{only normal forms will be built}. Other terms are stored on a stack for future evaluation. TRAM has two stacks called \E{C} (for control-stack) and \E{A} (for argument-stack), following \cite{(Fokkink et al., 1998)}. 
+
+\subsection{Example}
+In this example we will look at the interaction between matching and the two stacks. 
+
+Initially the function symbols of a subject term are pushed (in pre-order) on the C-stack. In our running example the C stack would look like \I{(bottom)}\T{m s s z s s z}\I{(top)} (pre-order and textual order happen to coincide).
+
+Then the abstract machine starts its match-reduce cycle. It pops a symbol from the stack, which is the outermost function symbol of a term (\T{z}), in this case without sub-terms. No rule applies so a normal form is built, a node \T{<z , null>}. This node is pushed on the A stack (which was empty initially, and now contains \T{<z,null>}), and the next cycle begins.
+
+Now a symbol \T{s} is popped, for which again no rule exists. A normal form is built for \T{s} with a single argument, which is found on the A stack. The result \T{<s,<<z,null>,null>>} is pushed on A. This is a single node, the cdr of which points to another node.
+
+Again, \T{s} is popped leading to the A stack containing a single node  \T{<s, <s,<<s,<<z,null>,null>>,null>>}. The next cycles pop \T{z}, \T{s} and \T{s}, leading to two similar nodes on the stack.
+
+Then Symbol \T{m} is popped and the process starts that we have described earlier, leading to Actions B, A, A, C and D. A match is found and \T{a(m(X,Y),Y)} must be instantiated for \T{X=<s,<<z,null>,null>>} and \T{Y=s,<<s,<<z,null>,null>>,null>>}. This is done by pushing \T{a} and \T{m} and the values for \T{X}, \T{Y} and \T{Y} (again) on the C stack. In this case \T{X}, \T{Y} and \T{Y} might have been pushed on A, but that's an optimisation; the most generic unoptimised method pushes everything in pre-order on C. If a term is found on C (instead of a symbol) it is immediately shunted to A.
+
+Undiscussed so far, is the program that the abstract machine executes (the object for the source term rewriting system). Many abstract machines use byte-codes for this purpose. In TRAM, that would imply an additional data type: sequences of bytes in addition to nodes. To keep things simple, TRAM uses nodes instead; a future version might improve speed by adding byte-codes. Note that TRAM stores instructions as atomic terms rather than generic terms with zero arguments, saving some space and time.
+
+The object code for our running example looks like this. Note that the constructors of these term, which are \T{lst} and \T{eol}, aren't shown; the indentation reflects the nesting in that term.
+
+\codex[earth]{code:eoc}{Example Object Code}{
+cpopf,               ! pop from C
+case, "z",           ! is it `z'
+    setbuild,        ! prepare builder
+        "z", 0,      !    for z, 0 args
+    build,           ! build node
+    rewr,            ! proceed
+case, "m",           ! is it `m'
+    setbuild,        ! prepare builder
+        "m", 2,      !    for m, 2 args
+    ageti, 0,        ! fetch first arg
+    switch,          ! 
+    case, "z",       ! is it `z'
+        mtcdr0,      ! with 0 args
+    ...
+}
+
+\section{Memory Management}
+A common design pattern for memory managers and garbage collectors is Mark and Sweep. During the \E{mark} phase all objects accessible to clients are marked and the data structures are traversed recursively to find all further accessible objects. By inferance, andy unmarked object is not accessible by any client and is therefore no longer needed. Once all reachable objects have been marked, the \E{sweep} phase starts. In it, all unmarked memory is collected and made available for reuse.
+
+Unused chunks of memory may be sprinkled throughout used objects. This becomes a problem when objects may have different sizes, and a large object needs to be created which is larger than any of the unused chunks, but is not as large as all unused chunks together. This phenomenon is called \D{fragmentation}. Memory managers usually deal with fragmentation by \D{ompactification}: clustering used and unused memory together by moving used objects. 
+
+Compactification requires moving objects. When an object is moved, all references to that object must be updated. This requires time and often an intimate cooperation between the memory manager and the clients. Some memory managers use indirection to improve upon this; every object is split in a handle and a body. Only the handle points to the body. All references to the object actually point to the handle, which always stays in place, and compactification only moves the body. 
+
+Many languages implement compactifying mark and sweep memory management and use extensive engineering to limit the overhead this entails.
+
+In Tram:
+\begin{itemize}
+	\item all nodes have equal size; terms with different number of arguments map to linked lists of nodes.
+	\item nodes are never moved
+	\item the mark and sweep phases are combined in a single pass through all used nodes
+\end{itemize}
+
+There is one significant downside to this approach: nodes in the `used nodes' list are ordered by creation time. Their location in memory is incidental. The single mark and sweep phase visits memory pages in more or less random order and possibly multiple times, reducing the benefit of caching. Mechanisms could be envisioned to improve upon this, such as ordering empty nodes by memory address, but no such improvement is implemented in TRAM 1.0.
+
+
+\section{Memory Management}
+
+TRAM uses the following mechanism to simplify and speed up memory management:
+
+\todo{mm}
+
+\begin{itemize}
+	\item program memory
+	\item stacks
+	\item heap 
+\end{itemize}
+
+
+
+TRAM uses this mechanism to simplify and speed up memory management:
+All nodes have equal size and can store two pieces of data. A term with \T{N} sub-terms is stored using \T{N+1} nodes.
+
+\I{This doubles the memory footprint, which may seem a steep price. But in fact, loosely speaking, a 2005 study \cite{Hertz & Berger, 2005} suggests that it takes a factor 5 in memory footprint to achieve optimal performance. Overall, TRAM clocks in at a factor 3.}
+
+A \D{node} is a small structure (C struct) able to represent a symbol and
+
+
+
+
+\D{Memory management} concerns the process of acquiring memory from the operating system, structuring that memory in data structures such as a heap, handing it out to clients (in TRAM that is notably the rewrite engine) and taking action when available memory seems depleted.
+
+Memory can be divided in:
+\begin{itemize}
+	\item program memory
+	\item stacks
+	\item heap 
+\end{itemize}
+
+In order to keep TRAM simple, programs are actually represented as terms, which `live in' the heap. A single register holds the head-node representing the entire term rewriting system. No separate memory is needed.
+
+A stack is a data structure which offers the usual \T{push} and \T{pop} operations. Ordinarily a stack is located in a memory array and uses an index in that to locate the current top. In version 1.0 of TRAM, in order to simplify memory management, stacks are actually implemented in the heap using nodes, where the car field holds a term or symbol on the stack, and the cdr field holds teh remainder of the stack (or \T{nil} if the stack is empty).
+
+All memory that is to be managed is therefore the heap. 
+
+\D{Garbage} is memory that has been given out but is no longer needed. The rewrite engine doesn't explicitly know which memory may be needed. The \D{garbage collector} uses the \E{reachability} criterium to determine if memory may be garbage: if the rewrite engine or any other client can't reach a piece of memory, it is guaranteed to be garbage. Then that memory can be reused.
+
+Because of the austerity of term rewriting, reachability is trivially defined: the rewrite engine can only reach nodes in the program memory, stacks or auxiliary registers. Input uses memory but only during initialization. At that time garbage collection is superfluous: either the memory image fits or not. Output only reads memory and can never lead to garbage collection.
+
+Now considerthese invariants:
+\begin{itemize}
+	\item a node will never be changed between its creation and the moment it becomes garbage, because there is no assignment
+	\item when a node is created, its sub-terms exist already (because an innermost reduction strategy is applied)
+	\item this implies that every node is younger (i.e. created later) than all its sub-terms	
+\end{itemize}
+
+From these observations a very efficient memory management and garbage collector algorithm can be formulated. Assume all nodes contain a third field, called \D{nxt} (for `next'; the other two are car and cdr).
+
+\begin{itemize}
+	\item initially, the entire memory is divided in equal-sized nodes and all nodes are in a linked list which links through the \T{nxt} field and is pointed to by a register \T{free}. 
+	\item when a new node is created, it is popped off the \T{free} list, and pushed on the list pointed to by a second register \T{used}
+	\item if no free node is available (\T{free==null}), the garbage collector is activated
+	\item the garbage collector performs a so-called `mark' phase:
+	\begin{itemize}
+		\item initially, the head-nodes of the program, all stacks and auxiliary registers are marked; then the algorithm iterates through all nodes starting at \T{used}.
+		\item if the current node is marked it is still reachable and stays on the \T{used}-list and its two children are marked. Otherwise it isn't reachable and can be shunted to the \T{free}-list.
+		\item the reason this node can not become reachable deeper down in the mark algorithm is the following: 
+		
+		
+	\end{itemize}
+	
+\end{itemize}
+
+
+
+
+
+
+
+\section code
+The object code isn't exactly a term. That would mean, for instance, that the \T{`switch'} instruction in a list (by convention lists are formed using \T{lst} and \T{eol}) would appear as \T{<lst,<<switch,eoa>,P>>}, where \T{P} is the remaining program. Instead, instructions are injected as term themselves, leading to the more compact representation \T{<lst,<<switch,eoa>,P>>}
+
+
+\section{Matching}
+
+\section{Instantiating}
+
+Stacks:
+In principle TRAM is lean and mean, but in many ways it is oversimplified \I{ad absurdum}. 
+
+Maar eerst memmgr, nodes uitleggen
+
+* eerst naive twee vingers
+(maar ook memmgr want pairs)
+* dan pattern vertalen naar atomaire stapjes
+	* match sym
+	* move 
+* 
+This approach is at the basis of TRAM. Note that the term-finger and pattern-finger move in tandem, where an entire sub-term is skipped if the corresponding pattern is a variable. Situations such as where the sub-term and the sub-pattern have different number of arguments cannot occur because function symbols have one arity.
+
+Given a subject term, a naive implementation might try to find a match using the left-hand side of the first rule and failing that the second rule and so forth. This obviously wastes time: if the outermost function symbol of the subject term is \T{f} then only those rules need to be considered for which the outermost function symbol of the left-hand side is \T{f}. All other rules can be excluded. One might expect the match-cycle to start with a switch statement.
+
+
+
+\todo{Introduction}
+
+
+should be TRAM
+
+1: TRAM design
+2: Object code
+3: Compiler
+Appendix: Tech Spec
+
+TRAM (Term Rewriting Abstract Machine) is a minimalistic implementation of term rewriting. TRAM is intended to be small (<300 lines of C code) and reasonably efficient (e.g., significantly more efficient than a naive recursive implementation). TRAM is created in the spirit of \cite{fokkink_1998_within}, \cite{walters_1993_arm} and \cite{walters_1996_simulating}. TRAM's abstract machine supports left-linear unconditional term rewriting systems. The TRAM project defines a number of extensions (and tools) which compile arbitrary TRS's to TRAM TRS's.
+One reason to make TRAM light-weight is the underlying goal to implement TRAM directly on FPGA hardware.
+
+TRAM is efficient:
+
+* The absence of assignment in pure term rewriting means that the language is side-effect free and terms are never altered. Consequently, a single-pass garbage collector suffices
+* TRAM represents terms using nodes with fixed arity (2). Consequently, a non-compacting garbage collector suffices
+* TRAM uses a `bytecode' engine, assigning part of the work to the compiler. Bytecode in quotes because TRAM instructions are (31-bit) function symbols
+* TRAM uses an innermost reduction strategy which means that only terms are built which are in normal form
+
+Limitations
+
+* At the time of writing, TRAM is implemented using 32-bit words
+* Many conceivable extensions might make TRAM more practical, such as integers, floats, external functions, etcetera. But TRAM is implemented from the tenet that TRS's offer an expressive general purpose framework that, with the exception of high-speed or memory-intensive applications, is truly sufficient. Accordingly, TRAM is created with a low degree of magic.
+
+Extensions
+
+Several extensions/adaptations have been identified which may be added to TRAM at some point
+
+* indexes to speed up execution
+* direct memory stacks instead of stacks-as-terms
+
+
+== TRAM
+TRAM is a minimalistic Term Rewriting Abstract Machine. Minimalistic in the sense that
+
+* the C implementation consists of less than 500 lines of code
+* the class of supported term rewriting systems is limited
+
+
+
+
+	! TRAM is intended to be very minimalistic; niceties and features should be added as source transformation.
+	! But: a few features are crucial to the development effort:
+	! * TRAM has comments in order to make source code self-documented
+	! * Rewrite rules are written as lhs = rhs; terminated by eor.
+	!   this parses to rl(lhs1,rhs1, rl(lhs2,rhs2, ... ,eor)...)
+
+TRAM loosely follows ...
+
+=== Nodes
+TRAM terms are represented as nodes. A node is a structure with three fields called \T{car}, \T{cdr} and \T{nxt}. Car and cdr are used to represent terms; nxt is used for memory management. A term f(t1,...,tN) is represented as the following structure: \T{{car:f, cdr:{car:t1, cdr:{..., cdr:{car:tN, cdr:nil}...}}}}.
+
+=== Data Types
+Terms over any finite set of symbols can represent any countable set of data. For instance, \T{s} and \T{z} are sufficient to represent Natural Numbers (Peano Numbers).
+
+
+
+
+=== Built-In Data Types
+A TRAM value can be one of four types:
+
+* A reference to a node
+* A function symbol
+* An integer
+* Other data
+
+
+
+* GC wo assign
+
+
+
+
+\part*{Part Two: Patterns in Software Development}
+\label{part:pisd}
+\addcontentsline{toc}{part}{Part Two: Patterns in Software Development}
+
+\todo{This book does not aim to offer an ecyclopedic overview of patterns but rather a potpourri of patterns showing how TRSs could be used to pinpoint the semantics of various kinds of patterns.}
+
+Somewhere: In the C programming language, an array is implemented as a chunk of memory which is divided in a sequence of equal-sized fragments such as \T{int}'s or \T{struct}'s. The addres of the \I{n}-th entry is the base address of the entire array, plus \I{n} times the size of each fragment. Although many implementation details are hidden by the C compiler, evey C programmer has this mental model of arrays. Many beginning JavaScript programmers have a similar mental model about JavaScript lists, which may lead to greatly unexpected results.
+
+\todo{Hm. dit klopt niet echt}
+
+\begin{itemize}
+	\item An array is an object, so apart from elements accessed with integer indices, an array may have instance variables accessed with a field name.
+	\item Indices are in fact not integers, but strings. When accessing, say, \T{a[5]}, first \T{5} is converted to the string \T{"5"}, which is then used as a field name in the object;
+	\item Related to this, 
+\end{itemize}
+
+\chapter*{Introduction}
+Term rewriting systems are well suited to define (the behavior of) software design/development patterns in an unambiguous, concise manner. This book offers many examples. By doing so this book also shows that it is feasible to present semantics rigorously and in a formalism which is somewhat removed from mainstream languages. Where BNF (Backus–Naur form) or a similar formalism is often used to define the syntax of a language, there is less agreement on appropriate formalisms to define the semantics. Very often English is used, or indeed the behavior of a reference implementation is used as a `formal' definition.
+
+Another view is that by defining the semantics of patterns, this book is in fact extending Tram, the language of term rewriting systems. Every pattern for which a transformation is given could, in principle, be used as an extension of Tram. It is interesting that term rewriting systems are austere on one hand (being solely founded on set theory) and that this book clearly illustrates that at another level term rewriting systems offer an extendable and very powerful framework.
+
+\todo{improve this para}
+
+Kinds of patterns include:
+
+\begin{itemize}
+	\item Programming language patterns such as Python list comprehension;
+	\item Algorithms such as Merge Sort;
+	\item Software Development patterns such as 
+	\item Software Engineering and Architecture patterns such as object orientation.
+\end{itemize}
+
+Many patterns have a concrete syntax in the context in which they occur. For instance, Python list comprehension uses the syntax \T{[E for V in L]}, where \T{E} is an expression, \T{V} is a variable, and \T{L} is a list expression. 
+
+But Tram doesn't offer much towards syntax definition (other than the syntax of terms) and our interest concerns semantics. So in term rewriting systems and in Tram the list-comprehension pattern above might be written as \T{comprehend(E,V,L)}, and its semantics will be given in such terms.
+
+\chapter{Meta-Representation}
+
+Consider this text fragment mentioned above:
+
+\begin{quote}
+	Python list comprehension uses the syntax \T{[E for V in L]}, where \T{E} is an expression, \T{V} is a variable, and \T{L} is a list expression.
+\end{quote}
+
+The fragment loosely sketches Python list comprehension, but it is imprecise. Syntactically, in the string \T{[E for V in L]}, \T{E}, \T{V} and \T{L} are  variables. \T{L} is not a list expression (except in a context where the variable \T{L} happens to have a list value), but that is not what was meant. What is meant is \E{perhaps} that \T{E}, \T{V} and \T{L} have values, which are fragments of Python programs representing an expression, a variable and a list expression. Perhaps.
+
+It is specifically this imprecision that this book aims dispel.
+
+A mechanism is needed to reason about term rewriting systems, to define and relate properties, etcetera. The mechanism at hand is of course Tram itself, which is quite capable of doing many of these things. A concern, though, is that several entities one would need to express, such as function symbols or rewrite rules, have no representation as values in Tram. A \D{meta-representation} is needed in which those entities have an explicit representation as terms. 
+
+\section{Preliminaries: Iterator}
+An \D{iterator} ia a named set of terms. 
+\begin{itemize}
+	\item An iterator is \E{defined} by defining and naming a set of terms;
+	\item When an iterator is \E{used} in a term or a rule, an entire set of terms or rules is designated, where the iterator ranges over the associated set;
+	\item Names of iterators use script letters such as \C U. If multple iterators of the same set need to be used in one term or rule, a subscript will be used, as in \C{Ua}
+\end{itemize}
+For example, if \C L is the set of lower-case letters, then the phrase \\
+
+\T{pair(\C{Lx},\C{Ly})}\\
+
+\noindent
+designates a \D{schema} of terms representing pairs of letters $x$ and $y$. One element of that set is \T{pair(\^{}a,\#20)}.
+
+Note that iterators are a short-hand for sets of terms and rules which are implicitly or inductively defined. Iterators are not an extension of Tram or a new semantical concept.
+
+The iterators for characters and strings are as follows:
+
+\begin{itemize}
+	\item \D{Characters} are pre-defined constants. All printable 7-bit ASCII characters are represented as \T{\^{}c} for character \T{c}. All non-printable 7-bit ASCII characters are represented as \T{\#hh} for the characters with hexadecimal ASCII code \T{hh}.\\
+	\D{\C C} is this set of all 7-bit ASCII characters.\\
+	Furthermore, \C U, \C L and \C D are the sets of upper-case letters, lower-case letters and decimal digits, all sub-sets of \C C (see Appendix \ref{apx:tls} for an exhaustive list);
+	\item \C S is the set of \D{Strings}, which is the smallest set for which 
+	\begin{itemize}
+		\item \T{eos}$\in$\C S which represents the \D{empty string};
+		\item \T{str(\C C,\C S)$\in$\C S};
+	\end{itemize} 
+	A subset of strings are tails of identifiers (containing only letters and digits): the smallest set \C X satisfying \T{eos}$\in$\C X and \T{str(\C U$\cup$\C L$\cup$\C D,\C X)$\in$\C X}
+	\item A \D{variable name} is an identifier starting with a capital: \T{\C V=str(\C U,\C X)}
+	\item A \D{function symbol} starts with a lowercase letter: \T{\C F=str(\C L,\C X)};
+\end{itemize}
+
+\section{Terms \C T}
+
+\begin{itemize}
+	\item A variable is a term \T{var(\C V)$\in$\C T};
+	\item \C A is the set of argument lists, the smallest set for which:
+	\begin{itemize}
+		\item \T{eoa}$\in$\C A, the empty list of arguments;
+		\item \T{arg(\C T,\C A)}$\in$\C A,
+	\end{itemize}
+	where \C T is the set of terms: \T{\C T=trm(\C F,\C A)}. 
+\end{itemize}
+
+\section{Rules \C R}
+
+The set of rules is the smallest set for which 
+\begin{itemize}
+	\item \T{eor}$\in$\C R is the empty list of rules;
+	\item \T{rl(\C T,\C T,\C R)$\in$\C R} is a rule (left-hand side and right-hand side) and the remainder of the list of rules.
+\end{itemize}
+
+
+
+\chapter{Lazy Rewriting -- Thunkification}
+
+We can now consider a quintessential example of patterns.
+
+\section{Extended Example}
+\label{sect:ee}
+
+Consider these rules for an \T{if}-construct:
+
+\begin{code}{code:i}{If}
+if(true,T,F) = T;
+if(false,T,F) = F;
+\end{code}
+
+As mentioned, this definition of \T{if} is at odds with Tram's right-most innermost reduction strategy. Consider a `call' \T{if(\C{Tb}, \C{Tt}, \C{Tf})}, where \T{\C{Tb}}, \T{\C{Tt}} and \T{\C{Tf}} signify possibly open terms to compute the Boolean expression and `then' and `else' parts of the call. This call does not have the intended result. Based on right-most innermost rewriting, first \T{\C{Tf}} and \T{\C{Tt}} are normalized before \T{\C{Tb}} is even considered. Worse yet, normalizing \T{\C{Tt}} and \T{\C{Tf}} might result in an infinite reduction sequence and non-termination. And to be clear, this non-termination isn't a bug. If \T{\C{Tb}} rewrites to \T{true} then rewriting \T{\C{Tf}} shouldn't be attempted. That might precisely be the purpose of \C{Tb}! \E{And yet, an \T{if}-construct is natural to programmers and desirable in many specification or programming languages}.
+
+Before before continuing, this: the notations The notation \T{if(\C{Tb}, \C{Tt}, \C{Tf})} fudges a bit, because \C{Tb}, \C{Tt} and \C{Tf} are in meta-representation, but \T{if} is not. It is done solely for clarity without hidden further meaning.
+
+\phantom{x}\\
+\noindent
+To produce the desired behavior in Tram, the following steps could be taken:
+
+\begin{itemize}
+	\item First, identify all variables in \C{Tt} and \C{Tf}, say \T{\C {V1},...,\C {Vn}};
+	\item Then, replace the `call` \T{if(\C{Tb},\C{Tt},\C{Tf})} by \T{ifq(\C{Tb},\C {V1},...,\C {Vn})};
+	\item Finally, add these rules:
+\begin{code}{code:i}{Ifq}
+ifq(true,%\C {V1}%,...,%\C {Vn}%) = %\C{Tt}%;
+ifq(false,%\C {V1}%,...,%\C {Vn}%) = %\C{Tf}%;
+\end{code}
+\end{itemize}
+
+First, note that this approach is valid:
+\begin{itemize}
+	\item The variables in \C{Tt} and \C{Tf} are precisely  \T{\C {V1},...,\C {Vn}}, so where \T{ifq(\C{Tb},\C {V1},...,\C {Vn})} is called, those variables are appropriate (or else the call \T{if(\C{Tb},\C{Tt},\C{Tf})} would have been incorrect);
+	\item The same values are passed to \T{ifq}, so when either rule in Listing \ref{code:i} is applied, the appropriate values are offered;
+	\item Every variable in \C{Tt} and \C{Tf} occurs in the left-hand side, so rules in Listing \ref{code:i} are valid.
+\end{itemize}
+
+This approach is valid, and in addition it exhibits the desired behavior: either \C{Tt} or \C{Tf} is normalized but not both.
+
+The strategy described above which postpones computations until it becomes clear which if any computation is needed, is called \D{lazy rewriting}, and the mechanism used is called \D{thunkification}. \todo{\cite{}}.
+
+A \D{thunk} is an object that stores information describing potential future work to be done after current work is completed, producing results that determine which future work if any is to be undertaken. In the example above \C{Tb} is ongoing work and \C{Tt} and \C{Tf} are potential future work.
+
+Thunkification requires to identify which information may be needed by future potential work and wrapping that information, including a way to execute that work in the future, if need be, in a thunk.
+
+\D{Thunkification} is the first software development pattern we discuss.
+
+The transformation described above is somewhat mechanical, and it is conceivable that it could be automated in a tool (such as a compiler phase). One could imagine Tram to be extended with a annotation that indicates which arguments of a function should be postponed (see \ref{sect:rs}), or one could even imagine an automatic analysis which determines which arguments could be postponed because they are not needed in some cases. But as mentioned Tram is kept spartan in this book, so we will not go into this further. 
+
+However, we promised to offer rigorous semantics, which we haven't done for thunkification so far. 
+
+\section{Specification of Thunkification}
+In the previous section, several aspects have been `swept under the carpet'. We will first discuss these aspects and then offer a specification.
+
+\subsection{Lazy Candidates}
+The previous section used a single open term (if-expression) as an example and mentioned that annotation or analysis could be used to identify suitable candidates for lazy evaluation. Because this aspect is beyond the scope of thunkification itself, we suffice with thunkification of a single function (\T{if}) as described above, albeit to thunkify all occurrences of that function in a term rewriting system.
+
+\subsection{Auxiliary Functions}
+In the previous section the \D{continuation} of \T{if}, the function where evaluation was to be taken up after evaluating the Boolean \C{Tb}, was chosen \I{ad hoc}, namely the function \T{ifq}. Introducing an auxiliary function for this transformation is quite alright, but some care must be taken. If more than one \T{if}-expression will be transformed, than either more than one auxiliary function must be introduced (another one in each thunk), or one global function is used but each thunk carries an identifier to relate each \C{Tb} to the associated \C{Tt} and \C{Tf}.As it turn out, the choice doesn't matter much but in both cases a global mechanism such as a counter must be used to distinguish different replaced \T{if}-expressions.
+
+\subsection{Identify Variables}
+Identifying variables using the meta-representation of terms and rules is straightforward.
+
+\subsection{Specification}
+
+\begin{code}{code:i}{vars}
+	thunkify(Trs,Fun) = tf(Trs,Fun,0) !init global counter
+	
+	tf(rl(Lhs,Rhs,Rls),Fun,N)   ! returns pair new Rhs and updated cntr
+	= tfr()
+	vars(T) = varCollect(T,eol);
+	varCollect(var(V),L) = insert(V,L);
+	varCollect(trm(F,As),L) = varCollect(As,L);
+	varCollect(arg(T,As),L) = varCollect(T,varCollect(As,L));
+	varCollect(eol,L) = L;
+	
+	insert(V,eol) = lst(V,eol);
+	insert(V1,lst(V2,L)) = insertq(eq(V1,V2),V1,V2,L);
+	insertq(true,V1,V2,L) = lst(V2,L);
+	insertq(false,V1,V2,L) = lst(V2,insert(V1,L))
+\end{code}
+
+The specification of equality of strings can be found in Section \ref{dunno}.
+
+\subsection{Identify the future work to be done}
+This consists of replacing a term 
+
+identify terms the evaluation of which will be postponed (\C{Tt} and \C{Tf})
+
+
+\begin{enumerate}
+	\item ;
+	\item ;
+	\item Produce a thunk with the values of those variables and an indication what to do next;
+	\item Capture the result of ongoing work and proceed appropriately;
+\end{enumerate}
+
+\noindent
+In the extended example in Section \ref{sect:ee}, all steps were done \E{ad hoc} and Steps A, B and D were only loosely sketched.
+
+Using the meta-representation, step A is straightforward.
+
+
+
+\subsubsection{Continuations}
+\subsubsection{Thunk}
+\subsubsection{Proceed}
+\begin{enumerate}
+	\item  @@@
+\end{enumerate}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\chapter{Data Types}
+\label{ch:dt}
+\section{Strings}
+\index{Strings}
+
+Chapter \ref{ch:traapl} explained that ASCII characters and the symbols \T{str}/\T{eos} are built-in and that the representation of strings with \T{str}/\T{eos} is built-in. These are just representations; no additional functions are predefined. 
+
+Two functions part of the common core of the string data type are concatenation and reversal.
+
+\subsection{Reverse}
+Reversal is less trivial than one might hope for; an auxiliary function is needed. One possibility is:
+
+Reverse(eos) = eos;
+Reverse(strC,S)) = append(C,reverse(S));
+
+Append(C,eos) = str(C,eos)
+Append(C1,str(C2,S)) = str(C2,append(C1,S))
+
+This specification is correct and complete, but it is also ungainly because it is inefficientr: in order to reverse a string, each of the right substrings must be reversed and then each character before that substring must be passed down along that reversed substring.
+
+Another approach uses what is known as an accumulator (for instance in the Javascript reduce function).
+
+Reverse(eos) = eos
+Reverse(str(C,S)) = reversaccu(S,str(C,eos))
+
+Reversaccu(eos,S) = S
+Reversaccu(str(C,S1),S2) = reverseaccu(S1,str(C,S2))
+
+\subsection{Concatenation}
+Concatenation is straightforward
+
+Cat(eos,S) = S
+Cat(str(C,S1),S2) = str(C,cat(S1,S2))
+
+But an alternative presents itself. Normal forms of type string are eos and str(C,S), where C is a character and S is a string. This means there are currently unintended normal forms of strings such as str(str(a,eos),eos). The following rule is to flatten such strings
+
+Str(eos,S) = S
+Str(str(C,S1),S1) = str(C,str(S1,S2))
+
+These rules are needed to flatten `irregular' strings, but they offer a bonus: a concatenation function is no longer needed. Now `irregular' strings simply flatten to the intended normal forms.
+
+
+\section{Booleans}
+Booleans are simple. Normal forms are true and false, and the operators are trivial
+And(true,B) = B
+And(false,B) = false
+Or(true,B) = true
+Or(false,B) = B
+
+Many programming languages have so-called short-circuit operators: in and(exp1,exp2) exp2 is only evaluated if exp1 yields false. This is always a safe optimization if exp2 has no side effects (such as throwing a exception), but in fact the short-circuit pattern is often usecd precisely to identify failure conditions.
+
+Blablabla
+==== Booleans, Equality
+\index{Booleans}
+
+Hoe heet dat? cut-off \&\& en ||
+
+Most languages have a built-in equality-operator on basic types. In many cases the operator is exact, but in some cases it isn't. Equality on floating point numbers is often documented to be inexact and even erroneous (see, e.g. the Python documentation 'Floating Point Arithmetic: Issues and Limitations'). Equality on string, depending on the language, may compare string addresses (e.g. in C) or string content (e.g. Javascript).
+
+For this reason, 
+
+~80 rules for eq on chars, plus a few on functions and str
+
+
+
+
+
+\section{Integers}
+\index{Integers}
+
+In the introduction we have presented successor-zero numbers with addition, which can be specified with two rules, but which are unwieldy to use. In \B{reference} an alternative is developed which defines (non-negative) binary numbers with addition using only five rules.
+
+Binary numbers are represented by sequences of bits (binary digits). That is to say, a binary number is zero or one or a binary number followed by zero or one. As we did in the introduction, we could use constants z and o to represent zero and one, but that would be confusing (o representing 1) and it is unnecessary; this specification simply uses the character constants \^0 and \^1 to represent zero and one. Normal forms are therefore \^0, \^1, bin(N, \^0) and bin(N, \^1). \I{Note: it may be clearer to introduce a conceptually separate type for digits, with constants \^0 and \^1, but it is unclear if this distinction helps clarity.}
+
+Since bin(N,B) signifies the number formed by the bits in N followed by the bit B, therefore the numerical value of bin(N,B) is 2*N+B. This interpretation helps in understanding the following rules.
+
+Leading zeroes on a number do not influence the value:
+	bin(\^0,N) = N;
+
+Addition is straightforewward: adding zero doesn't alter a number, adding one and one equals two, and adding a multi-bit number to another means one first has to add to the least significant bit.
+	add(\^1,\^1) = bin(\^1,\^0);
+	add(\^0,X) = X;
+	add(bin(X,Y),Z) = bin(X,add(Y,Z));
+These rules are complete in the first argument of add, since all normal forms occur, but in the second argument 
+
+Oeps, hier die extra regels.
+
+It may seem that something was swept under the carpet here; it can't be enough to only add to the least significant bit. And that feeling is correct. This rule introduces `irregular' numbers v ery much like the irregular string in the previous section, such as bin(N,bin(M,B)).
+
+By the earlier interpretation the value of this number is 2*N+2*M+B. From this, the final equation follows.
+	bin(N,bin(M,B)) = bin(add(N,M),B);
+
+\section{Merge Sort}
+...
+ms(L) = merge(ms(odd(L),even(L)))
+odd(l(n,N)) = l(n,even(N))
+odd(eol) = eol
+even(l(n,l(m,N))) = l(m,even(L))
+even(eol) = eol
+merge(l(...))
+
+
+\chapter{Language Patterns}
+\label{ch:lp}
+
+\img{r}{0.2}{0.2}{-10}{LanPatsinTRSs.png}{}{no label yet}
+
+This chapter discusses a number of common programming language patterns. The purpose is two-fold. 
+
+Firstly, to present a mechanisms employed in the Tram compiler in a way which is applicable in the broader field of software development.
+
+\todo{dit moet anders}
+
+Secondly, it is to show how term rewriting systems can be used to specifiy semantics, i.e., the meaning of language constructs, in a manner which is precise and clear. Note that many language definitions suffice with a verbal description of their semantics which sometimes leaves unclarities which may lead to implementation-specific behaviour or inconsistencies.
+
+In addition, this section shows that even though term rewriting systems seem spartan and require a user to implement everything, starting from integers, the paradigm is in fact expressive and powerful.
+
+Before we dive into the deep we need some tools. Our purpose is 
+
+\section{binary search tree}
+This example concerns a binary search tree with internal nodes \T{node(Left, Key, Right)} where all keys in \T{Left} are smaller than \T{Key}, and all keys in \T{Right} are equal or larger, and with leaves \T{leaf(Key,Data)} where the actual data is stored.
+
+Function \T{insert} should insert new data in the appropriate place. One rule for \T{insert} might be:
+
+\codex{code:an}{Absolute Number}{
+insert(Key1,Data,node(Left, Key2, Right)) =
+    if(ge(Key1,Key2),
+        node(Left, Key2, insert(Key1,Data,Right)),
+        node(insert(Key1,Data,Left), Key2, Right)
+    );
+}
+
+
+
+
+
+
+
+
+
+\chapter{Control Structures}
+\label{ch:cs}
+
+In this section we consider a number of so-called \E{control structures}: program statements that manipulate the flow of control (among other things). 
+
+\subsection{Switch}
+A \E{switch} statement selects one of a number of possible statements based on a control value. In C-like languages the syntax is
+\codex{code:ss}{Switch Statement}{
+switch ([$\mathbcal{E}$]) {
+   case [$\mathbcal{V}_1$]:    
+        [$\mathbcal{S}_1$];
+        break;
+   . . . 
+   case [$\mathbcal{V}_N$]:   
+      [$\mathbcal{S}_N$];
+      break;
+   default: 
+      [\C S];
+}
+}
+Here, $\mathbcal{E}$; $\mathbcal{V}_i$; and $\mathbcal{S}_i$ are an expression; values or expressions (depending on the language); and statements, respectively.
+
+Ignoring syntax, consider the following term:
+\codex{code:sp1}{Switch Pattern 1}{
+switch ([$\mathbcal{E}$], 
+        cases([$\mathbcal{V}_1$],[$\mathbcal{S}_1$],
+        . . . 
+        cases([$\mathbcal{V}_N$],[$\mathbcal{S}_N$],   
+        default([\C S])). . .))
+}
+
+In Tram, this pattern could be implemented as
+
+\codex{code:sp2}{Switch Pattern 2}{
+     = aux([$\mathbcal{E}$],\C {V1}, ..., XM);
+aux([$\mathbcal{V}_1$],[$\mathbcal{S}_1$]);
+. . .
+aux([$\mathbcal{V}_N$],[$\mathbcal{S}_N$]);
+aux(X,[\C S]);
+}
+
+
+
+
+Note at the end:
+Note that C-like languages have one additional quirk: Each \T{break} statement breaks out of the \T{switch}-statement when one case is handled. When the \T{break} is omitted, execution continues into the next \T{case} section. At this moment we will not go into this particular aspect.
+
+\chapter{Conditional Rewriting}
+\label{ch:cr}
+
+\section{Non-Linear Left Hand Sides}
+Earlier we accepted the restriction that the left-hand sides of rewrite rules are linear. What would it mean for the left-hand side of a rule to be non-linear? Consider the rule \T{f(X,X) = g(X)}. This might mean that the rule is only applicable if the two arguments of \T{f} are equal. Or perhaps if they are equivalent in some other sense, such as `\E{`semantically representing the same object'}.  While this latter interpretation is entirely valid, it departs from our way of working so far. In addition it would mean parameterising rules with, in this case, an equivalence relation. We will not go into this further.
+
+Remember that we are using an innermost reduction strategy, which implies that the two sub-terms related to the two instances of \T{X} are in normal form. Equality then, might mean \E{`represent the same normal form'}. Note that this still leaves room for interpretation. In an implementation, terms are represented in a data structure, and many languages differentiate equality of the location of the data structure from equality of the shape of the data structure and of the corresponding base datatypes in it. For instance, the C \T{==}-operator compare addresses, while the JavaScript \T{==}-operator compares structures after possible coercion: two entirely different approaches. 
+
+So far we have abstracted from the representation of terms in memory, so it would be weird to consider this at this point. 
+
+To conclude, a non-linear left-hand side is only applicable when all corresponding normals forms represent the same term. Equality on terms is easily defined: two terms are equal if their outermost function symbols are identical and have the same arity, and if the corresponding immediate sub-terms are equal.
+
+Sadly, Tram does not allow for non-linear left-hand sides, and it is impossible to define a transformation such as we have used so far. Consider this attempt:
+\codex{code:cr1}{Conditional Rewriting (1)}{
+f(X,Y) = aux(eq(X,Y),X,Y)
+aux(true,X,Y) = g(X)
+}
+So far so good. If X and Y represent equal sub-terms g(X) is returned. But what if they are unequal? In the absense of other rules, then the normal form f(X,Y) should be returned. One might be tempted to add
+\codex{code:cr2}{Conditional Rewriting (2)}{
+aux(false,X,Y) = f(X,Y)
+}
+But in the implementation that would lead to an infinite loop. 
+
+Not adding this rule is also wrong. It would result in the normal form \T{aux(false,X,Y)} which is meaningless in the original signature.
+
+There is in fact no transformation with the desired result; non-linear left-hand sides (and other conditions) require magic (which is why it isn't built-in in Tram).
+
+Different levels of magic might be considered. One possibility is to embrace \D{conditional term rewriting} (references). Conditional term rewriting is a rather different mathematical model. There is obviously nothing wrong with it, but as a solution to our current specific problem it might be overkill. 
+
+A less involved mechanism is the following: for every function symbol \T{f} its constructor \T{|f|} can be explicitly used. This is a modest extension which departs only slightly from the model. In fact, the implementation already uses constructors to build normal forms. If a rule \T{h({\ldots})= k(X,Y)} is applied and no rule is applicable to \T{k(X,Y)}, then a term is built with \T{k} as its outermost function symbol and the values of X and Y (which are already in normal form and have therefore been built) as sub-terms. It is as if, for \E{every} function symbol \T{f}, the most general rule \T{f(\C {V1},...,\C {Vn}) = |f|(\C {V1},...,\C {Vn})} was added to the rewrite system.
+
+Using constructors explicitly \E{may} lead to unexpected results . For instance, given the rule \T{a(s(X),Y)}, producing the term \T{|a|(s(X),Y)} is unexpected and probably unintended.
+{\ldots}
+
+
+\chapter{Extensions}
+
+The compiler is written in `Pure Tram', with least magic, in order to show that that is possible.
+
+\todo{expand TRS => term rewr...}
+All ASCII characters are predefined as constants. This is necessary. Given a TRS, not all characters that the input for that TRS might contain need to be contained in that TRS 
+
+Extensions:
+* equality
+* chr() \& ascii()
+* nonlinearity
+* conditions
+* macro's (simple filters)
+
+
+
+
+
+\part*{Part Three: TRAM}
+\label{part:t}
+\addcontentsline{toc}{part}{Part Three: Term Rewriting Abstract Machine}
+
+
+\chapter{Stub}
+
+‌\begin{sloppypar}
+
+
+%\bibliographystyle{spiebib} 
+%\bibliography{TRS-SD.bib}
+
+\printbibliography
+
+
+‌\end{sloppypar}
+
+
+
+
+
+\part*{Appendices}
+\label{part:a}
+\addcontentsline{toc}{part}{Appendices}
+
+\appendix
+%\renewcommand{\thesection}{\arabic{section}}
+
+The Tram specification consists of the following parts:
+\begin{itemize}
+	\item The specification of the Tram source language;
+	\item The specification of Tram's object code;
+	\item The specification of the hexadecimal input format of the abstract machine TRAM
+	\item The specification of the abstract machine TRAM
+\end{itemize}
+
+
+\chapter{Tram Specification}
+\label{apx:ts}
+
+\section{Tram Lexical Syntax}
+\label{apx:tls}
+
+\raggedbottom
+
+A Tram \D{unit of execution} (\D{program}) consists of a subject term and a term rewriting system.
+
+% l(eft)/r(right) width(%page) scale(%img) botfil filename label caption
+\img{l}{1}{1}{-20}{Tram.png}{img:ts}{Tram Syntax}
+
+\img{r}{0.5}{0.5}{-23}{Term.png}{img:ts}{Term Syntax}
+
+A \D{term} is either a variable or a function symbol, optionally followed by zero or more sub-terms, separated by comma's and surrounded by parentheses.
+
+\phantom{x}\\[-7pt]
+
+\img{r}{0.5}{0.5}{-23}{Var.png}{img:ts}{Variable Syntax}
+
+A \D{variable} is an identifier starting with a capital letter and followed by zero or more capitals, lowercase letters or decimal digits.
+
+
+\phantom{x}\\[-7pt]
+
+\img{r}{0.6}{0.6}{-23}{Symbol.png}{img:ts}{Function Symbol Syntax}
+
+A \D{symbol} is an identifier starting with a lowercase letter and followed by zero or more capitals, lowercase letters or decimal digits, or a printable ASCII character preceded by \T{\^{}}, or two hexadecimal digits preceded by $\#$.
+
+\clearpage
+
+\section{Meta Representation}
+\label{sect:mr}
+To use Tram to define its own semantics, we will present a meta-representation of Tram terms and programs. The purpose here, is to offer precise unambiguous semantics. Aspects concerning the lexical syntax and parsing are taken for granted. To be precise, \todo{this}
+Here, \T{S} is a string.
+\begin{itemize}
+	\item \T{var(S)} is a variable with name \T{S}
+	\item \T{trm(S,Args)} is the term representing symbol \T{S} applied to sub-terms in \T{Args}
+	\item \T{eoa} is the empty list of arguments (immediate sub-terms)
+	\item \T{arg(Trm,Args)} is a list with an argument \T{Trm} and the remainder of the list of arguments.
+	\item \T{rl(Lhs,Rhs,Rls)} is a rule (left-hand side and right-hand side) and the remainder of the list of rules
+	\item \T{eor} is the empty list of rules	
+\end{itemize}
+
+\subsection{Example}
+\todo{opmaak}
+
+The meta-representation of the unit
+
+\T{job(a(s(z),s(z)), a(z,X) = X; a(s(X),Y) = s(a(X,Y)); eor.)}
+
+\noindent
+is
+
+\T{trm("job", arg(trm("a", arg(trm("s", arg(trm("z", eoa), eoa)), \\
+	arg(trm("s", arg(trm("z", eoa), eoa)), eoa))), arg(trm("rl", \\
+	arg(trm("a", arg(trm("z", eoa), arg(var("X"), eoa))), \\
+	arg(var("X"), arg(trm("rl", arg(trm("a", arg(trm("s", \\
+	arg(var("X"), eoa)), arg(var("Y"), eoa))), arg(trm("s", \\
+	arg(trm("a", arg(var("X"), arg(var("Y"), eoa))), eoa)), \\
+	arg(trm("eor", eoa), eoa)))), eoa)))), eoa))))}
+
+For brevity, strings have been condensed here. For example, \T{"a"} is \T{str(\^{}a,eos)}.
+
+
+\section{Tram Static Semantics}
+Informally, a unit of execution \T{job(Term, Lhs = Rhs; ...; eor.)} must adhere to the following rules:
+
+\begin{itemize}
+	\item The subject term Term (initial term) must not contain any variables;
+	\item Each left-hand side \T{Lhs} must not be a sole variable (i.e., contain at least one function symbol);
+	\item Every variable in a right-hand side \T{Rhs} must also be contained in the corresponding left-hand side \T{Lhs};
+\end{itemize}
+
+\codex{code:sst}{Static Semantics Tram}{
+static(trm("job", arg(Trm, arg(Rules, eoa)))) = 
+	and(closed(Trm),
+	and(hasfuns(Rules),
+		nonewvars(Rules)))
+closed(trm(S,Args)) = closed(Args);
+closed(arg(Term,Args)) = and(closed(Term), closed(Args));
+closed(eoa) = true;
+
+hasfuns(rl(trm(F,Args),Rhs,Rls)) = hasfuns(Rls);
+hasfuns(eor) = true;
+
+nonewvars(rl(Lhs,Rhs,Rls)) = and(subsumes(vars(Lhs,eol),vars(Rhs,eol)),
+								 nonewvars(rl(Lhs,Rhs,Rls)))
+vars(var(S),Lst) = lst(S,Lst);
+vars(trm(F,Args),Lst) = vars(Args,Lst);
+vars(arg(Trm,Args),Lst) = vars(Trm,vars(Args,Lst));
+vars(eoa,Lst) = Lst;
+
+subsumes(lst(VL,LstL),LstR)) = subsumes(LstL,remove(VL,LstR));
+subsumes(Lst,eol) = true;
+
+remove(VL,lst(VR,LstR)) = removeq(eq(VL,VR),VL,lst(VR,LstR));
+
+removeq(true,VL,lst(VR,LstR)) = remove(VL,LstR);
+removeq(X,VL,lst(VR,LstR)) = lst(VR,remove(VL,LstR));
+}
+
+
+
+\section{Tram Run-Time Semantics, Informal}
+Informally, \D{execution} of a unit of execution \T{job(Term, TRS)} repeatedly applies rules in the \T{TRS} to \T{Term} and its sub-terms until no rule is applicable, at which time the result is called the \D{normal form} of \T{Term}.
+
+A rule \T{Lhs = Rhs} is applied to a sub-term \T{Term} by finding a \D{substitution} \T{S} which assign values (terms) to all variables in \T{Lhs}. In that case, \T{Term} is replaced by \T{Rhs/S}, where \T{Rhs/S} replaces in \T{Rhs} each variable with its \T{S}-value.
+
+\begin{itemize}
+	\item When rules are applicable to more than one sub-term of \T{Term}, the right-most inner-most sub-term is reduced first. This is the right-most sub-term which does not contain a reducible sub-term. In other words: it is the sub-term that appear right-most in the textual representation of \T{Term}
+	\item When multiple rules are applicable to that sub-term, the rule is chosen which is most specific in a pre-order (i.e. textual) traversal. 
+\end{itemize}
+
+\todo{run-time semantics of Tram in Tram}
+
+ 
+
+\section{Tram Static Semantics, Formal}
+%cap(^A)=true; ... cap(^Z)=true;
+%low(^a)=true; ... low(^z)=true;
+%dig(^1)=true; ... dig(^0)=true;
+%ltr()
+
+
+
+\section{Tram Run-Time Semantics, Formal}
+
+
+The \D{meta-representation} of terms is as follows:
+
+\begin{itemize}
+	\item let \T{S} is a string built of \T{str(..,..)}, \T{eos} and characters ()a printable ASCII character preceded by \T{\^{}}, or two hexadecimal digits preceded by $\#$);
+	\item \T{var(S)} is a variable with the given name. The first character of \T{S} must encode a capital letter;
+\end{itemize}
+
+
+
+
+
+
+
+
+Reduce(Term,Rules)
+
+Reduce(Var, Term) = {<Var,Term>}
+Reduce(term(F,
+-- 
+
+
+
+
+
+
+
+
+
+
+
+
+
+%\begin{description}[style=nextline,align=myparleft]
+%	\item[\T{job(Trm,\\
+%		  \phantom{mmm}Lhs = Rhs;\\
+%		  \phantom{mmm}...\\
+%		  \phantom{mmm}Lhs = Rhs;\\
+%		  \phantom{mmm}eor)}] 
+%		Tram subject term and term rewriting system.
+%	\item[\T{Var}\\
+%		\T{f(Trm,...,Trm)}\\
+%		\T{f}]
+%		A \D{term} is a variable or a function symbol with zero or more arguments, which are terms
+%	\item[\T{[A-Z][A-Za-z0-9]*}]
+%		A \D{variable} is an identifier starting with a capital 
+%	\item[\T{[a-z][A-Za-z0-9]*}]
+%		A \D{symbol} is an identifier starting with a lower case letter 
+%\end{description}
+
+\chapter{Tram Object Code Format}
+\label{apx:tocf}
+
+Tram object code is an internal format, but it is given here as an aid in the development of tools surrounding Tram and TRAM.
+
+Tram object code consists of a single term which describes the unit of execution: a term, the executable object code for a term rewriting system, and a symbol table. This section discusses the format; the meaning of instructions is discussed in Appendix \ref{apx:tts}
+
+\begin{description}[style=nextline,align=myparleft]
+	\item[\T{job(Trm,Instrs,Tab)}] 
+		The first argument \T{Trm} is a term without sub-terms (for any more complex term \T{t} a rule \T{c=t} should be added for some constant \T{c} not in the rewrite system).
+		The second argument \T{Instrs} is the list of instructions, and \T{Tab} the symbol table.
+	\item[\T{tab(Fun, Arty, Tab)}\\
+	\T{eot}]
+		The symbol table is a linked list of entries. \T{Fun} is a function symbol, Arty is its arity and \T{Tab} is the remainder of the symbol table. The list is terminated with the constant \T{eot}.
+		
+		The function symbol is a string \T{str(Char1, str(Char2, ... str(CharN, eos)...))}.
+		
+		The arity is given as a single ASCII character, where \T{\^{}0} signifies arity \T{0}, \T{\^{}1} signifies a unary function, etcetera.
+	\item[\T{lst(Inst, ...)}\\
+		\T{eol}]
+		The general form of the actual object code is a linked list of instructions. This form is extended for instructions with parameters and for bifurcations (object code is a tree more than a list);
+	\item[\T{lst(cpopf, ...)}\\
+		\T{lst(switch, ...)}\\
+		\T{lst(adrop, ...)}\\
+		\T{lst(mpshcdr, ...)}\\
+		\T{lst(msetcar, ...)}\\
+		\T{lst(msetcdr, ...)}\\
+		\T{lst(mspop, ...)}\\
+		\T{lst(build, ...)}\\
+		\T{lst(rewr, ...)}]
+		These are instructions without parameters. 
+	\item[\T{lst(ageti, lst( Num, ...))}\\
+		\T{lst(viset, lst( Num, ...))}\\
+		\T{lst(vipsh, lst( Num, ...))}]
+		These instructions have a number as parameter. The number is binary encoded: \T{\^{}0} is the number \T{0}, \T{\^{}1} is the number \T{1}, and the binary number \T{d1...dN} (with digits \T{d1} through \T{dN}) is \T{bin(bin(...bin(d1,d2),...,dN)}
+	\item[\T{lst(setbuild, lst(lst(Fun,lst(Arity,eol)), ...))}]
+		\T{Setbuild} takes one argument, which is a list with two elements, a function symbol and its arity.	
+		The function symbol is a string \T{str(Char1, str(Char2, ... str(CharN, eos)...))}.	
+		The arity is given as a single ASCII character, where \T{\^{}0} signifies arity \T{0}, \T{\^{}1} signifies a unary function, etcetera.
+	\item[\T{lst(case, lst(Fun, lst(TrueBranch, FalseBranch)))}]
+		\T{Case} has two parameters: a function symbol and the `true-case', which is executed conditionally.
+	\item[\T{lst(mtcdr0, lst(TrueBranch, FalseBranch))}]
+		\T{Mtcdr0} has one parameter: the `true-case', which is executed conditionally.
+	\item[\T{lst(cpushf, lst(Fun, ...))}]
+		\T{Cpushf} takes one argument, which is a function symbol.
+		
+		The function symbol is a string \T{str(Char1, str(Char2, ... str(CharN, eos)...))}.
+\end{description}
+
+\chapter{Tram Compiler}
+This section describes v1.0 of the Tram Compiler. V1.0 implements pure term rewriting (in Tram) and is capable to self-compile.
+
+The compiler consists of
+
+\begin{itemize}
+	\item the scanner / parser
+	\item the compiler proper
+	\item the code generator
+	\item the hexadecimal memory image generator
+	\item auxiliary functionality, including:
+	\begin{itemize}
+		\item strings
+		\item numbers
+		\item hexadecimal conversion
+		\item lists
+		\item tables
+	\end{itemize}
+\end{itemize}
+
+First, the basics are discussed, before the compiler components are presented. 
+
+\subsection{Characters}
+Built into Tram are 7-bit ASCII characters with representations
+
+\begin{itemize}
+	\item \T{\^{}c} for printable ASCII character c;
+	\item \T{\#hh} for non-printable ASCII character with hexadecimal ASCII code \T{hh.}
+\end{itemize}
+
+Although these function symbols are pre-defined, they don't have built-in semantics. The compiler defines rules for:
+
+\begin{itemize}
+	\item \T{eq}: character equality (returns \T{ok} if characters are equal). E.g. \T{eq(\^{}2,\^{}2)=ok};
+	\item \T{ascii}: returns binary (ASCII) code of a character. \\
+	E.g. \T{ascii(\#20) = bin(bin(bin(bin(bin(\^{}1,\^{}0),\^{}0),\^{}0),\^{}0),\^{}0);};
+	\item \T{aschr}: returns character given its ASCII code (in binary).\\
+	E.g. \T{aschr(bin(bin(bin(bin(bin(\^{}1,\^{}0),\^{}0),\^{}0),\^{}0),\^{}1)) = \^{}!;}.
+\end{itemize}
+
+\section{Basics}
+\subsection{Strings}
+The compiler defines strings as follows:
+
+\begin{itemize}
+	\item \T{eos} to represent the empty string;
+	\item \T{str(C,S)} to represent a character \T{C} followed by string \T{S}. Tram has no built-in strings, but the rewriting machine TRAM does read input in the format described above. That is, a text, which is a string of ASCII character is represented as \T{str(C1,str(C2,...,eos)...)}, both in TRAM and in the compiler.
+	\item Two rules are  defined for base strings: 
+	\begin{code}{code:bs}{Base Strings}
+str(str(C,S),T) = str(C,str(S,T));
+str(eos,S) = S;
+	\end{code}
+	In the context of these rules, \T{str} also realises concatenation of strings;
+	\item \T{eq} extends equality to strings:
+	\begin{code}{code:se}{String Equality}
+eq(str(C1,S1),str(C2,S2)) = eqn(eq(C1,C2),S1,S2);
+eq(eos,eos) = ok;
+eqn(ok,S1,S2) = eq(S1,S2);
+	\end{code}
+	
+\end{itemize}
+
+
+\subsection{Numbers}
+Tram has no built-in numbers. The compiler defines binary numbers as follows. This specification (and implementation) follows \cite{}
+
+\filecode{Numbers.tram}{Numbers.tram}{Numbers.tram}
+
+\filecode{Numbers}{Numbers.tram}
+
+\noindent
+Here, 
+\begin{itemize}
+	\item Characters \^{}0 and \^{}1 are used to represent binary digits. The numbers 0 and 1 are no identifiers, so can not be used; an alternative might be constants \T{o} and \T{i} with similar mnemonic relevance;
+	\item \T{bin(N,D)} represents a number with bits in \T{N} followed by binary digit \T{D} (either \^{}0 or \^{}1). The numeric value of \T{bin(A,B)} is \T{2*a+b} if the numeric values of \T{A} and \T{B} are \T{a} and \T{b} respectively;
+	\item Equality is extended to numbers;
+	\item addition and multiplication are defined;
+	\item the auxiliary function \T{succ} is defined.
+	
+\end{itemize}
+
+\subsection{Hexadecimal Conversion}
+
+Hexadecimal conversion converts binary numbers to their hexadecimal string-representation.
+
+\begin{itemize}
+	\item \T{shftr} and \T{shftl} shift a number four places right or left;
+	\item \T{modF} computes modulo 16;
+	\item \T{twice} is times 2;
+	\item \T{quad} yields the hexadecimal string representation of a four bit number;
+	\item \T{hex} yields the hexadecimal string representation of a 32 bit number
+\end{itemize}
+
+\filecode{Hexadecimal Conversion}{HexConv.tram}
+
+
+\subsection{Lists}
+Functions \T{first}, \T{rest} and \T{append} are defined for lists and also for strings; function \T{append} is also defined for the meta-representation of terms and argument lists.
+
+\filecode{Lists}{Lists.tram}
+
+\subsection{Tables}
+A table is a linked list of records, generated by \T{eot} and \T{tab}, where \T{eot} is the empty table, and \T{tab(K,D,T)} is a table which has data \T{D} at key \T{K}, and the remainder \T{T}.
+
+\filecode{Tables}{SymbolTables.tram}
+
+Functions:
+\begin{itemize}
+	\item \T{ins(K,D,T)} insert \T{D} at \T{K}, replacing any existing entry for \T{K};
+	\item \T{has(T,K)} is \T{ok} if table \T{T} has key \T{K};
+	\item \T{lookup(K,T)} yields \T{D} if table \T{T} has \T{D} stored at key \T{k}
+\end{itemize}
+
+\section{Scanner / Parser}
+The scanner / parser exports a function \T{scan} which accepts the input string and yields a meta-term (the parsed text). The scanner / parser defines three main functions, and some auxiliaries.
+
+\begin{itemize}
+	\item \T{scancc(CC,C,S,V,Stck)} accepts
+	\begin{itemize}
+		\item \T{CC}: the character class of the first character, which is one of
+		\begin{itemize}
+			\item \T{ws}: whitespace;
+			\item \T{comm}: comment;
+			\item \T{low}: lowercase letter;
+			\item \T{cap}: uppercase letter;
+			\item \T{spec}: special -- starts character (\^{} or \#);
+			\item \T{quot}: string shorthand;
+			\item \T{lpar}: left parenthesis;
+			\item \T{rpar}: right parenthesis;
+			\item \T{period}: period;
+			\item \T{equ}: equals sign;			
+		\end{itemize}
+		\item \T{C}: that first character;
+		\item \T{S}: the remainder of the input;
+		\item \T{V}: the current token or term being assembled;
+		\item \T{Stck}: stack of partial terms;
+	\end{itemize}
+	\item \T{scanaffix(CC,S,V,Stck)} is called when a comma or equals sign is encountered, i.e. when a value is finished and must be appended as an argument in the surrounding term or rule. Arguments to \T{scanaffix} are as described for \T{scancc};
+	\item \T{scanlini(CC,S,Stck)} is called when an equal sign or right parenthesis is processed to determine if a variable, a constant or a non-constant term has been seen.
+\end{itemize}
+
+\noindent
+Auxiliary functions are
+\begin{itemize}
+	\item \T{scansym}: accept one identifier;
+	\item \T{scanspec}: accept one character
+	\item \T{scanstring}: accept the string notation which transforms \T{"..."} to \T{str(..,str(..,...))}
+	\item \T{scancomm}: accept everything until end-of-line (comment)
+	\item \T{cc}: character class for all legal characters
+	\item \T{scancollrls}: collect all rules from the stack to form the '\T{job}-term';
+\end{itemize}
+
+\filecode{Scanner / Parser}{ScannerParser.tram}
+
+        
+
+\section{Compiler Proper}
+First, the compiler processes the entire input term to create an arity table for all symbols in the input using functions \T{stab}, \T{stabTerm}, \T{stabArgs} and \T{arity}.
+
+\filecode{Arity Symbol Tables}{AritySymbolTable.tram}
+
+\noindent
+The logic of the compiler proper is as follows. 
+
+First, for every left-hand side an automaton is created (by the \T{cmp}.. functions) which attempts to recognize that left-hand side. It is a largely linear automaton, because no branches follow from a single rule. 
+
+Then, the automata for all rules are combined (by the \T{join} functions) such, that the proper automaton (with branches) ensues. Specificity order and textual order are applied to implement the right strategy.
+
+Finally, code is generated to reduce a right-hand side when a match is found (by function \T{cmp2}).
+
+Functions in the compiler are 
+\begin{itemize}
+	\item \T{cmpi}, \T{cmpx}, \T{cmp0}, \T{cmp1}, \T{cmp1a}: compiles (and produces code to match) the job-term, a list of rules, one rule, the arguments in a left-hand side and the terms and variables in a left-hand side, respectively;
+	\item \T{defaultbuilds}: generates code for each symbol using the \e{arity symbol table} which builds terms when no rule is found to be applicable;
+	\item \T{settopargs}: annotates top-level arguments (i.e. immediate sub-terms of the function symbol being considered). These arguments are special because their value resides on the A-stack instead of in a sub-term.
+	\item \T{cmpret}: if sub-terms to-be-matched have yet been pushed on the stack, \T{cmpret} commences to compile them. For instance, while the first argument of a left-hand side is processed, further arguments are kept on a stack for future processing. For instance, this stack coincides with variable \T{Ms} (match-stack) in the specification of functions \T{cmp1} and \T{cmp1a};
+	\item \T{join}, \T{joinifex}, \T{joincase}: join automata, merging or sequentializing the same or different symbols (respectively) in \T{case} constructs;
+	\item \T{cmp2}: generate code to reduce the right-hand side by pushing symbols and terms (variable-values);
+	\item \T{envlookup}, \T{envlookupeq}, \T{ofs}, \T{args},: trivial auxiliary functions;
+	\item \T{fixcode}: two constants specifying the fixed TRAM code for character \T\^{}0 and function \T{job}. The codes for all other symbols can be computed from these by the compiler.
+\end{itemize}
+
+
+\filecode{Compiler}{Compiler.tram}
+
+\section{Code generator}
+The +code generator uses a different symbol table than the arity-table of the compiler. The code generator table stores for each symbol three values: 
+\begin{itemize}
+	\item the numeric code chosen by the compiler to represent that symbol in TRAM;
+	\item the tagged memory value that represents that number;
+	\item the string representation of the symbol (the compiler includes a symbol table in the object code for debugging purposes).
+\end{itemize}
+
+The Code Generator Symbol Table generator uses function \T{cgins} to create tuples for all TRAM instructions and uses tbtrans to translate the Arity Symbol Table into a Code Generator Symbol Table. This uses auxiliary functions \T{highest} to provide every symbol with the next higher numerical code; and \T{ref} and \{sym\} to compute tagged values for references and symbols. Since TRAM instructions are used as keys, \T{eq} is extended to define equality on those instructions.
+
+\filecode{Code Generator Symbol Table}{CodegenSymbolTables.tram}
+
+\noindent
+The code generator defines the following functions:
+\begin{itemize}
+	\item \T{hxi1}, 
+\end{itemize}
+
+\filecode{Code Generator}{Codegen.tram}
+
+
+\section{Hexadecimal Memory Image Generator}
+
+\filecode{Hexadecimal Image}{HexDump.tram}
+
+\chapter{TRAM Hexadecimal Input Specification}
+\label{apx:this}
+
+\chapter{TRAM Technical Specification}
+\label{apx:tts}
+
+This section describes version 1.0 (32 bit) of TRAM, the Term Rewriting Abstract Machine. We use the term \D{machine} to signify the implementation, consisting of 
+\begin{itemize}
+	\item Input and Output 
+	\item Memory Management and Garbage Collection
+	\item Rewrite Engine
+	\item Auxiliary code
+\end{itemize}
+
+The machine accepts a term and a term rewriting system as input. The machine reduces the term using the term rewriting system until a normal form is reached, unless an exception occurs. Then, that normal form (or exception information) is output.
+
+In the rewrite engine, symbols are represented as numeric values. In order to produce sensible output to debug the rewrite process, the machine must be able to map the numeric value for each symbol to the string representation of that symbol. A priori, the machine has no information about the set of symbols or this mapping so a symbol table is included in the input together with the subject term and the term rewriting system.
+
+An explicit aim in the design of TRAM was to keep the C code small while offering acceptable performance. This is somewhat comparable to the RISC approach of computing. This section discusses the choices and the reasoning behind them.
+
+\section{Introduction}
+\label{sect:i}
+
+\subsection{Input and Output}
+\label{sect:iao}
+
+TRAM reads a hexadecimal memory image. There is no parser. The code to read input is about 50 lines.
+
+TRAM can print a normal form and has very limited functionality to allow for debugging. Note that C-level debuggers tend to be unsuitable to debug term rewriting. 
+
+\todo{debug hooks:} minimaal in de engine, genereren hex dat daarbuiten gepresenteerd moet worden.
+
+\subsection{Memory management and Garbage collection}
+\label{sect:mmagc}
+
+TRAM uses equal sized nodes and uses a mark-and-sweep garbage collector in which the mark and sweep are combined in a single pass of the linked list of used nodes.
+
+Each node stores three fields car, cdr and nxt, and stores the following control information:
+
+\begin{itemize}
+	\item for the car and cdr field whether that field stores a symbol or a reference. The least significant bit of the car and cdr fiels are used to represent this (0: reference; 1:symbol)
+	\item the `mark' flag, used during garbage collection. The least significant bit of the nxt field is used for this.
+\end{itemize}
+
+The current version of TRAM is targeted at 32-bit implementations. A 32-bit field which represents a reference to another node stores the index in the heap segment viewed as an array of nodes (variable \T{mem}). The $i$-th node in that array is therefore referenced by the numerical value 2*$i$. The 0-th element of this array is unused; index 0 signifies `nil'.
+
+A \D{node} is a C-struct with three 4-byte numeric values, 12 bytes in total.
+
+Initially, a heap segment cast as an array of nodes is obtained and is linked through the nxt-field. That list can be accessed through the variable \T{freeNodes}.
+
+When a new node is required, it is popped off \T{freeNodes}, and pushed (through the \T{nxt}-field) on \T{usedNodes}. If \T{freeNodes==mem} (signifies the empty list), the garbage collector is called. If after this \T{freeNodes==mem} again, memory is exhausted and the rewrite engine exits with an error code.
+
+When activated, the garbage collector 
+
+
+
+
+\section{I/O}
+First: input, job-term
+
+\section{Rewriting Engine}
+\label{sect:re}
+
+The special function symbol \T{fin} and the special instruction \T{FIN} are used as follows: Initially, \T{fin} is pushed on the C-stack. When is is evaluated the entire input has been normalised and normal execution is finished. The code for \T{fin} consists of a single instruction \T{FIN}, which commences output of the established normal form. This mechanism avoids a repeated test for stack underflow.
+
+The rewrite engine is started with the following in place:
+
+\begin{itemize}
+	\item \T{P}, the `program' (a term which is the object code for the term rewriting system)
+	\item \T{C}, the `control' stack, which contains the function symbol that will be reduced
+	\item \T{A}, the argument stack (initially empty) and \T{X}, an auxiliary variable initially undefined
+	\item \todo{ local variables  F, V[i], p, n, M, MS }
+\end{itemize}
+
+The rewrite engine executes two infinite nested loops:
+\begin{itemize}
+	\item The outer loop initialises the `Program Counter' to the initial program, and starts the inner loop
+	\item The inner loop generates tracing information and contains a single \T{switch} statement in which all TRAM instructions are defined.
+\end{itemize}
+
+TRAM instructions can be divided in three parts: setup, matching and reducing. The setup-phase obtains one symbol from the C stack and prepares to match to see if a rule can be applied, or to build a new term if no rule is applicable. The matching phase passes through the automaton and fails, or builds a substitution for which a reduction exists. The reducing-phase then uses that substitution to instantiate the right-hand side.
+
+This specification uses a term rewriting notation to specify the semantics of each instruction. In this specification function \T{x} describes a transition from one state to the next. The arguments of x form the entire state of the abstract machine consisting of:
+
+\begin{itemize}[noitemsep]
+	\item p: the current instruction
+	\item C: control stack
+	\item A: argument stack
+	\item F: function symbol
+	\item M: matching location
+	\item MS: matching stack
+	\item X: auxiliary register
+	\item V: substitution array
+	\item R: build instruction
+	\item P: object code program
+\end{itemize}
+
+Apart from function \T{x}, the specification uses a number of auxiliary functions, some of which are specified below, and some of which \todo{this}
+
+\begin{description}[style=nextline]
+	\item[] \centerline{\I{setup}}
+										\T{x(p,C,A,F,M,MS,X,V,R,P) = ...}
+	\item[cpopf] 
+	\B{Program fragment:} \T{l(cpopf,P)}\\
+	While the top-of-C-stack is a term (and not a symbol), shunt it to the A-stack, and then load the top-of-C-stack in the F register. The functions \T{sym} and \T{ref} represent the tag-bit in values identifying symbols or references. Stack underflow is no concern here; the last symbol is \T{fin}.\\
+		\T{x(cpopf,push(ref(T),C),A,F,M,MS,X,V,R,P) =\rhs x(cpopf,C,psh(ref(T)),A),F,M,MS,X,V,R,P}\\
+		\T{x(cpopf,push(sym(S),C),A,F,M,MS,X,V,R,lst(p,P)) =\rhs x(p,C,A,sym(S),M,MS,X,V,R,P)}
+	\item[case] 
+	\B{Program fragment:} \T{l(case, l(FSYM, l(True, False)))}\\
+	This instruction implements an \E{if}-statement and has a function symbol as argument and two outgoing edges in the automaton (\E{true}-case and \E{false}-case).\\
+	If the F-register equals \T{FSYM}, execution continues in \T{True}, and otherwise in \T{False}. This specification uses a function \T{eq} which coincides with C-equality \T{==} on 32-bit integers.\\
+		\T{x(case,C,A,F,M,MS,X,V,R,l(Fx,P)) =\rhs xc(eq(F,Fx),C,A,F,M,MS,X,V,R,P)}\\
+		\T{xc(true,C,A,F,M,MS,X,V,R,l(l(p,P),Fs)) =\rhs x(p,C,A,F,M,MS,X,V,R,P)}\\
+		\T{xc(false,C,A,F,M,MS,X,V,R,l(Ts,l(p,P))) =\rhs x(p,C,A,F,M,MS,X,V,R,P)}\\
+	\item[setbuild]
+	\B{Program fragment:} \T{l(setbuild, l(BuildInfo, P))}.\\
+	This instruction is the first after identifying the current outermost function symbol, and carries build parameters for that function (symbol and arity). \\
+	Load \T{BuildInfo} in \T{R}.\\
+		\T{x(setbuild,C,A,F,M,MS,X,V,R,l(B,l(p,P))) =\rhs x(p,C,A,F,M,MS,X,V,B,P)}
+	
+	\todo{this}
+	\item[] \centerline{\I{matching}}
+	\item[ageti]
+	\B{Program fragment:} \T{l(setbuild, l(BuildInfo, P))}\\
+	This instruction prepares the \I{i}-th argument from the \T{A}-stack for matching by storing it in the \T{M}-register. 
+	Load \T{BuildInfo} in \T{R}.\\
+		\T{x(setbuild,C,A,F,M,MS,X,V,R,l(B,l(p,P))) =\rhs x(p,C,A,F,M,MS,X,V,B,P)}
+	\item[switch]
+	\item[case]
+	This instruction is the same as the one described above
+	\item[mtcdr0]
+	\item[mpshcdr]
+	\item[msetcar]
+	\item[msetcdr]
+	\item[mspop]
+	\item[viset]
+	
+	\item[] \centerline{\I{reducing}}
+	\item[adrop]
+	\item[cpshf]
+	\item[vipsh]
+	\item[build] 
+	\item[rewr]
+	\item[fin]
+\end{description}
+
+\clearpage
+\backmatter
+
+
+
+\printindex
+\end{document}

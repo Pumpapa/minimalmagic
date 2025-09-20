@@ -1,0 +1,5 @@
+
+<figure style="width: {{ .Get 3 }}%; float: {{ .Get 2 }};">
+  <img src="{{ .Get 1 | safeHTML }}" alt="{{ .Get 0 | safeHTML }}">
+  <figcaption>{{ .Get 0 | safeHTML }}</figcaption>
+</figure>

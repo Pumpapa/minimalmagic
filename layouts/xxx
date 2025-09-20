@@ -1,0 +1,56 @@
+{{ $structure := .Site.Data.structure }}
+{{ $currentBook := "" }}
+{{ $currentPart := "" }}
+{{ if and .Params .Params.categories }}
+  {{ $currentBook = index .Params.categories 0 | default "" }}
+  {{ if gt (len .Params.categories) 1 }}
+    {{ $currentPart = index .Params.categories 1 }}
+  {{ end }}
+{{ end }}
+
+<ul class="menu__list">
+  <li class="menu__item">
+    <a href="/">Info</a>
+  </li>
+  {{ range $bookKey, $book := $structure.books }}
+    <li class="menu__item">
+      <input type="checkbox" id="menu-{{ $bookKey }}" class="menu__input">
+      <label for="menu-{{ $bookKey }}">{{ $bookKey | title }}<span class="drop-icon">▼</span></label>
+      <ul class="submenu__list">
+        {{ range $partKey, $part := $book.parts }}
+          {{ $partDisplay := $part.title | default (replace $partKey "-" " " | title) }}
+          <li class="submenu__item">
+            <input type="checkbox" id="menu-{{ $bookKey }}-{{ $partKey }}" class="submenu__input">
+            <label for="menu-{{ $bookKey }}-{{ $partKey }}">{{ $partDisplay }}<span class="drop-icon">▼</span></label>
+            <ul class="submenu__list submenu__list--nested">
+              {{ range sort $part.chapters "weight" }}
+                {{ $file := .file }}
+                {{ $chapterPage := false }}
+                {{ $validPages := where site.Pages "File" "ne" nil }}
+                {{ $match := where $validPages "File.Path" (printf "%s/%s/%s" $bookKey $partKey $file) }}
+                {{ if not $match }}
+                  {{ $match = where $validPages "File.Path" (printf "%s/%s/%s" $bookKey $partKey (replace $file ".md" "")) }}
+                {{ end }}
+                {{ if not $match }}
+                  {{ $match = where $validPages "File.UniqueID" $file }}
+                {{ end }}
+                {{ if not $match }}
+                  {{ $filename := replace $file ".md" "" }}
+                  {{ $match = where $validPages "File.BaseFileName" $filename }}
+                {{ end }}
+                {{ if $match }}
+                  {{ $chapterPage = index $match 0 }}
+                {{ end }}
+                {{ with $chapterPage }}
+                  <li class="submenu__item">
+                    <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+                  </li>
+                {{ end }}
+              {{ end }}
+            </ul>
+          </li>
+        {{ end }}
+      </ul>
+    </li>
+  {{ end }}
+</ul>

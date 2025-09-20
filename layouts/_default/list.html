@@ -1,0 +1,22 @@
+{{ define "main" }}
+<main class="main" role="main">
+  <article class="list">
+    <header class="list__header">
+      <h1 class="list__title">{{ .Title }}</h1>
+    </header>
+    <!--/*{{ .Content }}
+    {{ if .Params.categories }}
+      {{ $book := index .Params.categories 0 }}
+      {{ $part := .File.Dir | replace (printf "%s/" (path.Join "content" $book)) "" | replace "/$" "" }}
+      {{ if $part }}
+        {{ .Scratch.Set "book" $book }}
+        {{ .Scratch.Set "part" $part }}
+        {{ .Render "chapter-list" }}
+      {{ else }}
+        {{ .Scratch.Set "book" $book }}
+        {{ .Render "chapter-list" }}
+      {{ end }}
+    {{ end }}
+  </article> */-->
+</main>
+{{ end }}

@@ -1,0 +1,15 @@
+
+&odot;  
+<details>
+  <summary><b>Exercises
+  {{- if isset .Params 0 -}}
+  	{{ $nm := index .Params 0 }}
+  	{{- (printf " (%s)" $nm) -}}
+  {{- end -}}</b> (click for solutions!)</summary>
+<div style="border: thin ridge red;">
+{{ .Inner}}
+<div style="clear:both;">
+</div>
+</div>
+</details>
+
