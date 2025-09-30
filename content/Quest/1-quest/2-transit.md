@@ -4,7 +4,7 @@ date: 2025-09-10
 categories: ["Quest", "1-quest"]
 ---
 {{<figure `` `/images/Quest/1.jpg` right 45 >}}
-## \sect 
+## -- 
 "Station-to-station stasis has put an end to any adventure in space travel, and I don't mean the 'adventures' of earliest wormhole traveling either. I mean the romance of ships and trains. Uncharted coasts and intriguing local customs. Maybe they still look at it that way on survey ships. But, I mean, new species can still be encountered, and unexpected phenomena aren't unheard of."
 
 "I'm told that that is also rather uneventful. One of the Spivulet's crew was a rogue of my clan. He described it essentially as scientific laboratory work where the laboratory was contained within the experiment rather than vice versa. And then there is the risk of mechanical failure and whatnot. Surveyors are getting gradually bigger mainly because they desire to take more and more communication blimps along. Rest assured, stasis removes the unpleasant passage of time, and in addition, advances us safely beyond adverse constellations."
@@ -21,7 +21,7 @@ Luke considered seriously getting out on the way because he would very much have
 
 Accordingly, their journey was entirely uneventful. They didn't perceive boarding their six different starships, nor did they notice being stored in various places for various lengths of time or the actual movement on rockets and repulsor thrust. Wormhole travel was unnoticeable even had they been fully present, so from their perspective, they went into stasis on Bethnell Prime space station and got out immediately over Daimando.
 
-## \sect
+## --
 
 Daimando starport wasn't at all what they expected. 
 
@@ -63,7 +63,7 @@ Lucas took the ticket and looked at the back. Of course, he had seen Pli in scho
 
 "Well, they did. I'm not a lawyer, but I think the case could be argued. Probably they have tickets with the proper text in English, which you should only have asked for. I think it would rather depend on where the case was tried. If it was here, who knows?"
 
-## \sect
+## --
 
 The Flianderel Shuttle, like everything in the starport, was well-used edging on threadbare, which filled Luke with misgivings: this didn't seem at all like the world they had read about.
 
@@ -91,7 +91,7 @@ As their train descended underground, they had a brief moment to digest what the
 
 "Certainly not on Manaat. That would be most unpropitious. Wasn't your root world like this?" When Luke first met Xolorrr, he thought that the Urrr was plain rude, and maybe all Urrr, precisely with comments like this. Notwithstanding the many courses in Xeno cultural perception, he'd had. Later, as Luke got to know him better, he knew that Xolorrr would never be rude, and he thought it was naivety. And later still, when he started to know him quite well if that could be said at all, he took it to be a private kind of humor. In Humans, it might be considered condescending, but in Urrr, it was not, honestly. For that condescension was very inauspicious, and the condescension was towards himself at least as much.
 
-## \sect
+## --
 
 Later, after they walked around a bit and were sitting in their hotel room: "This is weird. All those buildings, I mean, are truly really impressive. But I haven't seen anything beautiful yet. It's all boring, in a way. Or not boring. I don't know."
 
@@ -103,7 +103,7 @@ They sat in silence for a while. Luke thought of his dentist. "I know what it is
 
 The second type could be expressed in any manner, and painting and sculpting were as favored as they were for humans. Urrr expressive art was purely emotional and abstract rather than figurative. Over the ages, the emotion was stylized or rather symbolized, and pieces of art could evoke an exact and distinctive emotion, in Urrr, without expressing what might evoke such an emotion in actual life. Art as an explicit emotional langue. Apparently, some paintings resulted in the emotion of having enjoyed a delicious meal, having read an unpleasant book, or having hit one's thumb with a hammer. For humans, Urrr art was unimaginable.
 
-## \sect
+## --
 
 Lucas's 'partout could access the net. But, by accident, they discovered that it couldn't be reached. Xolorrr had tried to call Luke when he was downstairs to get some food and beer and had been unable to. 
 
@@ -171,7 +171,7 @@ He opened the package, took out the tiny crystal, and inserted it in a slot in t
 
 Problem solved. The drop-box set him back fifteen dollars, but it would prove to be money well spent.
 
-## \sect
+## --
 
 Two blocks down from their hotel was the cafe Pompidou, which Luke and Xolorrr frequented the first few days of their stay. They served excellent coffee and fresh cream cheese and jelly bagels, and at night, beer, wine, and quite a few decent meals. They were even able to produce a freeze-dried, post-mix Urrr beer, which, they had established, was more choice than usual, and a gruel which, according to the chef, was Urrr staple food. Xolorrr expressed his doubts but ate it nonetheless.
 

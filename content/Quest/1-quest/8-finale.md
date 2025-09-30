@@ -4,7 +4,7 @@ date: 2025-09-10
 categories: ["Quest", "1-quest"]
 ---
 {{<figure `` `/images/Quest/8.jpg` right 45 >}}
-## \sect
+## --
 
 Thorvald, Esmee, and Luke slowly strolled in the direction of the station. They talked mostly of Thorvald. How he had lived, what his world had been like, to live in, and what had changed, as far as he could tell. They steered away from Luke's 'failsafe plan', Esmee looking at him angrily every now and then and him looking guiltily away. Thorvald largely ignored the issue.
 
@@ -58,7 +58,7 @@ It was completely silent for the briefest of moments, though most people were st
 
 Only then did Luke recognize the picture of the face of the woman in his head: Jean.
 
-## \sect
+## --
 
 It took more than two hours for the police to investigate and take statements. They were told that 'the woman" had been taken to hospital, severely injured, and later that the object she had been holding had been a taser, capable of instantly paralyzing or even killing a person with a high-voltage electric shock.
 
@@ -90,7 +90,7 @@ As confused as the evening had started, it ended in a melancholy state of goodby
 
 As if by consent, no one had mentioned Jean's attack all evening.
 
-## \sect
+## --
 
 On the train, Luke's good mood returned again, and as he looked at Dawn, he couldn't suppress the happiest grin.
 
@@ -154,7 +154,7 @@ She sort of doubled up on the bed with laughter.
 
 Luke said: "Well. She is incredibly attractive. I mean, when she's angry she starts to glow so much it hurts, but there's nothing she has that I want. What I want ...," but he didn't get any further. Dawn was tearing at his clothes, and she wasn't paying any attention to what he was saying anyway.
 
-## \sect
+## --
 
 The Arachtrrr class destroyer is fairly light, as interstellar ships of war go. The ship is mostly based on Urrr technology and design and has a predominantly Urrr crew. It is one of the pinnacles in the technological advancement of the Federation fleet in that it is capable of sustained intergalactic flight but is also capable of descending and lifting off planetary surfaces of up to 12 times Manaat mass or, equivalently, seven times Earth mass. It could disgorge a hundred human troops or many times that number of Urrr troops, within minutes, should they be aboard. Usually, its crew counted less than a hundred souls.
 
@@ -168,7 +168,7 @@ In such a case, the Arachtrrr destroyers are often used as a carte de visite, an
 
 The destroyer Rrrialabach descended gracefully to hover five hundred yards over the Daimando Presidential Palace. Within ten minutes, a sleek yacht ascended from the nearby assembly buildings and approached the Rrrialabach. Three passengers alighted from the destroyer and entered the decorative reception hall that took up most of the yacht.
 
-## \sect
+## --
 
 "Councilor, Ambassador, Commodore. What a very pleasant surprise. Unfortunately, we were unaware that you were intent on visiting us, or the President would surely be here to welcome you himself. Unfortunately, he is inspecting the site of a tragic mining accident, but he has been informed of your arrival. He has asked me to make you as welcome as possible, and he is making haste as we speak to come here."
 
@@ -252,7 +252,7 @@ A senior Urrr doctor announced that the capsule did indeed contain the honorable
 
 Permission was granted, and after some brief final comments, the three off-worlders boarded the President's sleek space yacht, which transported them directly to the City of London. Final farewells were communicated, and the entire fleet departed, leaving behind the research vessel Night Lark.
 
-## \sect
+## --
 
 {{<figure `` `/images/Quest/e.jpg` right 45 >}}
 

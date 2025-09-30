@@ -4,7 +4,7 @@ date: 2025-09-10
 categories: ["Quest", "1-quest"]
 ---
 {{<figure `` `/images/Quest/4.jpg` right 45 >}}
-## \sect
+## --
 
 Getting up and having breakfast was hectic. Dawn took a shower, made coffee, got dressed, looted the cupboards for cheese, jam, and factory bread, and had breakfast, all more or less at the same time. Luke got dressed, the third day in the same set of clothing, had a single jam sandwich, and drank two cups of coffee, strong and black, though with 'sugar.
 
@@ -56,7 +56,7 @@ While they waited for their food, Luke called the lawyer to find out if anything
 
 In the afternoon, Dawn did her shift serving drinks. Apparently, it wasn't in a bar she or her friends would visit, and she didn't invite Luke to come. Instead, he went to a sidewalk cafe and read the books he'd bought. He had a salad and a bowl of fish soup for dinner, and he went to the studio early because he was dead tired. He slept when Dawn came home.
 
-## \sect
+## --
 
 In the next couple of days, they spent a lot of time together, and gradually Luke came to grips with the world and his situation. They met Richard once, but he hadn't yet found a job for Luke, nor had he new ideas concerning his court cases.
 
@@ -78,7 +78,7 @@ Next time.
 
 Gotta work on that grin.
 
-## \sect
+## --
 
 Richard called. "I've got a proposition. It's a small theatre company, and they have a problem. Their bookkeeping is a mess, and the Bureau of Revenue has put a claim on them, which they think is outrageous, but they don't know. They have no idea where they stand. I suggested to them that you might be willing to look at it for free. My thinking is that right now, you are a nameless tourist. It's impossible to find you any job as an accountant. But if you do this, you're at least plausible. In addition, if you help them and they don't go under, they may be willing and able to offer you some work in the future, with pay. What do you think?"
 
@@ -98,7 +98,7 @@ Luke didn't like to just leave Dawn with their work, but she said: "No, no. That
 
 "Sure."
 
-## \sect
+## --
 
 The job was simple. The AI just needed to be straightened out on a few things. It was clear why the actors and the AI couldn't communicate. The actors didn't know one thing about money, taxes or the law, and they kept talking about their good intentions, missed opportunities and how life was bad enough as it was without the BR harassing them. In the circumstances, the BR's claim was reasonable: lacking any information, they'd just assumed the worst.
 
@@ -106,7 +106,7 @@ It took Luke a couple of hours to understand the totality of the mess, in all it
 
 The court case was over in fifty minutes. Luke was plugged in to help Marty, who acted as the company's representative. The AI judge asked several questions, which Marty relegated to Luke, and the judge offered an opinion immediately. Of the fifty-seven counts on the indictment, only two were awarded: improper bookkeeping without intent of malice, and wasting Bureau resources. The first resulted in a fine of twenty dollars, and the second in an admonition, this being their first offense. The judge made it clear that any subsequent infringements of this nature would not be dealt with so leniently, and he commended the BR for their willingness to accept this verdict, which apparently they had indicated.
 
-## \sect
+## --
 
 Over the next few weeks, Luke and Dawn got on with their own life. Dawn found that she really needed her studio to herself two or three days a week, and Jake's period of grace had ended, so even though Luke still joined her to her work on occasion, it was just to chat.
 
@@ -120,7 +120,7 @@ When Luke asked why Richard hadn't helped him himself, Richard said: "Oh, I'm to
 
 "Oh no. I've just been on the other side of the table, so to speak. More or less like you. Just helping people out."
 
-## \sect
+## --
 
 Luke continued to live in Dawn's apartment, and their friendship grew rich and pleasant. They went out to have drinks or dinner, together, or sometimes with Richard and others, and they had sex a couple of times. Dawn seemed to understand that sleeping with her in the tiny bed would lead to all sorts of tension for him, and for her, sex was easier than dealing with any stress. Somehow, she saw that he didn't feel denied, without it growing into anything.
 
@@ -146,7 +146,7 @@ Later, Dawn felt his change of heart, his conclusion, and became easier, less pr
 
 Finding another job had proved more difficult than Dawn had expected, but with the money Luke made, they could pay the rent, buy what they needed, go out, and save money towards getting Xolorrr out.
 
-## \sect
+## --
 
 Luke spent more and more time with Richard and got to understand more and more of what Richard was doing and of Daimando. 
 

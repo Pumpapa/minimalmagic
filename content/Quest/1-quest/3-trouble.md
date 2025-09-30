@@ -4,7 +4,7 @@ date: 2025-09-10
 categories: ["Quest", "1-quest"]
 ---
 {{<figure `` `/images/Quest/3.jpg` right 45 >}}
-## \sect
+## --
 
 The night of their fifth day, Luke was having dinner alone. Xolorrr didn't feel well and went to sleep early. This allowed Luke to have a reasonably good bottle of wine, which Xolorrr didn't approve of, and a steak with anchovy butter, which Xolorrrr didn't like the smell of. In addition, Xolorrr couldn't understand why people continued to express their carnivorous roots by making synthetic dead animals, as he put it.
 
@@ -32,7 +32,7 @@ As she wound down a bit, she became less nervous and more coherent. After a whil
 
 Luke had ordered a second bottle of wine and was just about to tell about his quest when his 'partout interrupted. It was Xolorrr, and something was wrong. He said goodbye to her hastily, took his jacket, and trotted to the hotel. It wasn't until the next day that he would remember that he hadn't even asked her name.
 
-## \sect
+## --
 
 Xolorrr lay in his bed -- they didn't have Urrr beds or anything here, so they had made do with towels and pillows -- and looked like shit, as far as Luke could tell. 
 
@@ -88,7 +88,7 @@ As they walked back to the doctor's office, Luke asked when they expected the co
 
 And that was that.
 
-## \sect
+## --
 
 His 'partout indicated they were only twenty blocks away from their hotel, and he felt like a walk to clear his mind. All in all, it had been too much. As he walked, he got doubts about getting the compounds. It was necessary, perhaps, but they still didn't know why the prelation started too early. A few blocks later, he was convinced that the compounds weren't what was needed at all. Xolorrr should be looked at by an Urrr doctor.
 
@@ -130,7 +130,7 @@ His 'partout could identify him for many practical purposes, of course, but that
 
 He turned about and walked toward, ..., well, he just walked. He had no idea where to go or what to do.
 
-## \sect
+## --
 
 He checked the cash balance on his 'partout and Xolorrr's balance. A tiny bit of luck. It wasn't auspicious for Xolorrr to take electronic representations of money with him, but the Urrr scrip system was unknown on Daimando, and Federation checks were unsuitable for day-to-day use. As a compromise, Xolorrr had opted to put some cash on Luke's 'partout. It being based on Xolorrr's trust in his friend made the mechanism auspicious and reasonably practical.
 
@@ -144,7 +144,7 @@ The net wasn't very helpful, but then he remembered the folder he had gotten at 
 
 He had a small lunch, feeling uncomfortable spending money until things were in perspective again. He continued to search the net without much success.
 
-## \sect
+## --
 
 "Hya. How's your friend." He was disoriented for the briefest of moments, and then it came back.
 
@@ -168,7 +168,7 @@ He gave her the folder, feeling stupid and not knowing why.
 
 With that, she left, munching his bread, and he could do nothing but follow her.
 
-## \sect
+## --
 
 Her studio, if you could call it that, was tiny. A three-by-four room with one glass four-foot wall and two glass panels in the roof. A small kitchenette and a toilet and shower stall at one end. A sofa acting as her bed in the middle, and paintings in various degrees of completion on the remaining two walls, some facing the wall.
 
@@ -220,7 +220,7 @@ As they stepped out of the apartment, he noticed a nameplate: 'D. Garibaldi. "Is
 
 "Oh, don't mention it. You can buy me dinner. I mean, a hundred dollars is what I earn in a month."
 
-## \sect
+## --
 
 They went to a place where they just had pasta, with a choice of blue cheese or tomato sauce. But it was delicious, and the place was crowded. They had a small jar of wine which was so rough it made his eyes water. But all in all, it was ok. He wouldn't have thought it possible to have dinner for two for less than two dollars.
 
@@ -300,7 +300,7 @@ When they were done, as an afterthought, Luke asked: "So when do I get my ID, ba
 
 "Oh, that's ok. You can stay with me for now. Come. We should sleep and let it all sink in.
 
-## \sect
+## --
 
 The apartment was as they had left it. Tiny. The sofa folded out to little more than a single bed.
 

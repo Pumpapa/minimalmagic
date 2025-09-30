@@ -5,7 +5,7 @@ categories: ["Quest", "1-quest"]
 ---
 {{<figure `` `/images/Quest/2.jpg` right 45 >}}
 
-## \sect
+## --
 
 "Lucas, dinner's served."
 
@@ -25,7 +25,7 @@ Lucas smiled inwardly. Perhaps seeing all the off-worlders and aliens had trigge
 
 When his father had left, his mother looked at him for a brief moment, and then she astounded him, as she was prone to do. "Well, maybe your father is right. Maybe you should."
 
-## \sect
+## --
 
 "Your Khar, is it an inward journey, or is it outward?"
 
@@ -87,7 +87,7 @@ Gurgle. "But now you're being bigoted. Show me the Uriditar text that says Urrr 
 
 This was so typical. The Urrr being wrong and entirely out there, and Luke being nonplussed. And then, before he could think of something useful to say, Ben and Alice arrived.
 
-## \sect
+## --
 
 The Jamboree is one of the many mechanisms introduced to avoid what species and cultures fear most: an inter-species war. By and large, the species occupy different parts of our segment of the galaxy. All in all, there is an abundance of resources if one is willing to spend the time, energy, and other resources to get them, and the species and cultures coexist harmoniously. But in some places, resources are so scarce or hard to get at that friction or exploitation might result, and very possibly between different cultures or different species. So, as a policy, the Federation provides any resources structurally scarce at greatly reduced shipping costs: all in order to avoid dissatisfaction which might turn into species-oriented tensions. Exploration of the galaxy, and acquisition of resources which are scarce throughout the Federation, are always organized with the participation of multiple species and cultures, again to avoid any single species or culture having sole access to rare materials, archeological or xenological finds, or indeed other species and the knowledge that invariably brings.
 
@@ -105,7 +105,7 @@ One of the fixed projects in the wake of a Jamboree is to absorb all those that 
 
 For many, the Jamboree is the highlight of the year. Anything and everything can be found. From the height of fashion to the ultimate of eccentricity for any species or any culture, from xeno artifacts to the most prized pieces of art; musical instruments, ancient books, and relics. Anything. At a price, of course. Many traders that travel with the Federation offer the latest, scarcest, or most sought-after items at exorbitant prices. Others charge steep but reasonable prices: everything is imported by definition.
 
-## \sect
+## --
 
 Tonight, Luke and his friends would stroll down the Esplanade. Traditionally a mixture of food stalls, arts and crafts, beer tents, high-tech demonstrations, and performances could be enjoyed. Within a mile, you could get rich or poor, married or divorced, as the saying went.
 
@@ -151,7 +151,7 @@ Luke always felt, not so much ashamed, but not particularly proud either, about 
 
 And then he had to choose where. He wanted to go to another world. Not too cosmopolitan, because then he might just as well stay where he was. Not anything too rural or techi, so none of the fresh colonies or asteroid settlements. And he preferred to go to a human world. Any multi-culture would be cosmopolitan by default, and being in an alien world seemed too tiresome altogether, having to think about everything you did all day long. Everybody knew the stories about someone sneezing among Fluali's that weren't used to that. He didn't want that. And then he saw the Esplanade again and thought, "why not?"
 
-## \sect
+## --
 
  "This is the beautiful world of Anlet. The single human-inhabited continent requires little or no terraforming with its green pastures, lush forests, and majestic rivers. Enjoy this spectacular view from the patio of the magnificent Radgar hotel, situated on the top of what is officially the only mountain on Anlet. Imagine taking a stroll around the beautiful and picturesque gardens of the hotel and seeing everything on Anlet within a 300-mile radius.
 
@@ -201,7 +201,7 @@ That was interesting. Maybe too cosmopolitan, but definitely different. "Xolorrr
 
 "I know about LaMere ..., it's wet. How about a beer?
 
-## \sect 
+## -- 
 In the end, they didn't go to LaMere. After quite some time, they opted for a world called Daimando. Xolorrr was less than helpful in the process, griping about the most peculiar details.
 
 Luke thought Daimando was interesting because it was similar to, and yet, different from Bethnell. It was similar in that it was modern and fairly advanced in its colonization program, yet different in that it had significant heavy industry and manufacturing and therefore was much less dependent on trade. Similar in that it had museums and art schools aplenty, yet different in that their art-focused predominantly on industrial design. Similar, in that most of planet Daimando consisted of the nation Daimando, but different in that the rest, rather than being divided in a large number of minor nations, appeared to be entirely unused.

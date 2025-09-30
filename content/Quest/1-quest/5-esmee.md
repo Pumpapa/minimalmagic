@@ -4,7 +4,7 @@ date: 2025-09-10
 categories: ["Quest", "1-quest"]
 ---
 {{<figure `` `/images/Quest/5.jpg` right 45 >}}
-## \sect
+## --
 
 One day Luke arrived at home and encountered Richard on the stairs, looking troubled. As they entered, Dawn sat on the settee, distraught, tears streaking her face. "Oh, Richard. It's Esmee. She's in trouble, and now they've put her in jail."
 
@@ -30,7 +30,7 @@ Dawn was still distraught, and Luke talked with Richard. "It's a friend of ours.
 
 "It depends on the contract. All rights go to the guardian in contracts such as hers and yours, except bodily integrity. In some ways, the person ceases to exist for the law, and the guardianship becomes part of the guardian's estate. Only when a guardian dies without heirs does guardianship return to the state, and the Mediacorp can recover some of their losses from the remainder of the estate. Or else they get some nominal fee from the state. I think it happened regularly about a century ago. Now, it's very rare. Guardianship started out as a protection mechanism, but it isn't anymore. In current contracts, the commitment usually appoints a lawyer as a legal representative, but there is no guardianship."
 
-## \sect
+## --
 
 Dawn had recovered a bit. When the lawyer called, she washed her face and dried it quickly. Richard took the call and patched in Dawn and Luke.
 
@@ -54,7 +54,7 @@ Dawn had recovered a bit. When the lawyer called, she washed her face and dried 
 
 "However, that document may very well prove to contain material that supports our claim of harassment, in which case it must be filed with the court as soon as possible. On the other hand, the document might conceivably support their claim of an unprovoked attack, in which case it is not relevant for us. I propose that one of you go to Ms. Hallipirii's apartment and check whether such a document can be found. If the document exists and if it might help Ms. Hallipirii, I should like to be informed forthwith. If no such document exists or you feel it has no bearing on our case, I am fully prepared to go to court with what we have. For all clarity, I would like to put forth that this or any conversation may be scrutinized by a judge hearing this case.
 
-## \sect
+## --
 
 Dawn had to meet someone where she hoped to find a new job, so Richard and Luke decided to go to the apartment together. 
 
@@ -66,7 +66,7 @@ Richard's eyes turned vacant as he was taking a call. It took only a few minutes
 
 "Sorry about that. Another crisis and this is really urgent. What I propose is that you go there alone. By now, you know all there is to know, really. I've left a code in your 'partout that will get you in the building. Esmee never locks her apartment, so you can walk right in. Third floor, the door on your right. I can stay on this train and take another one three stops down. You have to get out there. Take the Welding Avenue exit, turn right when you get out of the elevator, take the second left, which is 415th street, and take the smallest and oldest building there. Number 4019. You have to get out here."
 
-## \sect
+## --
 
 The place was a mess, but judging by the clothes, books, papers, newspapers and magazines, printouts and hundreds of clippings, and a fair number of empty plates and glasses stacked everywhere in the room, this was its usual appearance. The room was three by three and contained a bed, two chairs, two tables, a washbasin, and a bookcase. One table had a tiny stove and implements to make coffee and the simplest of meals. There were only a small frying pan and a small saucepan. In addition, there was an open bag of bread and two jars, with peanut butter and honey, apparently both natural, and a stack of clean plates and cutlery.
 
@@ -106,7 +106,7 @@ He looked at the paper. It appeared to be the outline of an agreement between Es
 
 He put back the bed, switched off the light, and went back to Dawn's studio. As he sat on the train, he reread the document in every detail, but he couldn't see anything obviously wrong. It appeared to be a genuine offer, albeit one he'd never accept in a million years.
 
-## \sect
+## --
 
 "Yes. I agree. It is just their latest proposal. In the last seven years, they have been making offers and retracting them regularly. I don't think they are intentionally harassing Esmee with the express purpose of harassing her. I think they just don't know what they are doing. It's one of the biggest organizations in Brodin, and really on Daimando, and different departments have different priorities and different tactics and strategies. They come with an offer and then retract it or add condition after condition. 
 
@@ -136,7 +136,7 @@ Richard contacted the lawyer. Since Dawn didn't have any video in the studio, he
 
 Finally, the lawyer handed them all material on the case so far and asked them if they could offer any new insight.
 
-## \sect
+## --
 
 "Do you know what that is, Rengakorut?"
 
@@ -150,7 +150,7 @@ Fortunately, the lawyer had now had contact with Esmee once. She was mad as anyt
 
 Richard explained that it was a helpful law allowing people unwilling or unable to post bail to spend as much time as they wanted in stasis. That way, they could prepare for their trial but would otherwise not be punished until they were found guilty of anything. The essence was that it was entirely voluntary, but apparently, the medicorps were trying to 'stretch' the concept into, certainly in Esmee's eyes, psychological warfare. She would never go into stasis willingly.
 
-## \sect
+## --
 
 Dawn's 'job interview' had gone very well. A small wine merchant sold natural wine to restaurants and individuals who could afford it. Each bottle came in a genuine wooden box, and the lid was to be hand-painted. They had given her several designs, but deviation was welcome, as long as it was in taste, according to unspecified criteria. The mechanism was simple. They had some painters, and their customers were free to choose their lid. The more one's designs were chosen, the more one would sell.
 
@@ -158,7 +158,7 @@ Dawn would get twelve and a half cents for each lid, and they claimed that was b
 
 The first batch she would do at their place. After that, if they decided to go on, she could make batches of one or two hundred lids at home. All in all, she was tremendously happy with the job. It would be about as much as she had made in the bar but much more pleasant, she said.
 
-## \sect
+## --
 
 To celebrate, they went to have dinner: Dawn, Luke, Richard, and Fiona, a lady friend of Richard's, apparently involved with Esmee 'and her activists', as Richard put it. To get away from the black mood, they decided to splurge, moderately. They went for seafood, each paying their own, and Dawn paying for the wine. They briefly discussed natural wine, but that was really beyond the budget. They settled for an excellent artificial Chablis, and in truth, the best Luke had ever had.
 
@@ -170,7 +170,7 @@ The one thing that made this situation understandable was that the man would hav
 
 Since then, she had helped set up an independent organization that informed people about the consequences of stasis that she had witnessed. To help them make the terrible choices if a longer-lasting stasis was likely. Several of her co-workers had helped, and many of them had joined the organization full-time, terminating their jobs or being sacked because of their activities. So far, Fiona had avoided being sacked. She felt she could do more in her current position, helping people and making her colleagues aware of the potentially terrible consequences.
 
-## \sect
+## --
 
 During their desert of dates and cream cheese with a quite acceptable dessert wine, the lawyer called. Its disembodied voice managed to convey some of Esmee's excitement. She had looked through their list of questions, amongst which were Dawn's admonition to think back carefully what one of the Brodin Medical employees might have mistaken for a weapon and Luke's query about Rengakorut. 
 
@@ -184,7 +184,7 @@ The lawyer had submitted the Rengakorut, which was among Esmee's personal posses
 
 Just in case that request was denied, he had also issued a writ to hold an interview with Mr. Jonathan of Brodin Medical concerning the alleged weapon. This might very well be granted pre-trial because many of the indictments, and therefore in a sense, the entire case, hinged on his entirely uncorroborated testimonial.
 
-## \sect
+## --
 
 The following few weeks were hectic and frustrating. The lawyer's petitions were being denied or altered so as to be useless. Brodin Medical was digging in and making every inch worth a battle. Richard and Dawn contacted the lawyer first every few hours, and then two or three times a day, and every time the situation was different, but the result was the same: Esmee remained in prison, but their legal position was getting stronger and stronger.
 
@@ -224,7 +224,7 @@ Luke added: "My father once told me that big corporations are not dissimilar fro
 
 "Call us when you know anything. We could pick you up."
 
-## \sect
+## --
 
 The small room was crowded, with the three of them arriving and four people already there. Luke entered last.
 

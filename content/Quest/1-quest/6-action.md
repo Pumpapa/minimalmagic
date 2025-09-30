@@ -4,7 +4,7 @@ date: 2025-09-10
 categories: ["Quest", "1-quest"]
 ---
 {{<figure `` `/images/Quest/6.jpg` right 45 >}}
-## \sect
+## --
 
 Breakfast was hectic.
 
@@ -36,7 +36,7 @@ He picked up Dawn and twirled her around the room, of pure joy, hitting a revers
 
 He told her, and they made arrangements to have lunch together, to celebrate, when Dawn finished her batch of lids of the day.
 
-## \sect
+## --
 
 Understanding her financial situation proved to be more difficult than he had anticipated. He was used to working with an AI or even a computer, and as often as not, he'd revert to printed overviews, but Esmee had nothing of the sort. All she had was in her head. In her implant, that is. According to her, the entire record was there, and any document she'd ever received was there. If she ever got a paper copy, she scanned it and destroyed the paper. She had a -- stupendously expensive -- opto-intercept, which allowed her node to read, to a certain extent, the 'data" from her left eye. She said every single image was just a no-res blotted blur. Still, interpolation of the stream resulted in usable and even scannable images.
 
@@ -68,7 +68,7 @@ They fell silent for a while. Then Luke had an idea.
 
 "Ok. Lucas Goodholland. We have a date. And I am truly sorry if I hurt your feelings."
 
-## \sect
+## --
 
 Their date was perfect. Exhilarating. Fireworks. Esmee didn't want to do anything expensive, so they went for a salad, pasta, and a simple red.
 
@@ -86,7 +86,7 @@ But he couldn't dawdle. At the daily rate, he couldn't afford to. So, in the end
 
 Sending the message with a guarantee of delivery set him back all his savings and his expected pay of the following few weeks, but Richard had been willing and able to lend him what he lacked. The guy at the post office explained that the message and any possible reply would be routed through many ships and that it might well be several weeks before he'd hear anything.
 
-## \sect
+## --
 
 One night when he'd been working with Esmee in her room, they had forgotten the time, and Michael arrived. Esmee had told Luke that Michael and some others would come to prepare 'something'. Luke surmised it concerned one of their projects, possibly including borderline legal activities. He proposed to leave them to it, but Esmee was adamant: "Nonsense. Stay. Just don't talk about it to anyone."
 
@@ -100,7 +100,7 @@ The one-liner they used in the press was 'Time for Life'. Michael explained: "St
 
 The raid was planned six nights hence. It was a new moon then, and they would only postpone if it rained, which was unlikely.
 
-## \sect
+## --
 
 Two days later, Esmee called him. She sounded anxious. "We have to meet. Immediately, if that's ok. Take the train over here, and I'll meet you at the entrance. Oh no. Do you remember where we had our first date? Let's meet there. They'll be closed now, but we can meet in front. When can you be there?"
 
@@ -204,7 +204,7 @@ They walked on. Obviously, they couldn't drop it. Esmee continued to come up wit
 
 "And don't worry about the raid. Just go about as planned, and I'll prevent it.  
 
-## \sect
+## --
 
 The following day Lucas met Richard about a job. "You have to distinguish the person from the organization, Luke. She's a technician working at the Vault, so her paycheck comes from the medicorps, but she isn't one of them if you understand what I'm saying. She's got to eat too. She has three children, and as a single parent, she can't be too picky about her job. I'm telling you upfront so that you know. If it's a problem for you, that's ok. I'd think of something else. What do you think?"
 
@@ -220,7 +220,7 @@ Luke called her that night, assuming she'd be back from work by then, but accord
 
 Luke went to bed early and tried to think about Esmee's troubles but fell asleep before coming up with any ideas. When Dawn came home, he was already fast asleep.
 
-## \sect
+## --
 
 The next day, after breakfast, Linda called. She had just returned after her night shift and had packed the children off to school. She needed to sleep first and asked if Luke could meet somewhere in the afternoon, which was ok.
 
@@ -230,7 +230,7 @@ He bought a cheeseburger in the shop and walked back to the station, munching it
 
 As he wanted to cross the road to get to the station's entrance, a fire engine sped by. Luke smiled inwardly.
 
-## \sect
+## --
 
 Linda McCauley was about forty. She might once have been pretty, but now she just looked tired. Luke couldn't imagine having three children as a single parent, but if this was the result, he wasn't envious.
 
@@ -238,7 +238,7 @@ And that was only the beginning of her trouble. After talking to her and working
 
 Luke admonished her to think about relatives and really good friends that might lend her money. He made her go through the list of all their spendings and separate the truly essential from the rest. He could see she didn't yet grasp her situation, so he promised to be back the next day. By now, he knew very well that people in trouble needed to understand and accept their problems before they were willing to do anything whatsoever about it. Telling people to change for their own good when they didn't see it themselves was a frustrating and utter waste of time and effort.
 
-## \sect
+## --
 
 When he announced himself the next day, the majordomo let him in. He found Linda in the living room, crying her heart out. It had hit home, apparently. He didn't know what to do, so he just stood there. After a while, the sobbing subsided, and she wiped her face on her sleeve. She looked at Luke, and his presence registered again. It made her start all over once more. Feeling awkward, Luke went to her and put his arms around her. Whether she noticed, he didn't know. She cried for a long time, and then she fell silent.
 
@@ -256,7 +256,7 @@ When she came back from the kitchen with two cups of coffee, they talked for a w
 
 When he left, he took a copy of her status. He promised to make the best possible proposal for her, and then they would have to hope for a miracle. From her expression, it was clear she didn't have any hope left.
 
-## \sect
+## --
 
 At nine-thirty, a man of Luke's general dimensions emerged from Wantata park. He walked towards the BM building, across and further down the road.
 

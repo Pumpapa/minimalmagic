@@ -4,7 +4,7 @@ date: 2025-09-10
 categories: ["Quest", "1-quest"]
 ---
 {{<figure `` `/images/Quest/7.jpg` right 45 >}}
-## \sect
+## --
 
 "God, what have you done?"
 
@@ -46,7 +46,7 @@ He told her, and he admired her for not even blinking.
 
 All the way home, he kept telling himself what an oaf he was. Stupid idea to begin with. And the 'I like you very much" felt as pity more than anything.
 
-## \sect
+## --
 
 Dawn had been getting behind schedule with her lids, and not to run the risk of having to sell 'no" at any point in time, she had spent the entire day decorating.
 
@@ -68,7 +68,7 @@ And then, as they lay in bed, they did, after all. Luke thinking of Esmee, tryin
 
 "Yeah. I'm sorry. I didn't mean ..., I didn't mean this. I just needed a fuck. But I do love you. Not in that way. Well, you know."
 
-## \sect
+## --
 
 Breakfast was hectic. Both of them smiling guiltily at each other for their own reasons but sharing nonetheless. Richard called Luke to ask how things were going with Linda, and Luke gave him the bad news. Richard merely said: "Ah, well. You can't win them all. Try to make the best of it. She doesn't have any friends or anyone, really. I wouldn't qualify as a friend myself, except that I may very well be the only one. So sad. Try to make the best of it."
 
@@ -76,7 +76,7 @@ Dawn asked Luke whether he would be out all day; she wanted to continue with the
 
 Then the post office called. Something had arrived for him, and he needed to present himself with proper identification in person in order to get it. He dropped everything and all but ran to the post office.
 
-## \sect
+## --
 
 His father had made good of course and sent enough to get Xolorrr out, to ship him to the spaceport in stasis, to travel to the nearby world of Ghudarrr, where the best Urrr doctors would be available, and then for the two of them to go back home. His mother had enclosed her love, and his father grew in Luke's esteem by including a message as well:
 
@@ -90,7 +90,7 @@ There was, however, quite some jurisprudence, so the lawyer was able to give Luk
 
 And so, munching at a cream cheese and raspberry jam bagel, a luxury he had denied himself for quite a while but now felt he needed if not deserved, he faced his options and made what was the most difficult decision in his life so far. And therefore, the true core of his Khar.
 
-## \sect
+## --
 
 Esmee called. Anxious, though not so much scared. She wouldn't say anything over the net, so they agreed to meet again as they had the other time, strolling at random while they talked.
 
@@ -152,7 +152,7 @@ Tears welled up in her eyes as she looked across the room.
 
 "Shit. I'm sorry. I don't want this. Can we go? I really don't want this. It's not you. It's just that ..., I don't know. I'm not getting anywhere."
 
-## \sect
+## --
 
 Laura called. She'd been thinking over his proposals and wanted to meet him to talk things over. They agreed to meet in a station close to Luke, halfway Laura's home and work, but then Luke remembered he was supposed to go out with Dawn. So he promised to come to Laura's home early in the afternoon, the next day.
 
@@ -222,7 +222,7 @@ They sat and ordered wine, French bread, and cheese. While they waited, Dawn sai
 
 Their wine and cheese arrived, and they chatted. About Dawn's time in art school, about her friends, and about her trip. She would leave first thing the next morning.
 
-## \sect
+## --
 
 Luke woke with a start. He'd gone to bed early and just woke from a nightmare. He sat up and thought about its meaning while he could still grasp the quickly dissolving thread of the dream. It was Jean.
 
@@ -254,7 +254,7 @@ He called Esmee. "Esmee, it's Luke. I've just thought of something. About Jean. 
 
 "Bye-bye."
 
-## \sect
+## --
 
 Both Richard and Fiona could not make it for lunch, but they most certainly would enjoy dinner. Esmee didn't give any specific reason for the invitation, but Richard pointed out that the fact that Esmee was buying was in itself worth a celebration. However, he had apparently just concluded a profitable deal, and he offered to pay half. Not to be outdone, Luke also chipped in. Fiona agreed immediately and seemed almost happy about the prospect.
 
@@ -268,7 +268,7 @@ Self-consciously she picked up a crab leg and started picking out morsels of mea
 
 Luke nibbled at a fishcake, mostly to have something in his hands. Richard said: "Jesus."
 
-## \sect
+## --
 
 The silence seemed deafening, although, in truth, other guests in the restaurant produced a constant hubbub. Esmee put down her crab leg demurely and sipped her wine instead.
 
@@ -288,7 +288,7 @@ Richard said: "But now you're looking at appearances. People can appear to be an
 
 Luke dipped a piece of French bread in the rouille and proceeded to eat his way through it. Eye-watering, but nice. Richard said: "Jesus."
 
-## \sect
+## --
 
 They sat in silence for a long time until Richard summed up: "My goodness." Then he hailed the waiter for another bottle of wine and said: "I think I'd like to eat now."
 
@@ -314,7 +314,7 @@ She kissed him lightly on his cheek.
 
 "Bye, Esmee."
 
-## \sect
+## --
 
 The next morning Luke's headache had disappeared completely, and he concentrated on his work, which he had been neglecting the last couple of days.
 
@@ -334,7 +334,7 @@ Esmee called Michael, but he couldn't be reached. She left a message with his ma
 
 Michael called within five minutes and asked Esmee if she remembered where they had seen wild geese. She'd almost blurted it out before she realized he was telling her where to go without saying it. She promised to be there in half an hour.
 
-## \sect
+## --
 
 They sat on the train together. The goose-place was a train station where one of the exits was in the middle of a park. As they approached the station, Luke walked to the far end of the car, and walked away on the platform towards the wrong entrance. He took the escalator with giant leaps, and he was out and on the street when Esmee was still on her escalator. Luke entered the park by a side entrance and approached Esmee's exit at a more moderate pace just as she ascended. He sat on a bench where he could watch her.
 
@@ -362,7 +362,7 @@ To Luke, Esmee's frustration was almost palpable. She asked a number of question
 
 And with that, they said goodbye. He left, and Esmee stayed at the bench, not knowing where Luke was. So he told her which direction he was and suggested they walk to another station to avoid meeting Michael. 
 
-## \sect
+## --
 
 Esmee almost spat with anger. She'd felt patronized and belittled, and she couldn't stop going on about Michael's one-dimensional paranoia. Luke agreed that he couldn't imagine how BM or the MIB would be involved in this. If there hadn't been any explosives, the email just being a ruse to set them up against each other, it could very easily have been recognized for a lie. They could have just checked the paint. But if there had been an explosive, what would be the point of informing them beforehand?
 
@@ -378,7 +378,7 @@ He considered asking Esmee if he could stay with her that night but then decided
 
 Esmee seemed genuinely disappointed that he left, and for the briefest of moments, he reconsidered but then went home anyway.
 
-## \sect
+## --
 
 The meeting at the First Daimando Health Care offices was straightforward and unceremonial. Luke went there with mixed feelings of trepidation and eagerness. He ascribed some special, almost solemn relevance to the meeting, but it was over in five minutes. Signatures were placed, hands were shaken, artificial smiles were exchanged, and he was led to a cargo platform where a transport robot waited for him with the capsule in a travel unit, capable of powering the unit for several weeks, and capable of being charged from ordinary wall sockets.
 
@@ -392,7 +392,7 @@ He did the course.
 
 That should be easy.
 
-## \sect
+## --
 
 "Esmee. I'd like you to meet Thorvald Hallipirii."
 
