@@ -1,10 +1,6 @@
 ---
 title: "The Magic of System Engineering"
 date: 2021-08-26
-menu:
-  main:
-    parent: "SE"  # Book as navigation parent
-    weight: 0
 categories: ["SE","2-basics"]
 tags:
   - "Brief"

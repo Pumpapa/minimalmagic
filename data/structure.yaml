@@ -1,119 +1,127 @@
 books:
   TRS:
     title: "Term Rewriting Systems"
+    weight: 1
     parts:
       0-preamble:
         title: "Preamble"
-        chapters:
-          - file: imprint.md
-            weight: 1
-          - file: minimalmagicintro.md
-            weight: 2
-          - file: pumwalters.md
-            weight: 3
         weight: 1
+        chapters:
+          - { file: imprint.md, weight: 1 }
+          - { file: minimalmagicintro.md, weight: 2 }
+          - { file: pumwalters.md, weight: 3 }
       1-foundation:
         title: "Foundation"
-        chapters:
-          - file: 01.minimalmagic.md
-            weight: 1
-          - file: 02.termrewriting.md
-            weight: 2
-          - file: 03.metainterpreterandtram.md
-            weight: 3
         weight: 2
+        chapters:
+          - { file: 01.minimalmagic.md, weight: 1 }
+          - { file: 02.termrewriting.md, weight: 2 }
+          - { file: 03.metainterpreterandtram.md, weight: 3 }
       2-implementation:
         title: "Implementation"
-        chapters:
-          - file: 04.tramtermrewritingabstractmachine.md
-            weight: 1
-          - file: 05.memorymanagement.md
-            weight: 2
-          - file: 06.binary-numbers.md
-            weight: 3
-          - file: 07.tram1.md
-            weight: 4
-          - file: 08.annotated-tram.md
-            weight: 5
         weight: 3
+        chapters:
+          - { file: 04.tramtermrewritingabstractmachine.md, weight: 1 }
+          - { file: 05.memorymanagement.md, weight: 2 }
+          - { file: 06.binary-numbers.md, weight: 3 }
+          - { file: 07.tram1.md, weight: 4 }
+          - { file: 08.annotated-tram.md, weight: 5 }
       3-application:
         title: "Application"
-        chapters:
-          - file: 09.convertingctotram.md
-            weight: 1
-          - file: 10.convertingtramc.md
-            weight: 2
-          - file: 11.patterns.md
-            weight: 3
-          - file: 12.conclusions.md
-            weight: 4
         weight: 4
+        chapters:
+          - { file: 09.convertingctotram.md, weight: 1 }
+          - { file: 10.convertingtramc.md, weight: 2 }
+          - { file: 11.patterns.md, weight: 3 }
+          - { file: 12.conclusions.md, weight: 4 }
       4-postamble:
         title: "Postamble"
-        chapters:
-          - file: acknowledgements.md
-            weight: 1
-          - file: references.md
-            weight: 2
         weight: 5
+        chapters:
+          - { file: acknowledgements.md, weight: 1 }
+          - { file: references.md, weight: 2 }
+  Quest:
+    title: "Quest"
+    weight: 2
+    parts:
+      0-preamble:
+        title: "Preamble"
+        weight: 1
+        chapters:
+          - { file: imprint.md, weight: 1 }
+          - { file: pumwalters.md, weight: 2 }
+      1-quest:
+        title: "Quest"
+        weight: 2
+        chapters:
+          - { file: 1-journey.md, weight: 1 }
+          - { file: 2-transit.md, weight: 2 }
+          - { file: 3-trouble.md, weight: 3 }
+          - { file: 4-job.md, weight: 4 }
+          - { file: 5-esmee.md, weight: 5 }
+          - { file: 6-action.md, weight: 6 }
+          - { file: 7-thorvald.md, weight: 7 }
+          - { file: 8-finale.md, weight: 8 }
+  Stories:
+    title: "Stories"
+    weight: 3
+    parts:
+      0-preamble:
+        title: "Preamble"
+        weight: 1
+        chapters:
+          - { file: imprint.md, weight: 1 }
+          - { file: pumwalters.md, weight: 2 }
+      1-shortstories:
+        title: "Short Stories"
+        weight: 2
+        chapters:
+          - { file: 2428393.md, weight: 1 }
+          - { file: committed.md, weight: 2 }
+          - { file: paul.md, weight: 3 }
+      2-novellas:
+        title: "Novellas"
+        weight: 3
+        chapters:
+          - { file: sting.md, weight: 1 }
   SE:
     title: "System Engineering"
+    weight: 4
     parts:
       1-preamble:
         title: "Preamble"
-        chapters:
-          - file: imprint.md
-            weight: 1
-          - file: minimalmagicintro.md
-            weight: 2
-          - file: pumwalters.md
-            weight: 4
-          - file: thisbook.md
-            weight: 5
         weight: 1
+        chapters:
+          - { file: imprint.md, weight: 1 }
+          - { file: minimalmagicintro.md, weight: 2 }
+          - { file: pumwalters.md, weight: 4 }
+          - { file: thisbook.md, weight: 5 }
       2-basics:
         title: "Basics"
-        chapters:
-          - file: TheMagicOfSystemEngineering.md
-            weight: 1
-          - file: SE-Intro.md
-            weight: 2
-          - file: SomeComputingHistory.md
-            weight: 3
-          - file: Transistors-Gates.md
-            weight: 4
-          - file: BooleanArithmeticNumbers.md
-            weight: 5
         weight: 2
+        chapters:
+          - { file: TheMagicOfSystemEngineering.md, weight: 1 }
+          - { file: SE-Intro.md, weight: 2 }
+          - { file: SomeComputingHistory.md, weight: 3 }
+          - { file: Transistors-Gates.md, weight: 4 }
+          - { file: BooleanArithmeticNumbers.md, weight: 5 }
       3-components:
         title: "Components"
-        chapters:
-          - file: Components.md
-            weight: 1
-          - file: Mechanisms.md
-            weight: 2
-          - file: BiggerThings.md
-            weight: 3
-          - file: ISA-µArchitecture.md
-            weight: 4
-          - file: SupportingStructures.md
-            weight: 5
         weight: 3
+        chapters:
+          - { file: Components.md, weight: 1 }
+          - { file: Mechanisms.md, weight: 2 }
+          - { file: BiggerThings.md, weight: 3 }
+          - { file: ISA-µArchitecture.md, weight: 4 }
+          - { file: SupportingStructures.md, weight: 5 }
       4-processes:
         title: "Processes"
-        chapters:
-          - file: Data.md
-            weight: 1
-          - file: DataTypes.md
-            weight: 2
-          - file: LanguageProcessing.md
-            weight: 3
-          - file: Parallellism.md
-            weight: 4
-          - file: VirtualMemory.md
-            weight: 5
-          - file: Multitasking.md
-            weight: 6
-          - file: Processes.md
-            weight: 7
         weight: 4
+        chapters:
+          - { file: Data.md, weight: 1 }
+          - { file: DataTypes.md, weight: 2 }
+          - { file: LanguageProcessing.md, weight: 3 }
+          - { file: Parallellism.md, weight: 4 }
+          - { file: VirtualMemory.md, weight: 5 }
+          - { file: Multitasking.md, weight: 6 }
+          - { file: Processes.md, weight: 7 }

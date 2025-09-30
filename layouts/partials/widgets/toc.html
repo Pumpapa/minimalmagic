@@ -22,14 +22,19 @@
 
 <div class="toc">
   <ul class="toc-ul">
-    {{ range $bookKey, $bookData := $structure.books }}
+	  {{ $books := slice }}
+	  {{ range $key, $value := $structure.books }}
+		{{ $books = $books | append (merge $value (dict "key" $key)) }}
+	  {{ end }}
+	  {{ range $bookKey, $book := sort $books "weight" }}
+		{{ $bookKey := $book.key }}
       {{ $isCurrentBook := eq (lower $bookKey) (lower $currentBook) }}
       {{ $isOpen := or (and (eq $pageType "book") $isCurrentBook) (and (eq $pageType "part") $isCurrentBook) (and (eq $pageType "chapter") $isCurrentBook) }}
       <li class="toc-li">
         <details {{ if $isOpen }}open{{ end }}>
           <summary class="tocX">{{ $bookKey | title }}</summary>
           <ul class="toc-ul">
-            {{ range $partKey, $partData := $bookData.parts }}
+            {{ range $partKey, $partData := $book.parts }}
               {{ $partDisplay := $partData.title | default (replace $partKey "-" " " | title) }}
               {{ $isCurrentPart := and $isCurrentBook (eq (lower $partKey) (lower $currentPart)) }}
               <li class="toc-li">

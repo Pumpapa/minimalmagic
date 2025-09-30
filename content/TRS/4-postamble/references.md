@@ -2,10 +2,6 @@
 title: "References"
 date: 2025-09-03
 categories: ["TRS","4-postamble"]
-menu:
-  main:
-    parent: "Postamble"
-    weight: 2
 ---
 * Baader, F., & Nipkow, T. (2009).   
 _Term rewriting and all that_. Cambridge Univ. Press.

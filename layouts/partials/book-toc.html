@@ -1,0 +1,49 @@
+{{ $structure := .Site.Data.structure }}
+{{ $currentBook := "" }}
+{{ if .Params.categories }}
+  {{ $currentBook = index .Params.categories 0 | default "" }}
+{{ end }}
+
+<div class="book-toc">
+  {{ $books := slice }}
+  {{ range $key, $value := $structure.books }}
+    {{ $books = $books | append (merge $value (dict "key" $key)) }}
+  {{ end }}
+  {{ range $bookKey, $book := sort $books "weight" }}
+    {{ $bookKey := $book.key }}
+    {{ if eq (lower $bookKey) (lower $currentBook) }}
+      <ul class="toc-ul">
+        {{ range $partKey, $partData := $book.parts }}
+          {{ $partDisplay := $partData.title | default (replace $partKey "-" " " | title) }}
+          <li class="toc-li tocM">
+            <a class="toc-a" href="/{{ $bookKey }}/{{ $partKey }}/">{{ $partDisplay }}</a>
+            <ul class="toc-ul">
+              {{ range sort $partData.chapters "weight" }}
+                {{ $file := .file }}
+                {{ $chapterPage := false }}
+                {{ $validPages := where site.Pages "File" "ne" nil }}
+                {{ $match := where $validPages "File.Path" (printf "%s/%s/%s" $bookKey $partKey $file) }}
+                {{ if not $match }}
+                  {{ $match = where $validPages "File.Path" (printf "%s/%s/%s" $bookKey $partKey (replace $file ".md" "")) }}
+                {{ end }}
+                {{ if not $match }}
+                  {{ $match = where $validPages "File.UniqueID" $file }}
+                {{ end }}
+                {{ if not $match }}
+                  {{ $filename := replace $file ".md" "" }}
+                  {{ $match = where $validPages "File.BaseFileName" $filename }}
+                {{ end }}
+                {{ if $match }}
+                  {{ $chapterPage = index $match 0 }}
+                  <li class="toc-li tocS">
+                    <a class="toc-a" href="{{ $chapterPage.RelPermalink }}">{{ $chapterPage.Title }}</a>
+                  </li>
+                {{ end }}
+              {{ end }}
+            </ul>
+          </li>
+        {{ end }}
+      </ul>
+    {{ end }}
+  {{ end }}
+</div>

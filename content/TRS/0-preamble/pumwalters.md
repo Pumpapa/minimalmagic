@@ -3,10 +3,6 @@ title: "Pum Walters"
 date: 2022-01-01
 categories: ["TRS","0-Preamble"]
 tags: ["preamble"]  # specific content
-menu:
-  main:
-    parent: "TRS"  # Book as navigation parent
-    weight: 3
 ---
 I am an independent researcher in Computer Science (Software Engineering, Cybersecurity, Enterprise Architecture, and Technical Computing). I have written various articles on Computer Science & Education and many parts of *as-yet* unpublished books and stories (both science and fiction). 
 

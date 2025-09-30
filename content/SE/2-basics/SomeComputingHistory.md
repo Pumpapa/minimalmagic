@@ -1,10 +1,6 @@
 ---
 title: "Some Computing History"
 date: 2021-08-26
-menu:
-  main:
-    parent: "SE"  # Book as navigation parent
-    weight: 3
 categories: ["SE","2-basics"]
 tags:
   - "Ancient"

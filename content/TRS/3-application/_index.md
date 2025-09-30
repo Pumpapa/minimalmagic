@@ -2,8 +2,6 @@
 title: "3. Applications"
 date: 2025-09-10
 categories: ["TRS","3-application"]
-menu:
-  main:
-    parent: "TRS"
-    weight: 4
 ---
+
+This part shows practical applications of term rewriting systems: how programs written in C can be converted to a TRS, or vice-versa. 

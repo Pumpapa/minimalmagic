@@ -1,10 +1,6 @@
 ---
 title: "Processes"
 date: 2021-08-26
-menu:
-  main:
-    parent: "SE"  # Book as navigation parent
-    weight: 6
 categories: ["SE","4-processes"]
 tags:
   - "Process Table"

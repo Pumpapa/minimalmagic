@@ -1,10 +1,6 @@
 ---
 title: "Boolean Arithmetic - Numbers"
 date: 2021-08-26
-menu:
-  main:
-    parent: "SE"  # Book as navigation parent
-    weight: 1
 categories: ["SE","2-basics"]
 tags:
   - "SE"

@@ -2,11 +2,7 @@
 title: "Imprint"
 date: 2022-01-01
 categories: ["TRS","0-Preamble"]
-tags: ["preamble"]  # specific content
-menu:
-  main:
-    parent: "TRS"  # Book as navigation parent
-    weight: 1
+tags: ["preamble"]
 ---
 ::: {#imprint}
 *Copyright* © 2022 Pum Walters

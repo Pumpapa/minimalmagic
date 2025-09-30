@@ -1,0 +1,49 @@
+{{ $structure := .Site.Data.structure }}
+{{ $currentBook := "" }}
+{{ $currentPart := "" }}
+{{ if and .Params .Params.categories }}
+  {{ $currentBook = index .Params.categories 0 | default "" }}
+  {{ if gt (len .Params.categories) 1 }}
+    {{ $currentPart = index .Params.categories 1 }}
+  {{ end }}
+{{ end }}
+
+<div class="part-toc">
+  {{ $books := slice }}
+  {{ range $key, $value := $structure.books }}
+    {{ $books = $books | append (merge $value (dict "key" $key)) }}
+  {{ end }}
+  {{ range $bookKey, $book := sort $books "weight" }}
+    {{ $bookKey := $book.key }}
+    {{ if eq (lower $bookKey) (lower $currentBook) }}
+      {{ range $partKey, $partData := $book.parts }}
+        {{ if eq (lower $partKey) (lower $currentPart) }}
+          <ul class="toc-ul">
+            {{ range sort $partData.chapters "weight" }}
+              {{ $file := .file }}
+              {{ $chapterPage := false }}
+              {{ $validPages := where site.Pages "File" "ne" nil }}
+              {{ $match := where $validPages "File.Path" (printf "%s/%s/%s" $bookKey $partKey $file) }}
+              {{ if not $match }}
+                {{ $match = where $validPages "File.Path" (printf "%s/%s/%s" $bookKey $partKey (replace $file ".md" "")) }}
+              {{ end }}
+              {{ if not $match }}
+                {{ $match = where $validPages "File.UniqueID" $file }}
+              {{ end }}
+              {{ if not $match }}
+                {{ $filename := replace $file ".md" "" }}
+                {{ $match = where $validPages "File.BaseFileName" $filename }}
+              {{ end }}
+              {{ if $match }}
+                {{ $chapterPage = index $match 0 }}
+                <li class="toc-li tocS">
+                  <a class="toc-a" href="{{ $chapterPage.RelPermalink }}">{{ $chapterPage.Title }}</a>
+                </li>
+              {{ end }}
+            {{ end }}
+          </ul>
+        {{ end }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+</div>

@@ -1,10 +1,6 @@
 ---
 title: "Bigger Things"
 date: 2021-08-26
-menu:
-  main:
-    parent: "SE"  # Book as navigation parent
-    weight: 1
 categories: ["SE","3-components"]
 tags:
   - "Data Path"

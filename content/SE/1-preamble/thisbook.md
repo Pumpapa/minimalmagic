@@ -1,10 +1,6 @@
 ---
 title: This Book
 date: 2021-08-26
-menu:
-  main:
-    parent: "SE"  # Book as navigation parent
-    weight: 4
 categories: ["SE","1-Preamble"]
 tags: ["preamble"]  # specific content
 ---

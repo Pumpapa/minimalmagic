@@ -1,10 +1,6 @@
 ---
 title: "System Engineering - Introduction"
 date: 2021-08-26
-menu:
-  main:
-    parent: "SE"  # Book as navigation parent
-    weight: 2
 categories: ["SE","2-basics"]
 tags:
   - "SE"

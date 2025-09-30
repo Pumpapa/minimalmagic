@@ -1,0 +1,19 @@
+{{ define "main" }}
+<div class="container container--outer">
+  <header class="page-header">
+    <h1>{{ .Title }}</h1>
+  </header>
+  <div class="content">
+    {{ if .Content }}
+      {{ .Content }}
+    {{ end }}
+    {{ if and .Params.categories (gt (len .Params.categories) 1) }}
+      {{ partial "part-toc.html" . }}
+    {{ else if .Params.categories }}
+      {{ partial "book-toc.html" . }}
+    {{ else }}
+      {{ .Content }}
+    {{ end }}
+  </div>
+</div>
+{{ end }}

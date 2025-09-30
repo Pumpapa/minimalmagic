@@ -4,7 +4,7 @@
     <header class="list__header">
       <h1 class="list__title">{{ .Title }}</h1>
     </header>
-    <!--/*{{ .Content }}
+    {{ .Content }}
     {{ if .Params.categories }}
       {{ $book := index .Params.categories 0 }}
       {{ $part := .File.Dir | replace (printf "%s/" (path.Join "content" $book)) "" | replace "/$" "" }}
@@ -17,6 +17,6 @@
         {{ .Render "chapter-list" }}
       {{ end }}
     {{ end }}
-  </article> */-->
+  </article>
 </main>
 {{ end }}

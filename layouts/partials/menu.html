@@ -12,7 +12,12 @@
   <li class="menu__item">
     <a href="/">Info</a>
   </li>
-  {{ range $bookKey, $book := $structure.books }}
+	{{ $books := slice }}
+	{{ range $key, $value := $structure.books }}
+	  {{ $books = $books | append (merge $value (dict "key" $key)) }}
+	{{ end }}
+	{{ range $bookKey, $book := sort $books "weight" }}
+	  {{ $bookKey := $book.key }}
     <li class="menu__item">
       <input type="checkbox" id="menu-{{ $bookKey }}" class="menu__input">
       <label for="menu-{{ $bookKey }}"><a href="/{{ $bookKey | lower }}/">{{ $bookKey | title }}</a><span class="drop-icon">▼</span></label>

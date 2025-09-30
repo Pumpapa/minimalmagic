@@ -21,7 +21,8 @@ summaryLength = 30
   authorbox = false
   toc = true
   pager = true
-  post_meta = ["categories", "tags", "translations", "date"] # Order of post meta information
+  post_meta = ["categories"] # Order of post meta information
+  #post_meta = ["categories", "tags", "translations", "date"] # Order of post meta information
   mainSections = ["trs", "se", "hilo", "date", "post", "blog", "news", "items"] 
   dateformat = "2006-01-02"
   mathjax = true
@@ -84,7 +85,8 @@ summaryLength = 30
   list = "right"  # Configure layout for list pages
   single = "right" # Configure layout for single pages
   # Enable widgets in given order
-  widgets = ["search", "toc", "taglist", "recent", "social",]
+  widgets = ["toc", "search", "social",]
+  #widgets = ["toc", "search", "taglist", "recent", "social",]
   # alternatively "ddg-search" can be used, to search via DuckDuckGo
   # widgets = ["ddg-search", "recent", "categories", "taglist", "social", "languages"]
 

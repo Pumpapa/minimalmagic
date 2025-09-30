@@ -110,33 +110,43 @@ img[src$='#fr5'] { max-width: 50%; float: right; }
   top: 100%;
   left: 0;
   background: #fff;
-  padding: 0.5rem;
+  padding: 0; /* Remove padding to reduce gaps */
   box-shadow: 0 0 5px rgba(0,0,0,0.2);
   z-index: 1000;
   list-style: none;
   min-width: 200px;
+  transition: opacity 0.2s ease, visibility 0.2s ease; /* Add transition for smooth hover */
+  opacity: 0;
+  visibility: hidden;
 }
 .submenu__list--nested {
-  top: 0;
+  top: -0.2rem; /* Slightly overlap with parent to eliminate gap */
   left: 100%;
   min-width: 200px;
+  padding: 0; /* Remove padding to reduce gaps */
+  transition: opacity 0.2s ease, visibility 0.2s ease;
+  opacity: 0;
+  visibility: hidden;
 }
 .menu__item:hover > .submenu__list {
   display: block;
+  opacity: 1;
+  visibility: visible;
 }
 .submenu__item:hover > .submenu__list--nested {
   display: block;
-}
-.menu__input:checked ~ .submenu__list {
-  display: block;
+  opacity: 1;
+  visibility: visible;
 }
 .submenu__item {
-  margin: 0.3rem 0;
+  margin: 0; /* Remove margin to eliminate vertical gaps */
+  padding: 0.3rem 0.5rem; /* Add padding to submenu item for better hover area */
 }
 .submenu__item a {
   color: #840;
   text-decoration: none;
   font-size: 1rem;
+  display: block; /* Ensure the link fills the submenu item */
 }
 .submenu__item a:hover {
   text-decoration: underline;
