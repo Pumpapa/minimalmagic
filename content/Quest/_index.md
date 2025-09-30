@@ -3,6 +3,11 @@ title: "Quest"
 date: 2025-09-10
 categories: ["Quest"]
 ---
+
+If you like this book, you can buy a PDF at [https://leanpub.com/quest-PumWalters](https://leanpub.com/quest-PumWalters). Or send me an email and I can send you the PDF.
+
+
+
 {{<figure `` `/images/Quest/2.jpg` right 65 >}}
 *Copyright* © 2022 Pum Walters
 {{%collapsible `Licensed under the Creative Commons Attribution-ShareAlike 4.0 International:`%}}

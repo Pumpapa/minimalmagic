@@ -12,7 +12,7 @@ In Tram.1, only the first five characters in a function name are significant (pl
 
 To avoid bugs, a checker is needed, which checks if this occurs in an input TRS. Program `EncChecker` checks all variables and functions and warns if unequal identifiers will be encoded the same.
 
-`EncChecker` uses the scanner/parser we have described in [Section Converting from C to Tram (Scanner/Parser)](/trs/convertingctotram/) and auxiliary modules `Strings`, `Lists`. All code can be found in the [TRAM.1 Github repository](https://github.com/BabelfishNL/Tram.git).
+`EncChecker` uses the scanner/parser we have described in [Section Converting from C to Tram (Scanner/Parser)](/trs/convertingctotram/) and auxiliary modules `Strings`, `Lists`. All code can be found in the [TRAM.1 Github repository](https://github.com/Pumpapa/Tram.git).
 
 Our purpose in describing `EncChecker` is not only to document that tool but mostly to discuss a few term rewriting programming patterns.
 
@@ -131,7 +131,7 @@ Finally, auxiliary function `prev` is defined:
 prev(five) = four; prev(four) = three; prev(three) = two; prev(two) = one; prev(one) = zero;
 ```
 
-In the repository at  [TRAM.1 Github repository](https://github.com/BabelfishNL/Tram.git) a single rule is added to file `EncChecker` to test it on itself:
+In the repository at  [TRAM.1 Github repository](https://github.com/Pumpapa/Tram.git) a single rule is added to file `EncChecker` to test it on itself:
 
 ```Prolog
 badfn1(Badv1,Badv2) = badfn2;

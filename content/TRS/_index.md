@@ -5,9 +5,11 @@ categories: ["TRS"]
 ---
 Part one of this book details a theory of Term Rewriting Systems, solely based on sound reasoning. Minimal Magc refers to a minimisation of assumptions: there are almost none, and, in principle, no previous knowledge is required.
 
-Part two discusses an implementation. That implementation can be downloaded from [Github](https://github.com/BabelfishNL/Tram.git).
+Part two discusses an implementation. That implementation can be downloaded from [Github](https://github.com/Pumpapa/Tram.git).
 
 Part three practical applications of term rewriting systems: how programs written in C can be converted to a TRS, or vice-versa. 
+
+If you like the book, you can buy a PDF at [https://leanpub.com/minimalmagicTRS](https://leanpub.com/minimalmagicTRS). Or send me an email and I can send you the PDF.
 
 *Copyright* © 2022 Pum Walters
 {{%collapsible `Licensed under the Creative Commons Attribution-ShareAlike 4.0 International:`%}}

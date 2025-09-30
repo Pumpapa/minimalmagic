@@ -7,9 +7,9 @@ categories: ["Quest","0-Preamble"]
 *Copyright* © 2022 Pum Walters
 
 **Published with** [Leanpub](https://leanpub.com)
-[https://leanpub.com/minimalmagicTRS](https://leanpub.com/minimalmagicTRS)
+[https://leanpub.com/quest-PumWalters](https://leanpub.com/quest-PumWalters)
 
-*See Also* [Minimal Magic blog (Term Rewriting)](https://www.minimalmagic.blog/trs/termrewriting/)
+*See Also* [Minimal Magic blog (Term Rewriting)](https://minimal-magic.online/trs/termrewriting/)
 
 **Licensed under the Creative Commons Attribution-ShareAlike 4.0 International**:
 
