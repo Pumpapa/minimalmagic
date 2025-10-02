@@ -84,9 +84,37 @@ books:
         weight: 3
         chapters:
           - { file: sting.md, weight: 1 }
+  Paint:
+    title: "Paintings"
+    weight: 4
+    parts:
+      0-preamble:
+        title: "Preamble"
+        weight: 1
+        chapters:
+          - { file: imprint.md, weight: 1 }
+          - { file: pumwalters.md, weight: 2 }
+      1-paintings:
+        title: "Paintings"
+        weight: 2
+        chapters:
+          - { file: Dali.md, weight: 1 }
+          - { file: Hilversum.md, weight: 2 }
+          - { file: Kandinsky.md, weight: 3 }
+          - { file: Klee.md, weight: 4 }
+          - { file: Miro.md, weight: 5 }
+          - { file: Dmitri.md, weight: 6 }
+          - { file: Tara.md, weight: 7 }
+      2-WIP:
+        title: "WIP"
+        weight: 1
+        chapters:
+          - { file: Amsterdam.md, weight: 1 }
+          - { file: Constable.md, weight: 2 }
+          - { file: Miro2.md, weight: 3 }
   SE:
     title: "System Engineering"
-    weight: 4
+    weight: 99
     parts:
       1-preamble:
         title: "Preamble"
