@@ -4,7 +4,7 @@ date: 2025-09-03
 tags: ["info"]
 ---
 
-This site offers a repository of (scientific) work, fiction and more. A recurring theme is Minimal Magic -- *Ex Principiis Omnia*. 
+This site offers a repository of my (scientific) work, fiction and more. A recurring theme is Minimal Magic -- *Ex Principiis Omnia*. 
 
 Main titles:
 * TRS: Term Rewriting Systems -- a published rigorous definition and implementation of Term Rewriting Systems
