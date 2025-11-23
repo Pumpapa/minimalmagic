@@ -23,7 +23,8 @@ summaryLength = 30
   pager = true
   post_meta = ["categories"] # Order of post meta information
   #post_meta = ["categories", "tags", "translations", "date"] # Order of post meta information
-  mainSections = ["trs", "se", "hilo", "date", "post", "blog", "news", "items"] 
+  #mainSections = ["trs", "se", "hilo", "date", "post", "blog", "news", "items"] 
+  mainSections = [] 
   dateformat = "2006-01-02"
   mathjax = true
   mathjaxPath = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js"
@@ -33,6 +34,9 @@ summaryLength = 30
   customJS = ["js/custom.js"]
   comments = false
   tocAlphabetical = false
+  
+[cascades]
+  "_index.md" = { homeInfo = true }
 
 [permalinks]
   trs = "/trs/:slug/"
